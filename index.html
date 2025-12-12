@@ -166,6 +166,59 @@
             margin-bottom: 50px;
         }
 
+.video-explainer {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 24px;
+    margin: 40px auto;
+    max-width: 1200px;
+    padding: 0 20px;
+}
+
+.video-explainer .video-card {
+    flex: 1 1 480px;
+    max-width: 100%;
+    animation: fadeIn 0.6s ease forwards;
+}
+
+.explainer-text {
+    flex: 1 1 480px;
+    max-width: 100%;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px;
+    color: var(--text-primary);
+    overflow-y: auto;
+    max-height: 500px;
+    animation: fadeIn 0.6s ease forwards;
+}
+
+.explainer-text h3 {
+    font-family: 'Cinzel', serif;
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+    color: var(--accent-gold);
+    letter-spacing: 0.05em;
+}
+
+.explainer-text p {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: var(--text-secondary);
+}
+
+/* スクロールバーのカスタマイズ（オプション） */
+.explainer-text::-webkit-scrollbar {
+    width: 8px;
+}
+.explainer-text::-webkit-scrollbar-thumb {
+    background-color: var(--accent);
+    border-radius: 4px;
+}
+
+
+        
         .video-card {
             background: var(--bg-card);
             border-radius: 12px;
@@ -362,7 +415,7 @@
     <div class="video-card">
         <div class="video-wrapper">
             <iframe 
-                src="https://youtube.com/embed/y5FLfkwg9Bo" 
+                src="https://youtube.com/embed/m5C-NVqzGcE" 
                 title="Samurai Short 0"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                 allowfullscreen>
@@ -372,9 +425,18 @@
     <div class="explainer-text">
         <h3>Samurai Short 0 解説</h3>
         <p>
-            この物語では、戦国時代初期の無名の若武者が登場します。彼は主君の命を受け、敵地に潜入し密書を届けるという危険な任務に挑みます。  
-            道中での葛藤や、忠義と恐怖の狭間で揺れる心情が描かれ、最後には己の信念を貫く姿が印象的です。  
-            武士道の「義」と「勇」を体現した短編です。
+            真のリーダーシップとは、作り手への敬意である
+
+1．謙虚な修業時代
+高虎の天才性は、城の天守閣で磨かれたのではなく、泥と埃にまみれた工事現場で築かれました。
+若き日、彼は日本の伝説的な石工集団「穴太衆」と肩を並べ、共に汗を流して技術を学びました。侍という身分を捨てて謙虚に教えを請い、彼はある深遠な哲学を学び取ったのです。『石にも心がある。長く残るものを築くには、石の声を聞かねばならない』と。
+
+2．チームの設計者
+彼は馬の上からただ命令を怒鳴るようなリーダーではありませんでした。彼はまるで現代のプロジェクトマネージャーのように、名工たちによるチームを組織し、現場の専門家の声に耳を傾けました。
+
+3．現代へのメッセージ
+彼の強さは『共感力』にありました。彼は自ら実践してきたからこそ、肉体労働の辛さと誇りを理解していたのです。
+高虎は私たちに教えてくれます。真のリーダーシップとは権力のことではなく、実際に未来を築き上げている人々への敬意のことなのだ、と。
         </p>
     </div>
 </section>
@@ -534,6 +596,7 @@
 
 </body>
 </html>
+
 
 
 
