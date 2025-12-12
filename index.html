@@ -1,440 +1,398 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Samurai Code JP | AI-Generated Samurai Stories</title>
-    <meta name="description" content="Experience the way of the warrior through AI-generated samurai stories. Bushido reborn for the modern age.">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Noto+Sans+JP:wght@300;400;700&display=swap" rel="stylesheet">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Samurai Code JP | AI-Generated Samurai Stories</title>
+    <meta name="description" content="Experience the way of the warrior through AI-generated samurai stories. Bushido reborn for the modern age.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Noto+Sans+JP:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-        :root {
-            --bg-primary: #0a0a0a;
-            --bg-secondary: #141414;
-            --bg-card: #1a1a1a;
-            --text-primary: #f5f5f5;
-            --text-secondary: #a0a0a0;
-            --accent: #c41e3a;
-            --accent-gold: #d4af37;
-            --border: #2a2a2a;
-        }
+        :root {
+            --bg-primary: #0a0a0a;
+            --bg-secondary: #141414;
+            --bg-card: #1a1a1a;
+            --text-primary: #f5f5f5;
+            --text-secondary: #a0a0a0;
+            --accent: #c41e3a;
+            --accent-gold: #d4af37;
+            --border: #2a2a2a;
+        }
 
-        body {
-            font-family: 'Noto Sans JP', sans-serif;
-            background-color: var(--bg-primary);
-            color: var(--text-primary);
-            line-height: 1.6;
-            min-height: 100vh;
-        }
+        body {
+            font-family: 'Noto Sans JP', sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
 
-        header {
-            position: relative;
-            text-align: center;
-            padding: 60px 20px 80px;
-            background: linear-gradient(180deg, var(--bg-secondary) 0%, var(--bg-primary) 100%);
-            overflow: hidden;
-        }
+        header {
+            position: relative;
+            text-align: center;
+            padding: 60px 20px 80px;
+            background: linear-gradient(180deg, var(--bg-secondary) 0%, var(--bg-primary) 100%);
+            overflow: hidden;
+        }
 
-        header::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 0L30 60M0 30L60 30' stroke='%23ffffff' stroke-width='0.5' opacity='0.03'/%3E%3C/svg%3E");
-            pointer-events: none;
-        }
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 0L30 60M0 30L60 30' stroke='%23ffffff' stroke-width='0.5' opacity='0.03'/%3E%3C/svg%3E");
+            pointer-events: none;
+        }
 
-        .logo-container {
-            position: relative;
-            z-index: 1;
-        }
+        .logo-container {
+            position: relative;
+            z-index: 1;
+        }
 
-        .kanji-accent {
-            font-size: 1rem;
-            color: var(--accent);
-            letter-spacing: 0.5em;
-            margin-bottom: 10px;
-            opacity: 0.8;
-        }
+        .kanji-accent {
+            font-size: 1rem;
+            color: var(--accent);
+            letter-spacing: 0.5em;
+            margin-bottom: 10px;
+            opacity: 0.8;
+        }
 
-        h1 {
-            font-family: 'Cinzel', serif;
-            font-size: clamp(2rem, 8vw, 3.5rem);
-            font-weight: 700;
-            letter-spacing: 0.15em;
-            margin-bottom: 20px;
-            background: linear-gradient(135deg, var(--text-primary) 0%, var(--accent-gold) 50%, var(--text-primary) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
+        h1 {
+            font-family: 'Cinzel', serif;
+            font-size: clamp(2rem, 8vw, 3.5rem);
+            font-weight: 700;
+            letter-spacing: 0.15em;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, var(--text-primary) 0%, var(--accent-gold) 50%, var(--text-primary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
 
-        .tagline {
-            font-family: 'Cinzel', serif;
-            font-size: clamp(0.9rem, 3vw, 1.2rem);
-            color: var(--text-secondary);
-            letter-spacing: 0.2em;
-            text-transform: uppercase;
-            max-width: 600px;
-            margin: 0 auto;
-        }
+        .tagline {
+            font-family: 'Cinzel', serif;
+            font-size: clamp(0.9rem, 3vw, 1.2rem);
+            color: var(--text-secondary);
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            max-width: 600px;
+            margin: 0 auto;
+        }
 
-        .divider {
-            width: 80px;
-            height: 2px;
-            background: linear-gradient(90deg, transparent, var(--accent), transparent);
-            margin: 30px auto;
-        }
+        .divider {
+            width: 80px;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--accent), transparent);
+            margin: 30px auto;
+        }
 
-        main {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px 60px;
-        }
+        main {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px 60px;
+        }
 
-        .video-explainer {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 24px;
-            margin: 40px auto;
-        }
+        .video-explainer {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 24px;
+            margin: 40px auto;
+            max-width: 1200px; /* Redundant, but kept for safe consolidation */
+            padding: 0 20px; /* Redundant, but kept for safe consolidation */
+        }
 
-        .video-explainer .video-card {
-            flex: 1 1 320px;
-            max-width: 100%;
-            animation: fadeIn 0.6s ease forwards;
-        }
+        .video-explainer .video-card {
+            flex: 0 0 280px; /* 修正: グリッドアイテムに近い固定幅を設定し、拡大を無効化 */
+            max-width: 100%;
+            animation: fadeIn 0.6s ease forwards;
+        }
 
-        .explainer-text {
-            flex: 1 1 320px;
-            max-width: 100%;
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            padding: 20px;
-            color: var(--text-primary);
-            overflow-y: auto;
-            max-height: 500px;
-            animation: fadeIn 0.6s ease forwards;
-        }
+        .explainer-text {
+            flex: 1 1 400px; /* 修正: 動画カードを小さくした分、テキストが残りのスペースを埋めるように設定を変更 */
+            max-width: 100%;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 20px;
+            color: var(--text-primary);
+            overflow-y: auto;
+            max-height: 500px;
+            animation: fadeIn 0.6s ease forwards;
+        }
 
-        .explainer-text h3 {
-            font-family: 'Cinzel', serif;
-            font-size: 1.2rem;
-            margin-bottom: 10px;
-            color: var(--accent-gold);
-            letter-spacing: 0.05em;
-        }
+        .explainer-text h3 {
+            font-family: 'Cinzel', serif;
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            color: var(--accent-gold);
+            letter-spacing: 0.05em;
+        }
 
-        .explainer-text p {
-            font-size: 0.95rem;
-            line-height: 1.6;
-            color: var(--text-secondary);
-        }
+        .explainer-text p {
+            font-size: 0.95rem;
+            line-height: 1.6;
+            color: var(--text-secondary);
+        }
 
-        .section-header {
-            text-align: center;
-            margin-bottom: 40px;
-        }
+        .section-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
 
-        .section-header h2 {
-            font-family: 'Cinzel', serif;
-            font-size: 1.5rem;
-            letter-spacing: 0.1em;
-            color: var(--text-primary);
-            margin-bottom: 10px;
-        }
+        .section-header h2 {
+            font-family: 'Cinzel', serif;
+            font-size: 1.5rem;
+            letter-spacing: 0.1em;
+            color: var(--text-primary);
+            margin-bottom: 10px;
+        }
 
-        .section-header p {
-            color: var(--text-secondary);
-            font-size: 0.9rem;
-        }
+        .section-header p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
 
-        .video-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 24px;
-            margin-bottom: 50px;
-        }
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+            margin-bottom: 50px;
+        }
+        
+        .video-card {
+            background: var(--bg-card);
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid var(--border);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
 
-.video-explainer {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 24px;
-    margin: 40px auto;
-    max-width: 1200px;
-    padding: 0 20px;
-}
+        .video-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(196, 30, 58, 0.15);
+            border-color: var(--accent);
+        }
 
-.video-explainer .video-card {
-    flex: 1 1 320px;
-    max-width: 100%;
-    animation: fadeIn 0.6s ease forwards;
-}
+        .video-wrapper {
+            position: relative;
+            width: 100%;
+            padding-bottom: 177.78%;
+            background: var(--bg-secondary);
+        }
 
-.explainer-text {
-    flex: 1 1 320px;
-    max-width: 100%;
-    background: var(--bg-card);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 20px;
-    color: var(--text-primary);
-    overflow-y: auto;
-    max-height: 500px;
-    animation: fadeIn 0.6s ease forwards;
-}
+        .video-wrapper iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
 
-.explainer-text h3 {
-    font-family: 'Cinzel', serif;
-    font-size: 1.2rem;
-    margin-bottom: 10px;
-    color: var(--accent-gold);
-    letter-spacing: 0.05em;
-}
+        .cta-section {
+            text-align: center;
+            padding: 60px 20px;
+            background: var(--bg-secondary);
+            border-radius: 16px;
+            border: 1px solid var(--border);
+            margin-top: 20px;
+        }
 
-.explainer-text p {
-    font-size: 0.95rem;
-    line-height: 1.6;
-    color: var(--text-secondary);
-}
+        .cta-section h3 {
+            font-family: 'Cinzel', serif;
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            letter-spacing: 0.05em;
+        }
 
-/* スクロールバーのカスタマイズ（オプション） */
-.explainer-text::-webkit-scrollbar {
-    width: 8px;
-}
-.explainer-text::-webkit-scrollbar-thumb {
-    background-color: var(--accent);
-    border-radius: 4px;
-}
+        .cta-section p {
+            color: var(--text-secondary);
+            margin-bottom: 30px;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+        }
 
+        .cta-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            background: var(--accent);
+            color: white;
+            text-decoration: none;
+            padding: 16px 36px;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 1rem;
+            letter-spacing: 0.05em;
+            transition: all 0.3s ease;
+            border: 2px solid var(--accent);
+        }
 
-        
-        .video-card {
-            background: var(--bg-card);
-            border-radius: 12px;
-            overflow: hidden;
-            border: 1px solid var(--border);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
+        .cta-button:hover {
+            background: transparent;
+            color: var(--accent);
+            transform: scale(1.05);
+        }
 
-        .video-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 20px 40px rgba(196, 30, 58, 0.15);
-            border-color: var(--accent);
-        }
+        .cta-button svg {
+            width: 24px;
+            height: 24px;
+            fill: currentColor;
+        }
 
-        .video-wrapper {
-            position: relative;
-            width: 100%;
-            padding-bottom: 177.78%;
-            background: var(--bg-secondary);
-        }
+        footer {
+            text-align: center;
+            padding: 40px 20px;
+            border-top: 1px solid var(--border);
+            margin-top: 60px;
+        }
 
-        .video-wrapper iframe {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            border: none;
-        }
+        .footer-logo {
+            font-family: 'Cinzel', serif;
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            margin-bottom: 15px;
+        }
 
-        .cta-section {
-            text-align: center;
-            padding: 60px 20px;
-            background: var(--bg-secondary);
-            border-radius: 16px;
-            border: 1px solid var(--border);
-            margin-top: 20px;
-        }
+        .footer-text {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            opacity: 0.7;
+        }
 
-        .cta-section h3 {
-            font-family: 'Cinzel', serif;
-            font-size: 1.5rem;
-            margin-bottom: 15px;
-            letter-spacing: 0.05em;
-        }
+        .social-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--accent);
+            text-decoration: none;
+            margin-top: 15px;
+            font-size: 0.9rem;
+            transition: opacity 0.3s;
+        }
 
-        .cta-section p {
-            color: var(--text-secondary);
-            margin-bottom: 30px;
-            max-width: 500px;
-            margin-left: auto;
-            margin-right: auto;
-        }
+        .social-link:hover {
+            opacity: 0.8;
+        }
 
-        .cta-button {
-            display: inline-flex;
-            align-items: center;
-            gap: 12px;
-            background: var(--accent);
-            color: white;
-            text-decoration: none;
-            padding: 16px 36px;
-            border-radius: 50px;
-            font-weight: 700;
-            font-size: 1rem;
-            letter-spacing: 0.05em;
-            transition: all 0.3s ease;
-            border: 2px solid var(--accent);
-        }
+        /* Responsive */
+        @media (max-width: 768px) {
+            header {
+                padding: 40px 15px 60px;
+            }
 
-        .cta-button:hover {
-            background: transparent;
-            color: var(--accent);
-            transform: scale(1.05);
-        }
+            .video-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 12px;
+            }
 
-        .cta-button svg {
-            width: 24px;
-            height: 24px;
-            fill: currentColor;
-        }
+            .video-card {
+                border-radius: 8px;
+            }
 
-        footer {
-            text-align: center;
-            padding: 40px 20px;
-            border-top: 1px solid var(--border);
-            margin-top: 60px;
-        }
+            .cta-section {
+                padding: 40px 15px;
+                border-radius: 12px;
+            }
 
-        .footer-logo {
-            font-family: 'Cinzel', serif;
-            font-size: 1.2rem;
-            color: var(--text-secondary);
-            margin-bottom: 15px;
-        }
+            .cta-button {
+                padding: 14px 28px;
+                font-size: 0.9rem;
+            }
+        }
 
-        .footer-text {
-            font-size: 0.85rem;
-            color: var(--text-secondary);
-            opacity: 0.7;
-        }
+        @media (max-width: 320px) {
+            .video-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 10px;
+            }
 
-        .social-link {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            color: var(--accent);
-            text-decoration: none;
-            margin-top: 15px;
-            font-size: 0.9rem;
-            transition: opacity 0.3s;
-        }
+            .kanji-accent {
+                font-size: 0.85rem;
+            }
+        }
 
-        .social-link:hover {
-            opacity: 0.8;
-        }
+        /* Loading Animation */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
 
-        /* Responsive */
-        @media (max-width: 768px) {
-            header {
-                padding: 40px 15px 60px;
-            }
+        .video-card {
+            animation: fadeIn 0.6s ease forwards;
+        }
 
-            .video-grid {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 12px;
-            }
-
-            .video-card {
-                border-radius: 8px;
-            }
-
-            .cta-section {
-                padding: 40px 15px;
-                border-radius: 12px;
-            }
-
-            .cta-button {
-                padding: 14px 28px;
-                font-size: 0.9rem;
-            }
-        }
-
-        @media (max-width: 320px) {
-            .video-grid {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 10px;
-            }
-
-            .kanji-accent {
-                font-size: 0.85rem;
-            }
-        }
-
-        /* Loading Animation */
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .video-card {
-            animation: fadeIn 0.6s ease forwards;
-        }
-
-        .video-card:nth-child(1) { animation-delay: 0.1s; }
-        .video-card:nth-child(2) { animation-delay: 0.2s; }
-        .video-card:nth-child(3) { animation-delay: 0.3s; }
-        .video-card:nth-child(4) { animation-delay: 0.4s; }
-        .video-card:nth-child(5) { animation-delay: 0.5s; }
-        .video-card:nth-child(6) { animation-delay: 0.6s; }
+        .video-card:nth-child(1) { animation-delay: 0.1s; }
+        .video-card:nth-child(2) { animation-delay: 0.2s; }
+        .video-card:nth-child(3) { animation-delay: 0.3s; }
+        .video-card:nth-child(4) { animation-delay: 0.4s; }
+        .video-card:nth-child(5) { animation-delay: 0.5s; }
+        .video-card:nth-child(6) { animation-delay: 0.6s; }
 
 
-    /* リンクの色の設定 */
-        footer ul a,
-        footer ul a:visited,
-        footer ul a:hover,
-        footer ul a:active {
-            color: white;
-        }
+    /* リンクの色の設定 */
+        footer ul a,
+        footer ul a:visited,
+        footer ul a:hover,
+        footer ul a:active {
+            color: white;
+        }
+
+    /* スクロールバーのカスタマイズ（オプション） - 整理のため移動 */
+        .explainer-text::-webkit-scrollbar {
+            width: 8px;
+        }
+        .explainer-text::-webkit-scrollbar-thumb {
+            background-color: var(--accent);
+            border-radius: 4px;
+        }
 
 
-    </style>
+    </style>
 </head>
 <body>
-    <header>
-        <div class="logo-container">
-            <p class="kanji-accent">武士道</p>
-            <h1>SAMURAI CODE JP</h1>
-            <div class="divider"></div>
-            <p class="tagline">Wisdom and honor, refined by the trials of the Sengoku era—now shared with those who walk today’s path.</p>
+    <header>
+        <div class="logo-container">
+            <p class="kanji-accent">武士道</p>
+            <h1>SAMURAI CODE JP</h1>
+            <div class="divider"></div>
+            <p class="tagline">Wisdom and honor, refined by the trials of the Sengoku era—now shared with those who walk today’s path.</p>
 
-            
-            
+            
+            
 
 
 
-            
-        </div>
-    </header>
+            
+        </div>
+    </header>
 
-    <main>
+    <main>
 <section class="video-explainer">
-    <div class="video-card">
-        <div class="video-wrapper">
-            <iframe 
-                src="https://youtube.com/embed/m5C-NVqzGcE" 
-                title="Samurai Short 0"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowfullscreen>
-            </iframe>
-        </div>
-    </div>
-    <div class="explainer-text">
-        <h3>Samurai Short 0 解説</h3>
-        <p>
-            真のリーダーシップとは、作り手への敬意である
+    <div class="video-card">
+        <div class="video-wrapper">
+            <iframe 
+                src="https://youtube.com/embed/m5C-NVqzGcE" 
+                title="Samurai Short 0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen>
+            </iframe>
+        </div>
+    </div>
+    <div class="explainer-text">
+        <h3>Samurai Short 0 解説</h3>
+        <p>
+            真のリーダーシップとは、作り手への敬意である
 
 1．謙虚な修業時代
 高虎の天才性は、城の天守閣で磨かれたのではなく、泥と埃にまみれた工事現場で築かれました。
@@ -446,156 +404,128 @@
 3．現代へのメッセージ
 彼の強さは『共感力』にありました。彼は自ら実践してきたからこそ、肉体労働の辛さと誇りを理解していたのです。
 高虎は私たちに教えてくれます。真のリーダーシップとは権力のことではなく、実際に未来を築き上げている人々への敬意のことなのだ、と。
-        </p>
-    </div>
+        </p>
+    </div>
 </section>
 
 
 
-        
-        <section class="section-header">
-            <h2>Latest Stories</h2>
-            <p>10 Seconds of the Sengoku Era, Recreated by AI</p>
-        </section>
+        
+        <section class="section-header">
+            <h2>Latest Stories</h2>
+            <p>10 Seconds of the Sengoku Era, Recreated by AI</p>
+        </section>
 
-           <div class="video-grid">
-            <div class="video-card">
-                <div class="video-wrapper">
-                    <iframe 
-                        src="https://www.youtube.com/embed/glwcibQd1hw" 
-                        title="Samurai Short 1"
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                        allowfullscreen>
-                    </iframe>
-                </div>
-            </div>
+           <div class="video-grid">
+            <div class="video-card">
+                <div class="video-wrapper">
+                    <iframe 
+                        src="https://www.youtube.com/embed/glwcibQd1hw" 
+                        title="Samurai Short 1"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowfullscreen>
+                    </iframe>
+                </div>
+            </div>
 
-            <div class="video-card">
-                <div class="video-wrapper">
-                    <iframe 
-                        src="https://www.youtube.com/embed/9_BpKmls4YA" 
-                        title="Samurai Short 2"
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                        allowfullscreen>
-                    </iframe>
-                </div>
-            </div>
+            <div class="video-card">
+                <div class="video-wrapper">
+                    <iframe 
+                        src="https://www.youtube.com/embed/9_BpKmls4YA" 
+                        title="Samurai Short 2"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowfullscreen>
+                    </iframe>
+                </div>
+            </div>
 
-            <div class="video-card">
-                <div class="video-wrapper">
-                    <iframe 
-                        src="https://www.youtube.com/embed/NS5kVG9r0Rs" 
-                        title="Samurai Short 3"
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                        allowfullscreen>
-                    </iframe>
-                </div>
-            </div>
+            <div class="video-card">
+                <div class="video-wrapper">
+                    <iframe 
+                        src="https://www.youtube.com/embed/NS5kVG9r0Rs" 
+                        title="Samurai Short 3"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowfullscreen>
+                    </iframe>
+                </div>
+            </div>
 
-            <div class="video-card">
-                <div class="video-wrapper">
-                    <iframe 
-                        src="https://www.youtube.com/embed/r0pxXv5Fbys" 
-                        title="Samurai Short 4"
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                        allowfullscreen>
-                    </iframe>
-                </div>
-            </div>
+            <div class="video-card">
+                <div class="video-wrapper">
+                    <iframe 
+                        src="https://www.youtube.com/embed/r0pxXv5Fbys" 
+                        title="Samurai Short 4"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowfullscreen>
+                    </iframe>
+                </div>
+            </div>
 
-            <div class="video-card">
-                <div class="video-wrapper">
-                    <iframe 
-                        src="https://www.youtube.com/embed/BrHvZwSH3as" 
-                        title="Samurai Short 5"
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                        allowfullscreen>
-                    </iframe>
-                </div>
-            </div>
+            <div class="video-card">
+                <div class="video-wrapper">
+                    <iframe 
+                        src="https://www.youtube.com/embed/BrHvZwSH3as" 
+                        title="Samurai Short 5"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowfullscreen>
+                    </iframe>
+                </div>
+            </div>
 
-            <div class="video-card">
-                <div class="video-wrapper">
-                    <iframe 
-                        src="https://www.youtube.com/embed/ARPAQp4O71o" 
-                        title="Samurai Short 6"
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                        allowfullscreen>
-                    </iframe>
-                </div>
-            </div>
-        </div>
-
-
-        <div class="cta-section">
-            <h3>Discover More Stories</h3>
-            <p>Subscribe to our channel for weekly tales of bushido, honor, and the samurai spirit.</p>
-            <a href="https://www.youtube.com/@energize1dream" target="_blank" rel="noopener" class="cta-button">
-                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
-                </svg>
-                Visit Our Channel
-            </a>
-        </div>
-    </main>
-
-    <footer>
-        <p class="footer-logo">侍 SAMURAI CODE JP</p>
-        <a href="https://www.youtube.com/@energize1dream" target="_blank" rel="noopener" class="social-link">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
-            </svg>
-            @energize1dream
-        </a>
-        <p class="footer-text">© 2024 Samurai Code JP. All rights reserved.</p>
+            <div class="video-card">
+                <div class="video-wrapper">
+                    <iframe 
+                        src="https://www.youtube.com/embed/ARPAQp4O71o" 
+                        title="Samurai Short 6"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowfullscreen>
+                </div>
+            </div>
+        </div>
 
 
-        <ul>
- <h3>日本語コンテンツはこちら</h3>
+        <div class="cta-section">
+            <h3>Discover More Stories</h3>
+            <p>Subscribe to our channel for weekly tales of bushido, honor, and the samurai spirit.</p>
+            <a href="https://www.youtube.com/@energize1dream" target="_blank" rel="noopener" class="cta-button">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+                </svg>
+                Visit Our Channel
+            </a>
+        </div>
+    </main>
+
+    <footer>
+        <p class="footer-logo">侍 SAMURAI CODE JP</p>
+        <a href="https://www.youtube.com/@energize1dream" target="_blank" rel="noopener" class="social-link">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+            </svg>
+            @energize1dream
+        </a>
+        <p class="footer-text">© 2024 Samurai Code JP. All rights reserved.</p>
+
+
+        <ul>
+ <h3>日本語コンテンツはこちら</h3>
 
 <li><a href="https://youtube.com/shorts/PPWKSPsaSYI"target="_blank" rel="noopener noreferrer">伊達政宗【大事の義は、人に談合せず、一心に究めたるがよし】</a></li>
 <li><a href="https://youtube.com/shorts/18d_WNqJHyU"target="_blank" rel="noopener noreferrer">伊東一刀斎【心が澄んでいるからこそ迷いなく動ける。心を整える日常の所作が大切。】</a></li>
-<li><a href="https://youtube.com/shorts/BrIGpCuD1cI"target="_blank" rel="noopener noreferrer">宮本武蔵【自分の専門外の様々な分野の知識や技能にも触れて学ぶことが大切。】</a></li>
-<li><a href="https://youtube.com/shorts/Ju9N0JOPGNM"target="_blank" rel="noopener noreferrer">結城秀康【見下されても、心まで下を向くな。あなたの価値は、あなたが決める。】</a></li>
-<li><a href="https://youtube.com/shorts/y0VR9caSf9A"target="_blank" rel="noopener noreferrer">結城秀康２【恩を忘れない人は、信頼を集め、偉業を成す力を持つ】</a></li>
-<li><a href="https://youtube.com/shorts/DptIp8VOhIk"target="_blank" rel="noopener noreferrer">結城秀康３【もしも結城秀康が二代将軍になっていたら】</a></li>
-<li><a href="https://youtube.com/shorts/-gFpjigx8DE"target="_blank" rel="noopener noreferrer">黒田官兵衛【人の心を知る文学が、戦術と鼓舞の言葉を生む力となった。】</a></li>
-<li><a href="https://youtube.com/shorts/k6tG--TTP40"target="_blank" rel="noopener noreferrer">山本勘助【勝って慢心するな、負けて落ち込むな。決着がつくまで心を整えよ。】</a></li>
-<li><a href="https://youtube.com/shorts/AzbI-6rjHI8"target="_blank" rel="noopener noreferrer">種子島時尭　【剣の時代は終わる。これからは鉄砲の時代だ。】</a></li>
-<li><a href="https://youtube.com/shorts/8_sSfsUxhJQ"target="_blank" rel="noopener noreferrer">上泉信綱【剣でねじ伏せるのではなく、相手を心服させることを目指す】</a></li>
-<li><a href="https://youtube.com/shorts/qKUOKXEL8Ug"target="_blank" rel="noopener noreferrer">真田幸村２【今は耐えるとき。時が来れば、必ず再び旗を掲げましょうぞ。】</a></li>
-<li><a href="https://youtube.com/shorts/Ht6CfJizx3Y"target="_blank" rel="noopener noreferrer">真田昌幸【朝令暮改の何が悪い。より良い案が浮かんだのだ！】</a></li>
-<li><a href="https://youtube.com/shorts/VWyVJBULP68"target="_blank" rel="noopener noreferrer">石田三成【自分にはもったいない部下がいる。私は幸せだ。】</a></li>
-<li><a href="https://youtube.com/shorts/oc7aEw-oD_E"target="_blank" rel="noopener noreferrer">大石進【刀が持てねば戦えぬであろう】</a></li>
-<li><a href="https://youtube.com/shorts/tB45C_3oiOY"target="_blank" rel="noopener noreferrer">渡辺通【我が歩みはここまで。未来は諸君に託しましたよ】</a></li>
-<li><a href="https://youtube.com/shorts/2DXfrWnELyU"target="_blank" rel="noopener noreferrer">徳川家光【私は生まれながらの将軍である】</a></li>
-<li><a href="https://youtube.com/shorts/DVeJDmzZY-o"target="_blank" rel="noopener noreferrer">徳川家康【人の世は重荷を負うて遠き道を行くがごとし、急ぐべからず。】</a></li>
-<li><a href="https://youtube.com/shorts/GLNW3F9Kk7g"target="_blank" rel="noopener noreferrer">徳川家康２【最も多くの人間を喜ばせたものが、最も大きく栄える】</a></li>
-<li><a href="https://youtube.com/shorts/yI5XxfxJltk"target="_blank" rel="noopener noreferrer">武田信玄２【君の出自は問わない。君の“技”が欲しい。】</a></li>
-<li><a href="https://youtube.com/shorts/mZe1KiX9ams"target="_blank" rel="noopener noreferrer">豊臣秀長１【若さゆえの失敗、将来の糧となるでしょう。】</a></li>
-<li><a href="https://youtube.com/shorts/KCGYFaIOYQM"target="_blank" rel="noopener noreferrer">豊臣秀長２【目先の利益ではなく、恒久的な安定こそ領主の責務」「今日の譲歩が明日の繁栄につながる】</a></li>
-<li><a href="https://youtube.com/shorts/EPk3NBIHdMg"target="_blank" rel="noopener noreferrer">豊臣秀長３【家康は豊臣政権における重要な同盟者である】</a></li>
-<li><a href="https://youtube.com/shorts/3LtW-ILJxsM"target="_blank" rel="noopener noreferrer">豊臣秀長４【過酷な処分は、他の大名たちに不安と不信を与え、将来の反乱の火種となる】</a></li>
-<li><a href="https://youtube.com/shorts/Vj4fHwauF_o"target="_blank" rel="noopener noreferrer">豊臣秀長５【豊臣秀長と石田三成。欠けた継承。】</a></li>
-<li><a href="https://youtube.com/shorts/al_s0eZ8qQs"target="_blank" rel="noopener noreferrer">豊臣秀長６【秩序と信頼で勝利を築く。豊臣秀長の軍略】</a></li>
-<li><a href="https://youtube.com/shorts/lMKz26nDmWg"target="_blank" rel="noopener noreferrer">北条氏康【日常のささいな変化に気づく観察力で、人より一つ先を読め。】</a></li>
-<li><a href="https://youtube.com/shorts/WqJ0caQzBas"target="_blank" rel="noopener noreferrer">本多正信【ツキや不運は偶然じゃない。日々の判断と行動が、それを引き寄せている。】</a></li>
-<li><a href="https://youtube.com/shorts/mPCzueBjd7o"target="_blank" rel="noopener noreferrer">毛利元就【言葉には語る人の内面が表れる。振る舞いでは伝わらぬ心の奥底を、言葉は静かにささやく】</a></li>
-<li><a href="https://youtube.com/shorts/PHaNNhul4OM"target="_blank" rel="noopener noreferrer">木下藤吉郎１【若き日の豊臣秀吉。決死隊に部下が笑ってついてくる理由】</a></li>
-<li><a href="https://youtube.com/shorts/DTzpfbAqnvk"target="_blank" rel="noopener noreferrer">木下藤吉郎２【あの状況で生きて帰れたのが何よりの手柄だ】</a></li>
 <li><a href="https://youtube.com/shorts/p7Dx3F6DiQE"target="_blank" rel="noopener noreferrer">柳生宗矩【人に勝つことではなく、自分の弱さを克服することを目標に鍛錬を積もう。】</a></li>
 <li><a href="https://youtube.com/shorts/6GQxurZHJZE"target="_blank" rel="noopener noreferrer">立花道雪【部下の失敗や不調は、部下の能力不足ではなく、大将（上司）の指導や配慮、環境づくりの責任である。　】</a></li>
 <li><a href="https://youtube.com/shorts/H9WzAy4L54k"target="_blank" rel="noopener noreferrer">蘆名義広【誇り四百年、崩れは半日。不和を見過ごした代償は重い。】</a></li>
 
-        </ul>
+        </ul>
 
 
 
-    </footer>
+    </footer>
 
 
 </body>
 </html>
+
 
 
 
