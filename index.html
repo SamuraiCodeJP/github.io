@@ -311,7 +311,67 @@
         footer ul a:active {
             color: white;
         }
+
+/* ================================== */
+/* 1. 特集セクションのコンテナ設定 (横並びの実現) */
+/* ================================== */
+.featured-section {
+    /* Flexboxを使って子要素（featured-card）を横に並べる */
+    display: flex;
+    /* カード間の隙間を設定（例: 20px） */
+    gap: 20px; 
+    /* 上下の余白を設定（例: ページ上部や既存グリッドとの間） */
+    margin: 40px 0;
+    /* 最大幅を設定し、中央に寄せる（任意） */
+    max-width: 1200px; /* サイト全体の幅に合わせる */
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0 20px; /* 画面端に近すぎるのを防ぐ */
+}
+
+/* ================================== */
+/* 2. 各ウィンドウ（カード）の設定 (同じ大きさの実現) */
+/* ================================== */
+.featured-card {
+    /* 2つのカードが均等な幅になるように設定（50%ずつ） */
+    flex: 1;
+    /* 背景と枠線でウィンドウ感を与える */
+    border: 1px solid #ddd;
+    border-radius: 8px; /* 角を丸くする */
+    padding: 15px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* ================================== */
+/* 3. テキストウィンドウのスクロール設定 */
+/* ================================== */
+.text-card .story-content {
+    /* 表示したい高さを固定（例: 動画の高さに合わせる） */
+    /* ここを調整して、テキストエリアの高さを決めてください */
+    height: 350px; 
     
+    /* 枠内に収まらない場合に縦スクロールバーを表示する */
+    overflow-y: scroll;
+    
+    /* スクロールバーのスタイルを改善する場合は追加設定が必要ですが、基本はこれだけです */
+    padding-right: 15px; /* スクロールバーのために右側に少しパディングを空ける（任意） */
+}
+
+/* 動画の比率を維持する設定（既存の video-wrapper が適用されるはずですが、念のため） */
+.featured-card .video-wrapper {
+    position: relative;
+    padding-top: 56.25%; /* 16:9 のアスペクト比 */
+    height: 0;
+}
+.featured-card iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+        
     
     </style>
 </head>
@@ -353,7 +413,7 @@
             </div>
     
     <div class="featured-card text-card">
-        <h3>関連情報・ストーリー</h3>
+        <h3>特集動画タイトル</h3>
         
         <div class="story-content">
             <p>
@@ -524,6 +584,7 @@
 
 </body>
 </html>
+
 
 
 
