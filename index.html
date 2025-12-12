@@ -34,7 +34,6 @@
             min-height: 100vh;
         }
 
-        /* Header */
         header {
             position: relative;
             text-align: center;
@@ -96,11 +95,50 @@
             margin: 30px auto;
         }
 
-        /* Main Content */
         main {
             max-width: 1200px;
             margin: 0 auto;
             padding: 0 20px 60px;
+        }
+
+        .video-explainer {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 24px;
+            margin: 40px auto;
+        }
+
+        .video-explainer .video-card {
+            flex: 1 1 480px;
+            max-width: 100%;
+            animation: fadeIn 0.6s ease forwards;
+        }
+
+        .explainer-text {
+            flex: 1 1 480px;
+            max-width: 100%;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 20px;
+            color: var(--text-primary);
+            overflow-y: auto;
+            max-height: 500px;
+            animation: fadeIn 0.6s ease forwards;
+        }
+
+        .explainer-text h3 {
+            font-family: 'Cinzel', serif;
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            color: var(--accent-gold);
+            letter-spacing: 0.05em;
+        }
+
+        .explainer-text p {
+            font-size: 0.95rem;
+            line-height: 1.6;
+            color: var(--text-secondary);
         }
 
         .section-header {
@@ -121,7 +159,6 @@
             font-size: 0.9rem;
         }
 
-        /* Video Grid */
         .video-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -146,7 +183,7 @@
         .video-wrapper {
             position: relative;
             width: 100%;
-            padding-bottom: 177.78%; /* 9:16 aspect ratio for Shorts */
+            padding-bottom: 177.78%;
             background: var(--bg-secondary);
         }
 
@@ -159,7 +196,6 @@
             border: none;
         }
 
-        /* CTA Section */
         .cta-section {
             text-align: center;
             padding: 60px 20px;
@@ -212,7 +248,6 @@
             fill: currentColor;
         }
 
-        /* Footer */
         footer {
             text-align: center;
             padding: 40px 20px;
@@ -321,6 +356,32 @@
             <h1>SAMURAI CODE JP</h1>
             <div class="divider"></div>
             <p class="tagline">Wisdom and honor, refined by the trials of the Sengoku era—now shared with those who walk today’s path.</p>
+
+            
+            <section class="video-explainer">
+    <div class="video-card">
+        <div class="video-wrapper">
+            <iframe 
+                src="https://youtube.com/embed/y5FLfkwg9Bo" 
+                title="Samurai Short 0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen>
+            </iframe>
+        </div>
+    </div>
+    <div class="explainer-text">
+        <h3>Samurai Short 0 解説</h3>
+        <p>
+            この物語では、戦国時代初期の無名の若武者が登場します。彼は主君の命を受け、敵地に潜入し密書を届けるという危険な任務に挑みます。  
+            道中での葛藤や、忠義と恐怖の狭間で揺れる心情が描かれ、最後には己の信念を貫く姿が印象的です。  
+            武士道の「義」と「勇」を体現した短編です。
+        </p>
+    </div>
+</section>
+
+
+
+            
         </div>
     </header>
 
@@ -473,6 +534,7 @@
 
 </body>
 </html>
+
 
 
 
