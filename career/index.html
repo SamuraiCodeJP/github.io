@@ -9,39 +9,165 @@
             --primary-color: #1a2938; /* 濃紺 */
             --accent-color: #d4af37;  /* 金色 */
             --bg-color: #f9f7f2;      /* 和紙のような白 */
+            --text-main: #333;
         }
-        body { font-family: "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", "Hiragino Sans", sans-serif; background-color: var(--bg-color); color: #333; margin: 0; padding: 20px; line-height: 1.6; }
-        .container { max-width: 1000px; margin: auto; }
         
-        header { text-align: center; padding: 40px 0; border-bottom: 2px solid var(--primary-color); margin-bottom: 40px; }
-        header h1 { margin: 0; font-size: 2.5em; color: var(--primary-color); letter-spacing: 0.1em; }
-        header p { margin-top: 10px; font-size: 1.1em; color: #666; }
+        /* 全体のレイアウト：余白を詰める */
+        body {
+            font-family: "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", "Hiragino Sans", sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            margin: 0;
+            padding: 10px; /* 全体のパディングを縮小 */
+            line-height: 1.4; /* 行間を少し詰める */
+            font-size: 14px; /* 基本の文字サイズを少し小さく */
+        }
+        
+        .container {
+            max-width: 800px; /* 横幅を少し狭めてコンパクトに */
+            margin: auto;
+        }
+        
+        /* ヘッダー：高さを低く */
+        header {
+            text-align: center;
+            padding: 15px 0; /* 上下パディングを大幅削減 */
+            border-bottom: 2px solid var(--primary-color);
+            margin-bottom: 15px;
+        }
+        header h1 {
+            margin: 0;
+            font-size: 1.8em; /* 文字を小さく */
+            color: var(--primary-color);
+            letter-spacing: 0.1em;
+        }
+        header p {
+            margin: 5px 0 0;
+            font-size: 0.9em;
+            color: #666;
+        }
 
-        /* カードレイアウト */
-        .app-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; margin-bottom: 50px; }
-        .app-card { background: white; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); overflow: hidden; transition: 0.3s; border: 1px solid #eee; }
-        .app-card:hover { transform: translateY(-10px); box-shadow: 0 8px 30px rgba(0,0,0,0.15); }
+        /* アプリカードレイアウト */
+        .app-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 15px; /* 間隔を詰める */
+            margin-bottom: 20px;
+        }
+        
+        .app-card {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            overflow: hidden;
+            border: 1px solid #eee;
+            text-align: center;
+        }
+        
+        /* ✅ ここが重要：画像を小さくする設定 */
+        .app-card-image-wrapper {
+            width: 100%;
+            height: 300px; /* 🔥 画像の表示高さを300pxに制限 */
+            background-color: #000; /* 余白は黒で引き締める */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-bottom: 3px solid var(--accent-gold);
+        }
+        
         .app-card img {
-    width: 100%;
-    height: auto; /* ✅ 変更：画像の縦横比に合わせて、自動で高さを調整する */
-    object-fit: contain; /* ✅ 変更：枠の中に画像全体を収める（全身が表示される） */
-    border-bottom: 4px solid var(--accent-gold);
-    background-color: #000; /* 💡 追加：もし横に余白ができたら黒で埋める（和風の締まりが出る） */
-}
-        .app-content { padding: 25px; text-align: center; }
-        .app-title { font-size: 1.5em; font-weight: bold; margin-bottom: 15px; color: var(--primary-color); }
-        .app-description { font-size: 0.95em; color: #555; margin-bottom: 20px; min-height: 3em; }
+            max-width: 100%;
+            max-height: 100%; /* ✅ 枠からはみ出さないように全身を表示 */
+            object-fit: contain; /* 画像全体を収める */
+        }
         
-        .btn { display: inline-block; background: var(--primary-color); color: white !important; padding: 12px 30px; text-decoration: none; border-radius: 30px; font-weight: bold; transition: 0.3s; }
-        .btn:hover { background: var(--accent-color); color: var(--primary-color) !important; }
+        /* カード内のテキストエリア */
+        .app-content {
+            padding: 15px;
+        }
+        .app-title {
+            font-size: 1.2em;
+            font-weight: bold;
+            margin-bottom: 8px;
+            color: var(--primary-color);
+        }
+        .app-description {
+            font-size: 0.85em; /* 文字を小さく */
+            color: #555;
+            margin-bottom: 15px;
+            min-height: 3em;
+        }
+        
+        /* ボタンを少し小さく */
+        .btn {
+            display: inline-block;
+            background: var(--primary-color);
+            color: white !important;
+            padding: 8px 20px;
+            text-decoration: none;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 0.9em;
+            transition: 0.3s;
+        }
+        .btn:hover {
+            background: var(--accent-color);
+            color: var(--primary-color) !important;
+        }
 
-        /* ガイドセクション */
-        .guide-section { background: white; padding: 40px; border-radius: 12px; border: 1px dashed var(--primary-color); }
-        .guide-section h2 { color: var(--primary-color); border-left: 5px solid var(--accent-color); padding-left: 15px; margin-bottom: 20px; }
-        .guide-image { max-width: 100%; border: 1px solid #ddd; border-radius: 8px; margin-top: 20px; }
+        /* ガイドセクション：コンパクトに */
+        .guide-section {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px dashed var(--primary-color);
+            margin-bottom: 20px;
+        }
+        .guide-section h2 {
+            font-size: 1.2em;
+            color: var(--primary-color);
+            border-left: 4px solid var(--accent-color);
+            padding-left: 10px;
+            margin-bottom: 10px;
+        }
+        .guide-text {
+            font-size: 0.85em;
+            margin-bottom: 10px;
+        }
+        
+        /* 解説画像も小さく */
+        .guide-image {
+            max-width: 60%; /* 🔥 横幅を60%に縮小 */
+            display: block;
+            margin: 0 auto; /* 中央寄せ */
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
 
-        footer { text-align: center; margin-top: 60px; padding: 20px; color: #888; font-size: 0.9em; }
+        /* リンク・フッター */
+        .links-section {
+            text-align: center;
+            font-size: 0.85em;
+            margin-top: 20px;
+        }
+        .links-section p { margin: 5px 0; }
+        
+        footer {
+            text-align: center;
+            margin-top: 30px;
+            padding: 15px;
+            color: #888;
+            font-size: 0.8em;
+            border-top: 1px solid #eee;
+        }
         a { color: var(--primary-color); text-decoration: none; }
+        a:hover { text-decoration: underline; }
+
+        /* スマホ対応 */
+        @media (max-width: 600px) {
+            .app-card-image-wrapper { height: 250px; } /* スマホではさらに低く */
+            .guide-image { max-width: 100%; }
+        }
     </style>
 </head>
 <body>
@@ -49,40 +175,49 @@
 <div class="container">
     <header>
         <h1>Samurai Code JP</h1>
-        <p>〜 侍の英知を宿したAIが、あなたの就職・転職をサポートします 〜</p>
+        <p>〜 侍の英知が、あなたの就職・転職をサポートします 〜</p>
     </header>
 
     <div class="app-grid">
         <div class="app-card">
-            <img src="pr_ai.png" alt="自己PR生成AI">
+            <div class="app-card-image-wrapper">
+                <img src="pr_ai.png" alt="自己PR生成AI">
+            </div>
             <div class="app-content">
                 <div class="app-title">自己PR 生成AI</div>
-                <p class="app-description">あなたの経験と強みを抽出し、<br>武士のような力強い言葉で言語化します。</p>
-                <a href="https://udify.app/chat/KtuvPhSxPz6bg3Kp" class="btn" target="_blank">アプリを起動する</a>
+                <p class="app-description">あなたの強みを、武士のような力強い言葉で言語化します。</p>
+                <a href="https://udify.app/chat/KuvPhSxPz6bg3Kp" class="btn" target="_blank">アプリを起動する</a>
             </div>
         </div>
 
         <div class="app-card">
-            <img src="vision_ai.png" alt="仕事ビジョン生成AI">
+            <div class="app-card-image-wrapper">
+                <img src="vision_ai.png" alt="仕事ビジョン生成AI">
+            </div>
             <div class="app-content">
                 <div class="app-title">仕事ビジョン 生成AI</div>
-                <p class="app-description">成し遂げたい夢やキャリア観を、<br>揺るぎない志（こころざし）へと昇華させます。</p>
+                <p class="app-description">将来の展望を、揺るぎない志（こころざし）へと昇華させます。</p>
                 <a href="https://udify.app/chat/p383qpuDdMXu8hDu" class="btn" target="_blank">アプリを起動する</a>
             </div>
         </div>
     </div>
 
     <div class="guide-section">
-        <h2>💡 はじめての方へ（使いかた）</h2>
-        <p>各アプリの「起動する」ボタンを押すと、Difyのチャット画面が開きます。<br>
-        最初の画面で<strong>「お名前（ニックネーム）」</strong>や<strong>「あなたの目標」</strong>を入力し、送信ボタンを押してください。<br>
-        その後のチャット欄で「こんにちは」と話しかけると、診断がスタートします。</p>
-        <img src="guide.png" alt="操作ガイドのスクリーンショット" class="guide-image">
+        <h2>💡 使いかた</h2>
+        <div class="guide-text">
+            <p>「起動する」ボタンを押した後、最初の画面で<strong>「お名前」</strong>や<strong>「目標」</strong>を入力し、送信してください。その後のチャットで「こんにちは」と送ると診断が始まります。</p>
+        </div>
+        <img src="guide.png" alt="操作ガイド" class="guide-image">
+    </div>
+
+    <div class="links-section">
+        <p>生成までのイメージ： サムライの英知のこもった言葉や行動を座右の銘やアピールの参考にしよう</p>
+        <p>リンク1： <a href="https://www.youtube.com/@energize1dream" target="_blank">Samurai Code JP YouTubeチャンネル</a></p>
+        <p>リンク2： <a href="../index.html">Samurai Code JP トップページ</a></p>
     </div>
 
     <footer>
-        <p>&copy; 2026 Samurai Code JP. Powered by Dify & GitHub Pages</p>
-        <p><a href="../index.html">← トップページへ戻る</a></p>
+        <p>&copy; 2024 Samurai Code JP.</p>
     </footer>
 </div>
 
