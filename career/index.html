@@ -144,13 +144,32 @@
             border-radius: 4px;
         }
 
-        /* リンク・フッター */
-        .links-section {
-            text-align: center;
-            font-size: 0.85em;
-            margin-top: 20px;
-        }
-        .links-section p { margin: 5px 0; }
+        /* リンク・フッター（ここを丸ごと差し替え） */
+.links-section {
+    text-align: center;
+    font-size: 0.95em;
+    margin-top: 25px;
+    padding: 15px;
+    background: rgba(26, 41, 56, 0.05); /* ほんのり背景色 */
+    border-radius: 8px;
+}
+
+.links-section p { 
+    margin: 8px 0; 
+    color: var(--primary-color);
+    font-weight: bold;
+}
+
+/* リンク文字を金色に強調 */
+.links-section a { 
+    color: #b8860b !important; /* 落ち着いた金色 */
+    text-decoration: underline;
+    font-size: 1.1em;
+}
+
+.links-section a:hover {
+    color: var(--accent-color) !important; /* ホバー時に明るい金色へ */
+}
         
         footer {
             text-align: center;
@@ -211,10 +230,14 @@
     </div>
 
     <div class="links-section">
-        <p>生成までのイメージ： サムライの英知のこもった言葉や行動を座右の銘やアピールの参考にしよう</p>
-        <p>リンク1： <a href="https://www.youtube.com/@energize1dream" target="_blank">Samurai Code JP YouTubeチャンネル</a></p>
-        <p>リンク2： <a href="../index.html">Samurai Code JP トップページ</a></p>
-    </div>
+    <p>💡 生成までのイメージ</p>
+    <p style="font-weight: normal; font-size: 0.9em; margin-bottom: 15px;">
+        サムライの英知のこもった言葉や行動を、座右の銘やアピールの参考にしよう！
+    </p>
+    
+    <p>▶︎ <a href="https://www.youtube.com/@energize1dream" target="_blank">リンク1： Samurai Code JP YouTubeチャンネル</a></p>
+    <p>▶︎ <a href="../index.html">リンク2： Samurai Code JP トップページ</a></p>
+</div>
 
     <footer>
         <p>&copy; 2024 Samurai Code JP.</p>
