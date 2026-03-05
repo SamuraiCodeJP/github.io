@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>キャリア支援AI - Samurai Code JP</title>
+    <style>
+        :root {
+            --primary-color: #1a2938; /* 濃紺 */
+            --accent-color: #d4af37;  /* 金色 */
+            --bg-color: #f9f7f2;      /* 和紙のような白 */
+        }
+        body { font-family: "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", "Hiragino Sans", sans-serif; background-color: var(--bg-color); color: #333; margin: 0; padding: 20px; line-height: 1.6; }
+        .container { max-width: 1000px; margin: auto; }
+        
+        header { text-align: center; padding: 40px 0; border-bottom: 2px solid var(--primary-color); margin-bottom: 40px; }
+        header h1 { margin: 0; font-size: 2.5em; color: var(--primary-color); letter-spacing: 0.1em; }
+        header p { margin-top: 10px; font-size: 1.1em; color: #666; }
+
+        /* カードレイアウト */
+        .app-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; margin-bottom: 50px; }
+        .app-card { background: white; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); overflow: hidden; transition: 0.3s; border: 1px solid #eee; }
+        .app-card:hover { transform: translateY(-10px); box-shadow: 0 8px 30px rgba(0,0,0,0.15); }
+        .app-card img { width: 100%; height: 250px; object-fit: cover; border-bottom: 4px solid var(--accent-color); }
+        .app-content { padding: 25px; text-align: center; }
+        .app-title { font-size: 1.5em; font-weight: bold; margin-bottom: 15px; color: var(--primary-color); }
+        .app-description { font-size: 0.95em; color: #555; margin-bottom: 20px; min-height: 3em; }
+        
+        .btn { display: inline-block; background: var(--primary-color); color: white !important; padding: 12px 30px; text-decoration: none; border-radius: 30px; font-weight: bold; transition: 0.3s; }
+        .btn:hover { background: var(--accent-color); color: var(--primary-color) !important; }
+
+        /* ガイドセクション */
+        .guide-section { background: white; padding: 40px; border-radius: 12px; border: 1px dashed var(--primary-color); }
+        .guide-section h2 { color: var(--primary-color); border-left: 5px solid var(--accent-color); padding-left: 15px; margin-bottom: 20px; }
+        .guide-image { max-width: 100%; border: 1px solid #ddd; border-radius: 8px; margin-top: 20px; }
+
+        footer { text-align: center; margin-top: 60px; padding: 20px; color: #888; font-size: 0.9em; }
+        a { color: var(--primary-color); text-decoration: none; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>Samurai Code JP</h1>
+        <p>〜 侍の英知を宿したAIが、あなたの就職・転職をサポートします 〜</p>
+    </header>
+
+    <div class="app-grid">
+        <div class="app-card">
+            <img src="pr_ai.png" alt="自己PR生成AI">
+            <div class="app-content">
+                <div class="app-title">自己PR 生成AI</div>
+                <p class="app-description">あなたの経験と強みを抽出し、<br>武士のような力強い言葉で言語化します。</p>
+                <a href="https://udify.app/chat/KuvPhSxPz6bg3Kp" class="btn" target="_blank">アプリを起動する</a>
+            </div>
+        </div>
+
+        <div class="app-card">
+            <img src="vision_ai.png" alt="仕事ビジョン生成AI">
+            <div class="app-content">
+                <div class="app-title">仕事ビジョン 生成AI</div>
+                <p class="app-description">成し遂げたい夢やキャリア観を、<br>揺るぎない志（こころざし）へと昇華させます。</p>
+                <a href="https://udify.app/chat/p383qpuDdMXu8hDu" class="btn" target="_blank">アプリを起動する</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="guide-section">
+        <h2>💡 はじめての方へ（使いかた）</h2>
+        <p>各アプリの「起動する」ボタンを押すと、Difyのチャット画面が開きます。<br>
+        最初の画面で<strong>「お名前（ニックネーム）」</strong>や<strong>「あなたの目標」</strong>を入力し、送信ボタンを押してください。<br>
+        その後のチャット欄で「こんにちは」と話しかけると、診断がスタートします。</p>
+        <img src="guide.png" alt="操作ガイドのスクリーンショット" class="guide-image">
+    </div>
+
+    <footer>
+        <p>&copy; 2026 Samurai Code JP. Powered by Dify & GitHub Pages</p>
+        <p><a href="../index.html">← トップページへ戻る</a></p>
+    </footer>
+</div>
+
+</body>
+</html>
