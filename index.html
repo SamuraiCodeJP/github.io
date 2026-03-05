@@ -34,6 +34,44 @@
             min-height: 100vh;
         }
 
+        /* 追加：キャリア支援バナーのスタイル */
+        .career-nav-banner {
+            background: linear-gradient(90deg, #141414 0%, #1a2938 50%, #141414 100%);
+            border-bottom: 2px solid var(--accent-gold);
+            padding: 15px 20px;
+            text-align: center;
+            position: relative;
+            z-index: 100;
+        }
+        .career-nav-content {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        .career-nav-text {
+            font-size: 0.9rem;
+            color: var(--text-primary);
+            letter-spacing: 0.05em;
+        }
+        .career-nav-btn {
+            background: var(--accent-gold);
+            color: #000 !important;
+            padding: 8px 20px;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 0.85rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 10px rgba(212, 175, 55, 0.3);
+        }
+        .career-nav-btn:hover {
+            background: #fff;
+            transform: translateY(-2px);
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.4);
+        }
+
         header {
             position: relative;
             text-align: center;
@@ -75,6 +113,7 @@
             background: linear-gradient(135deg, var(--text-primary) 0%, var(--accent-gold) 50%, var(--text-primary) 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            -webkit-text-clip: text; /* 標準プロパティも追加 */
             background-clip: text;
         }
 
@@ -166,59 +205,6 @@
             margin-bottom: 50px;
         }
 
-.video-explainer {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 24px;
-    margin: 40px auto;
-    max-width: 1200px;
-    padding: 0 20px;
-}
-
-.video-explainer .video-card {
-    flex: 1 1 320px;
-    max-width: 100%;
-    animation: fadeIn 0.6s ease forwards;
-}
-
-.explainer-text {
-    flex: 1 1 320px;
-    max-width: 100%;
-    background: var(--bg-card);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 20px;
-    color: var(--text-primary);
-    overflow-y: auto;
-    max-height: 500px;
-    animation: fadeIn 0.6s ease forwards;
-}
-
-.explainer-text h3 {
-    font-family: 'Cinzel', serif;
-    font-size: 1.2rem;
-    margin-bottom: 10px;
-    color: var(--accent-gold);
-    letter-spacing: 0.05em;
-}
-
-.explainer-text p {
-    font-size: 0.95rem;
-    line-height: 1.6;
-    color: var(--text-secondary);
-}
-
-/* スクロールバーのカスタマイズ（オプション） */
-.explainer-text::-webkit-scrollbar {
-    width: 8px;
-}
-.explainer-text::-webkit-scrollbar-thumb {
-    background-color: var(--accent);
-    border-radius: 4px;
-}
-
-
-        
         .video-card {
             background: var(--bg-card);
             border-radius: 12px;
@@ -360,16 +346,10 @@
                 padding: 14px 28px;
                 font-size: 0.9rem;
             }
-        }
-
-        @media (max-width: 320px) {
-            .video-grid {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 10px;
-            }
-
-            .kanji-accent {
-                font-size: 0.85rem;
+            .career-nav-text {
+                font-size: 0.8rem;
+                width: 100%;
+                margin-bottom: 5px;
             }
         }
 
@@ -379,19 +359,7 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        .video-card {
-            animation: fadeIn 0.6s ease forwards;
-        }
-
-        .video-card:nth-child(1) { animation-delay: 0.1s; }
-        .video-card:nth-child(2) { animation-delay: 0.2s; }
-        .video-card:nth-child(3) { animation-delay: 0.3s; }
-        .video-card:nth-child(4) { animation-delay: 0.4s; }
-        .video-card:nth-child(5) { animation-delay: 0.5s; }
-        .video-card:nth-child(6) { animation-delay: 0.6s; }
-
-
-    /* リンクの色の設定 */
+        /* リンクの色の設定 */
         footer ul a,
         footer ul a:visited,
         footer ul a:hover,
@@ -399,10 +367,16 @@
             color: white;
         }
 
-
     </style>
 </head>
 <body>
+    <nav class="career-nav-banner">
+        <div class="career-nav-content">
+            <span class="career-nav-text">⚔️ 侍の英知で未来を拓く「自己PR＆仕事ビジョン生成AI」</span>
+            <a href="./career/index.html" class="career-nav-btn">キャリア支援AIを試す</a>
+        </div>
+    </nav>
+
     <header>
         <div class="logo-container">
             <p class="kanji-accent">武士道</p>
@@ -412,60 +386,49 @@
         </div>
     </header>
     <main>
-<section class="video-explainer">
-    <div class="video-card">
-        <div class="video-wrapper">
-            <iframe 
-                src="https://youtube.com/embed/m5C-NVqzGcE" 
-                title="Samurai Short 0"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowfullscreen>
-            </iframe>
-        </div>
-    </div>
-    <div class="explainer-text">        
-        <h3>Samurai Short 0 解説</h3>
-        <p>
-            【藤堂高虎】<br>
-            <br>
-            彼は馬の上からただ命令を怒鳴るようなリーダーではなかった。
+        <section class="video-explainer">
+            <div class="video-card">
+                <div class="video-wrapper">
+                    <iframe 
+                        src="https://youtube.com/embed/m5C-NVqzGcE" 
+                        title="Samurai Short 0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowfullscreen>
+                    </iframe>
+                </div>
+            </div>
+            <div class="explainer-text">        
+                <h3>Samurai Short 0 解説</h3>
+                <p>
+                    【藤堂高虎】<br>
+                    <br>
+                    彼は馬の上からただ命令を怒鳴るようなリーダーではなかった。
+                </p>
+            </div>
+            
+            <div class="explainer-text">
+                <h3>Samurai Short 0 解説2</h3>
+                <p>
+                    真のリーダーシップとは、作り手への敬意である<br>
+                    1．謙虚な修業時代<br>
+                    高虎の天才性は、城の天守閣で磨かれたのではなく、泥と埃にまみれた工事現場で築かれました。<br>
+                    若き日、彼は日本の伝説的な石工集団「穴太衆」と肩を並べ、共に汗を流して技術を学びました。侍という身分を捨てて謙虚に教えを請い、彼はある深遠な哲学を学び取ったのです。<br>
+                    『石にも心がある。長く残るものを築くには、石の声を聞かねばならない』と。<br>
+                    2．チームの設計者<br>
+                    彼は馬の上からただ命令を怒鳴るようなリーダーではありませんでした。彼はまるで現代のプロジェクトマネージャーのように、名工たちによるチームを組織し、現場の専門家の声に耳を傾けました。<br>
+                    3．現代へのメッセージ<br>
+                    彼の強さは『共感力』にありました。彼は自ら実践してきたからこそ、肉体労働の辛さと誇りを理解していたのです。<br>
+                    高虎は私たちに教えてくれます。真のリーダーシップとは権力のことではなく、実際に未来を築き上げている人々への敬意のことなのだ、と。<br>
+                </p>
+            </div>
+        </section>
 
-
-        </p>
-    </div>
-
-    
-    <div class="explainer-text">
-        <h3>Samurai Short 0 解説2</h3>
-        <p>
-            真のリーダーシップとは、作り手への敬意である<br>
-
-1．謙虚な修業時代<br>
-高虎の天才性は、城の天守閣で磨かれたのではなく、泥と埃にまみれた工事現場で築かれました。<br>
-若き日、彼は日本の伝説的な石工集団「穴太衆」と肩を並べ、共に汗を流して技術を学びました。侍という身分を捨てて謙虚に教えを請い、彼はある深遠な哲学を学び取ったのです。<br>
-            『石にも心がある。長く残るものを築くには、石の声を聞かねばならない』と。<br>
-
-2．チームの設計者<br>
-彼は馬の上からただ命令を怒鳴るようなリーダーではありませんでした。彼はまるで現代のプロジェクトマネージャーのように、名工たちによるチームを組織し、現場の専門家の声に耳を傾けました。<br>
-
-3．現代へのメッセージ<br>
-彼の強さは『共感力』にありました。彼は自ら実践してきたからこそ、肉体労働の辛さと誇りを理解していたのです。<br>
-高虎は私たちに教えてくれます。真のリーダーシップとは権力のことではなく、実際に未来を築き上げている人々への敬意のことなのだ、と。<br>
-        </p>
-    </div>
-
-    
-</section>
-
-
-
-        
         <section class="section-header">
             <h2>Latest Stories</h2>
             <p>10 Seconds of the Sengoku Era, Recreated by AI</p>
         </section>
 
-           <div class="video-grid">
+        <div class="video-grid">
             <div class="video-card">
                 <div class="video-wrapper">
                     <iframe 
@@ -476,7 +439,6 @@
                     </iframe>
                 </div>
             </div>
-
             <div class="video-card">
                 <div class="video-wrapper">
                     <iframe 
@@ -487,7 +449,6 @@
                     </iframe>
                 </div>
             </div>
-
             <div class="video-card">
                 <div class="video-wrapper">
                     <iframe 
@@ -498,7 +459,6 @@
                     </iframe>
                 </div>
             </div>
-
             <div class="video-card">
                 <div class="video-wrapper">
                     <iframe 
@@ -509,7 +469,6 @@
                     </iframe>
                 </div>
             </div>
-
             <div class="video-card">
                 <div class="video-wrapper">
                     <iframe 
@@ -520,7 +479,6 @@
                     </iframe>
                 </div>
             </div>
-
             <div class="video-card">
                 <div class="video-wrapper">
                     <iframe 
@@ -532,7 +490,6 @@
                 </div>
             </div>
         </div>
-
 
         <div class="cta-section">
             <h3>Discover More Stories</h3>
@@ -556,26 +513,14 @@
         </a>
         <p class="footer-text">© 2024 Samurai Code JP. All rights reserved.</p>
 
-
         <ul>
- <h3>日本語コンテンツはこちら</h3>
-
-<li><a href="https://youtube.com/shorts/PPWKSPsaSYI"target="_blank" rel="noopener noreferrer">伊達政宗【大事の義は、人に談合せず、一心に究めたるがよし】</a></li>
-<li><a href="https://youtube.com/shorts/18d_WNqJHyU"target="_blank" rel="noopener noreferrer">伊東一刀斎【心が澄んでいるからこそ迷いなく動ける。心を整える日常の所作が大切。】</a></li>
-<li><a href="https://youtube.com/shorts/p7Dx3F6DiQE"target="_blank" rel="noopener noreferrer">柳生宗矩【人に勝つことではなく、自分の弱さを克服することを目標に鍛錬を積もう。】</a></li>
-<li><a href="https://youtube.com/shorts/6GQxurZHJZE"target="_blank" rel="noopener noreferrer">立花道雪【部下の失敗や不調は、部下の能力不足ではなく、大将（上司）の指導や配慮、環境づくりの責任である。　】</a></li>
-<li><a href="https://youtube.com/shorts/H9WzAy4L54k"target="_blank" rel="noopener noreferrer">蘆名義広【誇り四百年、崩れは半日。不和を見過ごした代償は重い。】</a></li>
-
+            <h3>日本語コンテンツはこちら</h3>
+            <li><a href="https://youtube.com/shorts/PPWKSPsaSYI"target="_blank" rel="noopener noreferrer">伊達政宗【大事の義は、人に談合せず、一心に究めたるがよし】</a></li>
+            <li><a href="https://youtube.com/shorts/18d_WNqJHyU"target="_blank" rel="noopener noreferrer">伊東一刀斎【心が澄んでいるからこそ迷いなく動ける。心を整える日常の所作が大切。】</a></li>
+            <li><a href="https://youtube.com/shorts/p7Dx3F6DiQE"target="_blank" rel="noopener noreferrer">柳生宗矩【人に勝つことではなく、自分の弱さを克服することを目標に鍛錬を積もう。】</a></li>
+            <li><a href="https://youtube.com/shorts/6GQxurZHJZE"target="_blank" rel="noopener noreferrer">立花道雪【部下の失敗や不調は、部下の能力不足ではなく、大将（上司）の指導や配慮、環境づくりの責任である。　】</a></li>
+            <li><a href="https://youtube.com/shorts/H9WzAy4L54k"target="_blank" rel="noopener noreferrer">蘆名義広【誇り四百年、崩れは半日。不和を見過ごした代償は重い。】</a></li>
         </ul>
-
-
-
     </footer>
-
-
 </body>
 </html>
-
-
-
-
