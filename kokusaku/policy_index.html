@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>2026年 国策俯瞰図｜就活生向け業界地図</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Outfit:wght@600;700&display=swap');
+
+  :root {
+    --coral-light:#FAECE7;--coral-mid:#F0997B;--coral-dark:#993C1D;--coral-deep:#4A1B0C;
+    --blue-light:#E6F1FB;--blue-mid:#85B7EB;--blue-dark:#185FA5;--blue-deep:#042C53;
+    --teal-light:#E1F5EE;--teal-mid:#5DCAA5;--teal-dark:#0F6E56;--teal-deep:#04342C;
+    --amber-light:#FAEEDA;--amber-mid:#EF9F27;--amber-dark:#854F0B;--amber-deep:#412402;
+    --gray-bg:#F7F6F2;--gray-border:#E0DED6;--text-main:#1a1a18;--text-sub:#5a5a55;--text-hint:#9a9990;
+  }
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Noto Sans JP',sans-serif;background:var(--gray-bg);color:var(--text-main);line-height:1.6;padding-bottom:48px}
+
+  /* HEADER */
+  .site-header{background:#fff;border-bottom:2px solid var(--gray-border);padding:20px 24px 0;text-align:center;position:sticky;top:0;z-index:100;box-shadow:0 2px 12px rgba(0,0,0,.06)}
+  .site-header h1{font-family:'Outfit','Noto Sans JP',sans-serif;font-size:clamp(17px,3vw,24px);font-weight:700;color:var(--text-main)}
+  .site-header p{font-size:clamp(10px,1.4vw,12px);color:var(--text-sub);margin-top:3px}
+  .group-tabs{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;padding:10px 16px 12px}
+  .tab-pill{font-size:11px;font-weight:500;padding:3px 10px;border-radius:20px;border:none;cursor:pointer;transition:opacity .15s}
+  .tab-pill:hover{opacity:.75}
+  .tab-coral{background:var(--coral-mid);color:var(--coral-deep)}
+  .tab-blue{background:var(--blue-mid);color:var(--blue-deep)}
+  .tab-teal{background:var(--teal-mid);color:var(--teal-deep)}
+  .tab-amber{background:var(--amber-mid);color:var(--amber-deep)}
+
+  /* LAYOUT */
+  .page-content{max-width:1280px;margin:0 auto;padding:20px 14px 0}
+  .group-section{margin-bottom:28px}
+  .group-header{display:flex;align-items:center;gap:8px;padding:8px 16px;border-radius:7px;margin-bottom:12px}
+  .group-header .g-num{font-family:'Outfit',sans-serif;font-size:18px;font-weight:700;opacity:.85}
+  .group-header .g-title{font-size:clamp(14px,2vw,17px);font-weight:700}
+  .group-header .g-en{font-family:'Outfit',sans-serif;font-size:11px;font-weight:600;letter-spacing:.08em;opacity:.65;margin-left:auto}
+
+  /* CARD GRID */
+  .card-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:12px}
+  @media(min-width:1024px){.card-grid{grid-template-columns:repeat(4,1fr)}}
+  @media(max-width:480px){.card-grid{grid-template-columns:1fr}.group-header .g-en{display:none}}
+
+  /* CARD */
+  .card{background:#fff;border-radius:10px;overflow:hidden;border:1.5px solid var(--gray-border);cursor:pointer;transition:transform .18s,box-shadow .18s;display:flex;flex-direction:column}
+  .card:hover{transform:translateY(-3px);box-shadow:0 8px 24px rgba(0,0,0,.10)}
+  .card:focus{outline:2px solid #0070f3;outline-offset:2px}
+  .card-header{padding:10px 13px 8px;border-bottom:1px solid rgba(0,0,0,.07)}
+  .card-header .c-title{font-size:14px;font-weight:700;line-height:1.3}
+  .card-header .c-sub{font-size:11px;margin-top:2px;opacity:.7}
+  .card-body{padding:10px 13px 12px;flex:1;display:flex;flex-direction:column;gap:8px}
+  .card-row-label{font-size:9.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;margin-bottom:2px;opacity:.72}
+  .keywords{display:flex;flex-wrap:wrap;gap:4px}
+  .kw-tag{font-size:10.5px;padding:2px 7px;border-radius:4px;font-weight:500;line-height:1.5}
+  .industries{display:flex;flex-wrap:wrap;gap:4px}
+  .ind-tag{font-size:10.5px;padding:2px 7px;border-radius:4px;font-weight:400;line-height:1.5;border:1px solid}
+  .case-preview{font-size:11px;line-height:1.5;padding:6px 9px;border-radius:5px;border-left:3px solid;color:var(--text-sub)}
+  .click-hint{font-size:10px;text-align:center;padding:6px 0 2px;opacity:.55;letter-spacing:.04em}
+
+  /* COLOR THEMES */
+  .g1 .group-header{background:var(--coral-light)}.g1 .group-header .g-num,.g1 .group-header .g-title,.g1 .group-header .g-en{color:var(--coral-deep)}
+  .g1 .card{border-color:#F5C4B3}.g1 .card-header{background:var(--coral-mid)}.g1 .card-header .c-title{color:var(--coral-deep)}.g1 .card-header .c-sub{color:#712B13}
+  .g1 .card-row-label{color:var(--coral-dark)}.g1 .kw-tag{background:#FAD5C6;color:var(--coral-dark)}.g1 .ind-tag{border-color:var(--coral-mid);color:var(--coral-dark)}
+  .g1 .case-preview{background:var(--coral-light);border-left-color:var(--coral-mid)}
+  .g2 .group-header{background:var(--blue-light)}.g2 .group-header .g-num,.g2 .group-header .g-title,.g2 .group-header .g-en{color:var(--blue-deep)}
+  .g2 .card{border-color:#B5D4F4}.g2 .card-header{background:var(--blue-mid)}.g2 .card-header .c-title{color:var(--blue-deep)}.g2 .card-header .c-sub{color:#0C447C}
+  .g2 .card-row-label{color:var(--blue-dark)}.g2 .kw-tag{background:#C8DFF7;color:var(--blue-dark)}.g2 .ind-tag{border-color:var(--blue-mid);color:var(--blue-dark)}
+  .g2 .case-preview{background:var(--blue-light);border-left-color:var(--blue-mid)}
+  .g3 .group-header{background:var(--teal-light)}.g3 .group-header .g-num,.g3 .group-header .g-title,.g3 .group-header .g-en{color:var(--teal-deep)}
+  .g3 .card{border-color:#9FE1CB}.g3 .card-header{background:var(--teal-mid)}.g3 .card-header .c-title{color:var(--teal-deep)}.g3 .card-header .c-sub{color:#085041}
+  .g3 .card-row-label{color:var(--teal-dark)}.g3 .kw-tag{background:#B8EDD9;color:var(--teal-dark)}.g3 .ind-tag{border-color:var(--teal-mid);color:var(--teal-dark)}
+  .g3 .case-preview{background:var(--teal-light);border-left-color:var(--teal-mid)}
+  .g4 .group-header{background:var(--amber-light)}.g4 .group-header .g-num,.g4 .group-header .g-title,.g4 .group-header .g-en{color:var(--amber-deep)}
+  .g4 .card{border-color:#FAC775}.g4 .card-header{background:var(--amber-mid)}.g4 .card-header .c-title{color:var(--amber-deep)}.g4 .card-header .c-sub{color:#633806}
+  .g4 .card-row-label{color:var(--amber-dark)}.g4 .kw-tag{background:#FAD99A;color:var(--amber-dark)}.g4 .ind-tag{border-color:var(--amber-mid);color:var(--amber-dark)}
+  .g4 .case-preview{background:var(--amber-light);border-left-color:var(--amber-mid)}
+
+  /* ── MODAL ── */
+  .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:500;display:flex;align-items:center;justify-content:center;padding:20px;opacity:0;pointer-events:none;transition:opacity .2s}
+  .modal-overlay.active{opacity:1;pointer-events:all}
+  .modal{background:#fff;border-radius:14px;width:100%;max-width:640px;max-height:88vh;overflow-y:auto;box-shadow:0 24px 60px rgba(0,0,0,.22);transform:translateY(12px);transition:transform .22s;position:relative}
+  .modal-overlay.active .modal{transform:translateY(0)}
+  .modal-top{padding:16px 18px 12px;border-bottom:1px solid var(--gray-border);position:sticky;top:0;background:#fff;z-index:10;border-radius:14px 14px 0 0}
+  .modal-top .m-tag{font-size:10px;font-weight:700;letter-spacing:.08em;padding:2px 8px;border-radius:12px;display:inline-block;margin-bottom:6px}
+  .modal-top h2{font-size:18px;font-weight:700;line-height:1.3}
+  .modal-top .m-sub{font-size:12px;color:var(--text-sub);margin-top:2px}
+  .modal-close{position:absolute;top:12px;right:14px;font-size:20px;background:none;border:none;cursor:pointer;color:var(--text-hint);line-height:1;padding:2px 4px;border-radius:4px}
+  .modal-close:hover{color:var(--text-main);background:var(--gray-bg)}
+  .modal-body{padding:16px 18px 20px;display:flex;flex-direction:column;gap:16px}
+  .modal-section-label{font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;margin-bottom:6px;opacity:.65}
+  .modal-desc{font-size:14px;line-height:1.8;color:var(--text-main);padding:10px 14px;border-radius:8px;border-left:3px solid}
+  .modal-kw-wrap{display:flex;flex-wrap:wrap;gap:6px}
+  .modal-kw{font-size:12px;font-weight:500;padding:3px 10px;border-radius:5px;line-height:1.5}
+  .modal-ind-wrap{display:flex;flex-wrap:wrap;gap:6px}
+  .modal-ind{font-size:12px;padding:3px 10px;border-radius:5px;line-height:1.5;border:1px solid}
+  .modal-examples ol{padding-left:20px;display:flex;flex-direction:column;gap:8px}
+  .modal-examples li{font-size:13px;line-height:1.75;color:var(--text-main)}
+  .modal-examples li::marker{font-weight:700;font-size:13px}
+
+  /* Modal color theming via data attribute */
+  [data-group="1"] .m-tag{background:var(--coral-mid);color:var(--coral-deep)}
+  [data-group="1"] .modal-desc{background:var(--coral-light);border-color:var(--coral-mid)}
+  [data-group="1"] .modal-kw{background:#FAD5C6;color:var(--coral-dark)}
+  [data-group="1"] .modal-ind{border-color:var(--coral-mid);color:var(--coral-dark)}
+  [data-group="1"] .modal-section-label{color:var(--coral-dark)}
+  [data-group="1"] .modal-examples li::marker{color:var(--coral-dark)}
+  [data-group="2"] .m-tag{background:var(--blue-mid);color:var(--blue-deep)}
+  [data-group="2"] .modal-desc{background:var(--blue-light);border-color:var(--blue-mid)}
+  [data-group="2"] .modal-kw{background:#C8DFF7;color:var(--blue-dark)}
+  [data-group="2"] .modal-ind{border-color:var(--blue-mid);color:var(--blue-dark)}
+  [data-group="2"] .modal-section-label{color:var(--blue-dark)}
+  [data-group="2"] .modal-examples li::marker{color:var(--blue-dark)}
+  [data-group="3"] .m-tag{background:var(--teal-mid);color:var(--teal-deep)}
+  [data-group="3"] .modal-desc{background:var(--teal-light);border-color:var(--teal-mid)}
+  [data-group="3"] .modal-kw{background:#B8EDD9;color:var(--teal-dark)}
+  [data-group="3"] .modal-ind{border-color:var(--teal-mid);color:var(--teal-dark)}
+  [data-group="3"] .modal-section-label{color:var(--teal-dark)}
+  [data-group="3"] .modal-examples li::marker{color:var(--teal-dark)}
+  [data-group="4"] .m-tag{background:var(--amber-mid);color:var(--amber-deep)}
+  [data-group="4"] .modal-desc{background:var(--amber-light);border-color:var(--amber-mid)}
+  [data-group="4"] .modal-kw{background:#FAD99A;color:var(--amber-dark)}
+  [data-group="4"] .modal-ind{border-color:var(--amber-mid);color:var(--amber-dark)}
+  [data-group="4"] .modal-section-label{color:var(--amber-dark)}
+  [data-group="4"] .modal-examples li::marker{color:var(--amber-dark)}
+
+  .site-footer{text-align:center;font-size:11px;color:var(--text-hint);padding:24px 16px 0;border-top:1px solid var(--gray-border);max-width:1280px;margin:28px auto 0}
+  @media print{.site-header{position:static;box-shadow:none}.group-tabs,.modal-overlay,.click-hint{display:none}.card:hover{transform:none;box-shadow:none}body{background:#fff}}
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <h1>2026年 国策俯瞰図</h1>
+  <p>就活生のための業界地図 ─ 4大分類・16テーマ　／　各カードをタップすると詳細・事例が表示されます</p>
+  <div class="group-tabs">
+    <span class="tab-pill tab-coral">① 国を守る・強くする</span>
+    <span class="tab-pill tab-blue">② 暮らしの土台</span>
+    <span class="tab-pill tab-teal">③ 持続可能な社会</span>
+    <span class="tab-pill tab-amber">④ 地域を活性化する</span>
+  </div>
+</header>
+
+<main class="page-content" id="main"></main>
+
+<footer class="site-footer">
+  出典：防衛省・国土交通省・経済産業省・こども家庭庁・金融庁・文部科学省・厚生労働省・総務省 各政策資料（2025〜2026年版）をもとに作成
+</footer>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+  <div class="modal" id="modal-box">
+    <div class="modal-top">
+      <button class="modal-close" id="modal-close" aria-label="閉じる">✕</button>
+      <div class="m-tag" id="modal-tag"></div>
+      <h2 id="modal-title"></h2>
+      <div class="m-sub" id="modal-sub"></div>
+    </div>
+    <div class="modal-body">
+      <div>
+        <div class="modal-section-label">💬 わかりやすい解説</div>
+        <div class="modal-desc" id="modal-desc"></div>
+      </div>
+      <div>
+        <div class="modal-section-label">🔑 重要キーワード</div>
+        <div class="modal-kw-wrap" id="modal-kw"></div>
+      </div>
+      <div>
+        <div class="modal-section-label">🏭 関連業界</div>
+        <div class="modal-ind-wrap" id="modal-ind"></div>
+      </div>
+      <div class="modal-examples">
+        <div class="modal-section-label">📌 取り組み事例</div>
+        <ol id="modal-examples"></ol>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+const DATA = [
+  {
+    id:1, gTitle:"① 国を守る・強くする", gEn:"Security & Power",
+    themes:[
+      {name:"防衛・外交",sub:"抑止力強化と国際協力",
+       keywords:["スタンド・オフ防衛能力","統合防空ミサイル防衛","無人アセット（ドローン・AI）","反撃能力・5か年計画"],
+       desc:"日本が攻撃されないよう「やり返せる力」を高め、ミサイルや無人機などを整備する取り組み。日本への侵攻を抑えるため、自衛隊の能力を根本から強くし、同盟国との協力も深める。",
+       industry:["防衛・宇宙産業","電機・重工業","安保コンサル"],
+       examples:[
+         "三菱重工・川崎重工・IHIによる次期戦闘機（GCAP）の英伊との国際共同開発が正式スタート",
+         "防衛費を2023〜27年度で43兆円（GDP比2%）に増額し、5年間で抜本的に強化する計画を閣議決定",
+         "陸・海・空・宇宙・サイバー・電磁波を組み合わせて戦う「統合作戦司令部」を2024年3月に新設",
+         "海上保安庁・自衛隊の共同訓練強化と、南西諸島への部隊・ミサイル配備を加速",
+         "日米・日英・日豪などの2国間防衛協力を強化し、情報共有・演習を拡大"
+       ]},
+      {name:"経済安全保障・科学技術",sub:"重要物資と先端技術の保護",
+       keywords:["特定重要物資（半導体・蓄電池）","特許非公開制度","基幹インフラ審査","Run Fasterパートナーシップ"],
+       desc:"半導体や電池など、暮らしに欠かせない物資を特定の国から急に止められないよう、国内生産や備蓄を強化する取り組み。最先端技術が海外に盗まれないよう特許を非公開にする制度も整える。",
+       industry:["半導体・IT","総合商社","シンクタンク・コンサル"],
+       examples:[
+         "ラピダス（国産2nm半導体）が北海道千歳市に工場建設中。2027年量産開始に向け国が累計約1.8兆円支援",
+         "TSMC（台湾）が熊本に第1・第2工場を建設。国が計1.2兆円超を補助し、周辺に170社超が集積",
+         "半導体・AI産業基盤強化フレームで2030年度までに10兆円以上の公的支援・50兆円の官民投資を目標に設定",
+         "三菱電機・ソニーなどが国内パワー半導体・CMOSイメージセンサー設備投資を数千億円規模で加速",
+         "特許非公開制度（2023年施行）で安全保障上の重要技術の海外流出を防ぐ仕組みが始動"
+       ]},
+      {name:"海洋立国",sub:"安全な航行と海洋エネルギーの開発",
+       keywords:["シーレーン防衛","洋上風力発電（EEZ活用）","グリーン海運（IMO規制）","海しる（海洋データ統合）"],
+       desc:"四方を海に囲む日本が、安全に海を使い続けるための戦略。貿易ルートを守りながら、海の上に風車を建てて電力を作る洋上風力発電や、CO2を出さない船の開発も積極的に進める。",
+       industry:["海運・造船","電力・エネルギー","海洋調査"],
+       examples:[
+         "北九州響灘に国内最大規模（最大22万kW）の着床式洋上ウインドファームが2025年度中に運転開始予定",
+         "政府が「洋上風力産業ビジョン第2次」を2025年8月に公表。2040年までに浮体式15GW案件形成を目標に設定",
+         "商船三井・日本郵船がアンモニア燃料船を商用開発。IMO規制強化に対応したゼロエミッション船の実用化を推進",
+         "再エネ海域利用法を改正し、排他的経済水域（EEZ）でも洋上風力が建設可能になる法整備が2025年に完了",
+         "政府の海洋データ統合システム「海しる」が整備され、漁業・防災・エネルギー開発に活用が拡大"
+       ]},
+      {name:"教育・人材育成",sub:"デジタル人材と研究力強化",
+       keywords:["GIGAスクール構想","10兆円大学ファンド","博士人材の多様な活躍","理工農系転換支援"],
+       desc:"AIやデジタルを使いこなす人材を育て、日本の科学研究力を世界レベルに取り戻す取り組み。10兆円のファンドを運用して大学を支援し、博士号を持つ人が企業でも活躍しやすくする。",
+       industry:["教育・EdTech","研究機関","IT・コンサル"],
+       examples:[
+         "東京大学が「国際卓越研究大学」第1号に認定され、10兆円大学ファンドから年数百億円規模の支援が始動",
+         "GIGAスクール構想で全国の小中学生に1人1台端末を配布完了。2025年度から端末の計画的更新フェーズへ",
+         "高校教育改革「N-E.X.T.ハイスクール構想」で理数・AI・起業家教育を強化する拠点校を全国に整備開始",
+         "大学の理工農系転換を支援する「地域中核・特色ある研究大学強化促進事業」で文理融合型学部を多数新設",
+         "博士人材の民間活躍推進のため、企業と大学院が連携する「産学共創博士課程」の設置が相次ぐ"
+       ]}
+    ]
+  },
+  {
+    id:2, gTitle:"② 暮らしの土台", gEn:"Foundation & Stability",
+    themes:[
+      {name:"エネルギー安全保障",sub:"再エネ・水素・原子力の活用",
+       keywords:["GX経済移行債20兆円","次世代原子炉","水素・アンモニア混焼","洋上風力2030年目標"],
+       desc:"「電気が止まらない国」「CO2を減らせる国」を同時に目指す取り組み。20兆円の国債を使って再生可能エネルギーや原子力・水素を組み合わせ、海外に頼らない安定したエネルギー供給を実現する。",
+       industry:["電力・ガス","重工業","商社・金融（GX債）"],
+       examples:[
+         "GX経済移行債を2023年に世界初の「トランジション国債」として発行。10年間で20兆円を調達しエネルギー転換を支援",
+         "柏崎刈羽原子力発電所の再稼働が進み、政府は次世代革新炉（小型モジュール炉・SMR等）の開発・建設を支援",
+         "JERA（東電・中電合弁）が碧南火力発電所でアンモニア20%混焼の実証運転に成功。世界初の商業規模の混焼実現",
+         "Enechainなどエネルギーデジタル企業が電力・ガスの需給管理を最適化するプラットフォームを急速に拡大",
+         "水素ステーション整備や燃料電池トラックの普及補助が拡充され、モビリティ分野での水素活用が本格化"
+       ]},
+      {name:"国土強靱化・インフラ更新",sub:"防災と長寿命化対策",
+       keywords:["5か年加速化対策","予防保全・老朽化対策","i-Construction2.0","PFI・コンセッション方式"],
+       desc:"全国の橋・トンネル・水道などのインフラが一斉に古くなる問題に対応する取り組み。壊れてから直すのではなく、壊れる前に点検・修理する「予防保全」に切り替え、ドローンやAIも活用して維持する。",
+       industry:["建設・土木","建設コンサル","インフラ運営"],
+       examples:[
+         "能登半島地震（2024年1月）を受け国土強靱化予算を大幅増額。半島部の道路・港湾整備を集中的に推進",
+         "i-Construction2.0でドローン・3D測量・BIM/CIMの活用が全国の公共工事に標準化。建設現場の生産性が大幅向上",
+         "日本工営・パシフィックコンサルタンツなど建設コンサルが橋梁・トンネルのAI点検システムを全国展開",
+         "空港・高速道路などでコンセッション（運営権売却）方式が拡大。民間が長期運営することで維持費を効率化",
+         "老朽化した水道管の更新を官民連携で加速。PFI方式を活用し小規模自治体の水道維持を広域化・効率化"
+       ]},
+      {name:"金融・資産運用立国",sub:"貯蓄から投資へ・国際金融都市",
+       keywords:["新NISA（無期限・非課税）","J-FLEC（金融教育機構）","資産運用特区（札幌）","インパクト投資・GX債"],
+       desc:"日本人が「貯金するだけ」から「投資でお金を増やす」社会に変える取り組み。新NISAで投資の税優遇を大幅拡大し、学校や職場でお金の教育を進め、海外の優良な金融機関も日本に呼び込む。",
+       industry:["証券・銀行・保険","資産運用","FinTech"],
+       examples:[
+         "新NISA（2024年1月スタート）は口座数が2000万を突破。年間投資枠が360万円・生涯1800万円に大幅拡大",
+         "J-FLEC（金融経済教育推進機構）が2024年に設立。学校派遣講師・無料相談を全国で展開し金融リテラシーを向上",
+         "札幌市が資産運用特区に選定。英語で行政手続きができる環境を整備し、海外運用会社の誘致を加速",
+         "日本版EMP（新興運用業者促進プログラム）で大手年金・共済が新興運用会社に資金を委託する仕組みが始動",
+         "トランジション・ファイナンス推進のため、国が気候関連トランジション計画のガイドラインを策定・公表"
+       ]},
+      {name:"交通・物流ネットワーク",sub:"2024年問題と自動運転",
+       keywords:["物流2024年問題（ドライバー不足）","レベル4自動運転解禁","SAF（持続可能航空燃料）","地方鉄道存廃・上下分離"],
+       desc:"ドライバーの働き方改革で物が届きにくくなる「2024年問題」への対応が急務。自動運転トラックや無人配送、環境に優しい航空燃料（SAF）の普及を進め、持続可能な物流・交通網を作る。",
+       industry:["物流・運輸","航空","自動車・モビリティ"],
+       examples:[
+         "ANA・JALがSAF（持続可能な航空燃料）の国内調達・製造体制を整備。2030年までに使用燃料の10%をSAFにする目標",
+         "自動運転レベル4が2023年4月に解禁され、福井県永平寺町など全国各地で無人移動サービスが商用運行を開始",
+         "ヤマト運輸・佐川急便・日本郵便が共同配送や置き配を拡大。EC物流の効率化で再配達率を大幅削減",
+         "JR西日本・東日本などが赤字ローカル線の再構築（上下分離・BRT転換）について沿線自治体と法定協議会を設置",
+         "西九州新幹線（2022年開業）・北陸新幹線金沢〜敦賀延伸（2024年開業）など幹線整備が続く"
+       ]}
+    ]
+  },
+  {
+    id:3, gTitle:"③ 持続可能な社会", gEn:"Future & Well-being",
+    themes:[
+      {name:"こども・若者・教育",sub:"少子化対策と居場所づくり",
+       keywords:["こども誰でも通園制度","育休手取り10割保障","こどもまんなかアクション","ヤングケアラー支援"],
+       desc:"子どもが減り続ける日本で、子育て家庭を国全体で支える取り組み。親が働いていなくても保育所を使える制度を作り、男性も育休を取りやすくし、虐待や貧困で困っている子どもへの支援も強化する。",
+       industry:["保育・教育","EdTech","人材・HR"],
+       examples:[
+         "「こども誰でも通園制度」が2024年度から全国モデル事業を開始。2026年度に制度化、親の就労要件なしで保育所利用可能に",
+         "育休中の手取り10割補償（出生後休業支援給付）が2025年4月から開始。男性育休取得率の向上を後押し",
+         "こども家庭センターが全市町村に設置義務付け（2024年4月）。妊娠期から子育てまで切れ目ない相談支援を提供",
+         "ヤングケアラー支援のため学校・SNS相談窓口を全国整備。認知度向上のための動画・ポスターも展開",
+         "「こどもホスピス」支援モデル事業が全国10か所超で始動。重い病気の子どもと家族が地域で過ごせる場を整備"
+       ]},
+      {name:"健康・働き方・福祉",sub:"リスキリングと介護テクノロジー",
+       keywords:["リスキリング・教育訓練給付","健康日本21（第三次）","全国医療情報プラットフォーム","介護ロボット・AIケア"],
+       desc:"AI時代に合わせて「学び直し（リスキリング）」を国が費用補助する取り組み。高齢者が増える中でも介護ロボットやAIを使って少ない人数でも質の高いケアを提供できる仕組みを作る。",
+       industry:["医療・介護","HR・人材","ヘルスケアIT"],
+       examples:[
+         "JIHS（国立健康危機管理研究機構）が2024年4月に設立。次のパンデミックに備えた司令塔機能を整備",
+         "マイナ保険証と連携した「全国医療情報プラットフォーム」が2025年から稼働。過去の薬・検査情報を全国の病院で共有",
+         "教育訓練給付金が拡充され、デジタル・AI関連の講座を受講する社会人に最大70%の費用補助が適用可能に",
+         "介護現場向けにAI見守りセンサー・移乗支援ロボット・記録AIの導入補助が拡充。全国の介護施設でDXが加速",
+         "賃金デジタル払い（給与のPayPay等での受取）が2023年4月に解禁され、キャッシュレス社会化を後押し"
+       ]},
+      {name:"食料安全保障・スマート農林水産",sub:"自給率向上とDX農業",
+       keywords:["食料・農業基本法改正","スマート農業（自動農機）","農福連携","フードテック・代替タンパク"],
+       desc:"海外から食料が入ってこなくなっても食べられる国を目指す取り組み。GPS付き自動農機やドローンで少ない農家でも広い農地を管理できるようにし、代替肉などの新技術でタンパク源も多様化する。",
+       industry:["農業・食品","商社（穀物）","AgriTech"],
+       examples:[
+         "食料・農業・農村基本法が50年ぶりに改正（2024年）。食料安全保障を基本理念に明記し、国産農産物の生産強化を推進",
+         "クボタ・ヤンマーが自動運転トラクターを商用展開。農業人口が減っても広大な農地を少人数で管理できる体制が整備",
+         "農林水産省がスマート農業技術の現場実装を支援。ドローン農薬散布が全国で急拡大し、農薬使用量を削減",
+         "農福連携（農業と福祉の連携）が全国に拡大。障害者が農作業に従事する事例が2万件を超え、双方に効果",
+         "代替タンパク・昆虫食・植物性食品の研究開発が加速。伊藤ハム・日清食品などが代替肉商品を本格展開"
+       ]},
+      {name:"環境・ウェルビーイング",sub:"脱炭素とライフスタイル刷新",
+       keywords:["第六次環境基本計画","TCFD・TNFD開示義務","地域循環共生圏","ネイチャーポジティブ"],
+       desc:"地球温暖化を防ぎながら、人々の暮らしの豊かさ（ウェルビーイング）も高める取り組み。企業は気候変動リスクを投資家に開示する義務（TCFD）が広がり、今やサステナビリティは全業種の必須テーマ。",
+       industry:["環境コンサル","商社・金融（ESG）","全業種（サステナ部門）"],
+       examples:[
+         "東証プライム上場企業へのTCFD（気候変動リスク）情報開示が義務化。約1,800社以上が開示済みで世界最多水準",
+         "TNFD（自然関連財務情報開示）の枠組みが2023年に正式公開。日本企業の採択数が世界最多水準で急増",
+         "脱炭素先行地域として全国100か所を環境省が選定（2024年時点）。再エネ100%の町づくりモデルを全国展開",
+         "カーボンクレジット市場（GXリーグ）が2023年度から本格稼働。企業間でCO2排出量の売買が可能に",
+         "第六次環境基本計画（2024年閣議決定）でウェルビーイングを政策目標に正式位置付け。GDPだけに頼らない指標を導入"
+       ]}
+    ]
+  },
+  {
+    id:4, gTitle:"④ 地域を活性化する", gEn:"Regional Vitalization",
+    themes:[
+      {name:"地方創生・デジタル田園都市",sub:"地域DXと生活基盤維持",
+       keywords:["デジタル田園都市国家構想","コンパクトシティ","地域生活圏形成","ローカル線・上下分離"],
+       desc:"東京への人口集中を止め、地方でも便利に暮らせる社会を作る取り組み。デジタル技術でオンライン診療や自動運転バスを地方に普及させ、人が減っても生活に必要なサービスを維持する仕組みを整える。",
+       industry:["自治体・シンクタンク","IT","地域金融"],
+       examples:[
+         "島根県海士町が「島まるごとスマートシティ」を推進。関係人口・移住者を呼び込み、人口減少を食い止めるモデルに",
+         "徳島県神山町でデジタル系企業のサテライトオフィス誘致が加速。神山まるごと高専も開校し教育移住が増加",
+         "自動運転バスが全国の地方で商用運行を開始。過疎地の公共交通を維持するための切り札として実証が急拡大",
+         "JR西日本が芸備線（広島〜岡山）で全国初の「再構築協議会」を設置。国・県・市町村・鉄道が廃線か維持かを協議",
+         "デジタル庁がマイナンバーカードを活用した「ぴったりサービス」を拡充。引越し・子育て手続きがオンラインで完結"
+       ]},
+      {name:"インバウンド誘致と地域の物語",sub:"高付加価値観光と発信",
+       keywords:["観光立国推進計画","高付加価値旅行者誘致","ワーケーション","ナラティブ（地域の物語）"],
+       desc:"訪日外国人に「安くたくさん来てもらう」より「少人数でお金をしっかり使ってもらう」観光への転換。地域独自の歴史・文化・食を「物語（ナラティブ）」として発信し、特別な体験を高値で提供する。",
+       industry:["観光・ホテル","航空","地域メディア・PR"],
+       examples:[
+         "2023年訪日外国人数が3188万人で史上最高を更新。消費額も8兆円を突破し観光立国の実績が明確に",
+         "京都市が宿泊税を大幅増税（2026年実施予定）し「量より質」への転換を明確化。混雑緩和と付加価値向上を両立",
+         "栃木県日光・長野県白馬などで外資高級ホテル（アマン・パークハイアット等）の開業が相次ぎ、富裕層誘致が加速",
+         "観光庁が「地域の物語（ナラティブ）」を活用した滞在型コンテンツ開発を支援。農泊・伝統工芸体験の商品化を補助",
+         "沖縄・北海道を中心にワーケーション受入拠点の整備が進み、長期滞在型観光客の消費単価が向上"
+       ]},
+      {name:"人口減少下の国土利用・管理",sub:"土地の適正化と所有者不明対策",
+       keywords:["所有者不明土地（九州超の面積）","相続土地国庫帰属法","相続登記義務化2024","グリーンインフラ"],
+       desc:"誰の土地かわからない「所有者不明土地」が九州を超える面積になり、空き家や農地放棄が深刻化。2024年から相続登記が義務化され、不動産・IT・法律が交差する新しいビジネス領域が生まれている。",
+       industry:["不動産・法律","IT（登記DX）","行政"],
+       examples:[
+         "相続登記の義務化が2024年4月に施行。相続してから3年以内に法務局へ登記しないと10万円以下の過料の対象に",
+         "相続土地国庫帰属法（2023年4月施行）により、管理が困難な土地を国に引き渡せる制度が始動",
+         "法務省が登記のデジタル化（オンライン申請・AI活用）を推進。司法書士業務のDXが加速し手続きが効率化",
+         "空き家バンク（自治体運営の空き家マッチングサービス）が全国1,500自治体超に拡大。移住希望者との成約数が急増",
+         "農地中間管理機構が耕作放棄地を集約し農業法人に貸し出す事業を拡大。担い手不足の農村を支援"
+       ]},
+      {name:"多文化共生と人材獲得",sub:"外国人との共生と選ばれる地域づくり",
+       keywords:["育成就労制度（技能実習廃止）","特定技能1・2号","高度人材ポイント制","日本語教育の充実"],
+       desc:"日本で働く外国人を守りながら、優秀な人材に「日本で働きたい」と思ってもらうための大改革。長年批判されてきた「技能実習制度」を廃止し、外国人が安心してスキルを身につけられる新制度に切り替える。",
+       industry:["人材・HR","行政書士・法律","地域支援NPO"],
+       examples:[
+         "「育成就労制度」を創設する法律が2024年6月に成立。批判が多かった技能実習制度を廃止し2027年頃に新制度へ移行",
+         "特定技能2号の対象分野が2023年に大幅拡大（11分野→12分野）。家族帯同・永住申請が可能になり定着支援が強化",
+         "浜松市が外国人市民の生活サポートを市役所内で多言語対応。「やさしい日本語」の活用を全国の自治体に展開",
+         "豊田市がブラジル人学校を認定校として支援し、外国人の子どもが安心して学べる教育環境を整備",
+         "日本語教育推進法に基づく「日本語教育機関認定制度」が2024年に施行。質の高い日本語教育が全国に拡大"
+       ]}
+    ]
+  }
+];
+
+// Build cards
+const main = document.getElementById('main');
+DATA.forEach(group => {
+  const sec = document.createElement('section');
+  sec.className = `group-section g${group.id}`;
+  sec.innerHTML = `
+    <div class="group-header">
+      <span class="g-num">${group.gTitle.slice(0,1)}</span>
+      <span class="g-title">${group.gTitle.slice(1)}</span>
+      <span class="g-en">${group.gEn}</span>
+    </div>
+    <div class="card-grid" id="grid${group.id}"></div>`;
+  main.appendChild(sec);
+
+  const grid = sec.querySelector(`#grid${group.id}`);
+  group.themes.forEach(theme => {
+    const card = document.createElement('article');
+    card.className = 'card';
+    card.tabIndex = 0;
+    card.setAttribute('role','button');
+    card.setAttribute('aria-label', theme.name + 'の詳細を見る');
+    card.innerHTML = `
+      <div class="card-header">
+        <div class="c-title">${theme.name}</div>
+        <div class="c-sub">${theme.sub}</div>
+      </div>
+      <div class="card-body">
+        <div>
+          <div class="card-row-label">🔑 キーワード</div>
+          <div class="keywords">${theme.keywords.map(k=>`<span class="kw-tag">${k}</span>`).join('')}</div>
+        </div>
+        <div>
+          <div class="card-row-label">🏭 関連業界</div>
+          <div class="industries">${theme.industry.map(i=>`<span class="ind-tag">${i}</span>`).join('')}</div>
+        </div>
+        <div class="case-preview">${theme.examples[0]}</div>
+        <div class="click-hint">タップして事例・解説を見る ▸</div>
+      </div>`;
+
+    card.addEventListener('click', () => openModal(group.id, theme));
+    card.addEventListener('keydown', e => { if(e.key==='Enter'||e.key===' ') openModal(group.id, theme); });
+    grid.appendChild(card);
+  });
+});
+
+// Modal logic
+const overlay = document.getElementById('modal');
+const modalBox = document.getElementById('modal-box');
+
+function openModal(gid, theme) {
+  modalBox.setAttribute('data-group', gid);
+  document.getElementById('modal-tag').textContent = DATA.find(g=>g.id===gid).gTitle;
+  document.getElementById('modal-title').textContent = theme.name;
+  document.getElementById('modal-sub').textContent = theme.sub;
+  document.getElementById('modal-desc').textContent = theme.desc;
+  document.getElementById('modal-kw').innerHTML = theme.keywords.map(k=>`<span class="modal-kw">${k}</span>`).join('');
+  document.getElementById('modal-ind').innerHTML = theme.industry.map(i=>`<span class="modal-ind">${i}</span>`).join('');
+  document.getElementById('modal-examples').innerHTML = theme.examples.map(e=>`<li>${e}</li>`).join('');
+  overlay.classList.add('active');
+  document.body.style.overflow='hidden';
+  document.getElementById('modal-close').focus();
+}
+
+function closeModal() {
+  overlay.classList.remove('active');
+  document.body.style.overflow='';
+}
+
+document.getElementById('modal-close').addEventListener('click', closeModal);
+overlay.addEventListener('click', e => { if(e.target===overlay) closeModal(); });
+document.addEventListener('keydown', e => { if(e.key==='Escape') closeModal(); });
+</script>
+</body>
+</html>
