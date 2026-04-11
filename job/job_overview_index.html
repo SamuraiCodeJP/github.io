@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>職種俯瞰図</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #F7F6F3;
+    --surface: #FFFFFF;
+    --border: #E2E0DA;
+    --border-strong: #C8C5BC;
+    --text-primary: #1A1916;
+    --text-secondary: #6B6860;
+    --text-hint: #9E9C96;
+    --accent: #2D5BE3;
+    --radius-sm: 6px;
+    --radius-md: 10px;
+    --radius-lg: 14px;
+    --radius-xl: 20px;
+  }
+
+  body {
+    font-family: 'Noto Sans JP', sans-serif;
+    background: var(--bg);
+    color: var(--text-primary);
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── Header ── */
+  .header {
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    padding: 20px 24px 16px;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+  }
+  .header h1 {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 4px;
+  }
+  .header p {
+    font-size: 12px;
+    color: var(--text-secondary);
+  }
+
+  /* ── Filter ── */
+  .filter-wrap {
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    padding: 10px 24px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    position: sticky;
+    top: 73px;
+    z-index: 10;
+  }
+  .chip {
+    font-size: 11px;
+    font-weight: 500;
+    padding: 5px 12px;
+    border-radius: 20px;
+    border: 1px solid var(--border-strong);
+    background: transparent;
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: all .15s;
+    font-family: inherit;
+  }
+  .chip:hover { background: var(--bg); }
+  .chip.active {
+    background: var(--text-primary);
+    color: #fff;
+    border-color: var(--text-primary);
+  }
+
+  /* ── Grid ── */
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 10px;
+    padding: 16px 24px 32px;
+  }
+
+  /* ── Card ── */
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 14px 12px;
+    cursor: pointer;
+    transition: border-color .15s, box-shadow .15s, transform .1s;
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+  }
+  .card:hover {
+    border-color: var(--border-strong);
+    box-shadow: 0 2px 10px rgba(0,0,0,0.07);
+    transform: translateY(-1px);
+  }
+  .card:active { transform: translateY(0); }
+
+  .cat-badge {
+    font-size: 10px;
+    font-weight: 500;
+    padding: 2px 8px;
+    border-radius: 20px;
+    display: inline-block;
+    width: fit-content;
+  }
+  .card-job {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--text-primary);
+    line-height: 1.4;
+  }
+  .card-desc {
+    font-size: 11px;
+    color: var(--text-secondary);
+    line-height: 1.55;
+    flex: 1;
+  }
+  .focus-badge {
+    font-size: 10px;
+    font-weight: 500;
+    padding: 3px 8px;
+    border-radius: 20px;
+    display: inline-block;
+    width: fit-content;
+    margin-top: 2px;
+  }
+
+  /* ── Modal Overlay ── */
+  .overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    align-items: flex-end;
+    justify-content: center;
+    padding: 0;
+  }
+  .overlay.open { display: flex; }
+
+  /* ── Modal ── */
+  .modal {
+    background: var(--surface);
+    border-radius: 20px 20px 0 0;
+    width: 100%;
+    max-width: 600px;
+    max-height: 88vh;
+    overflow-y: auto;
+    padding-bottom: 32px;
+    animation: slideUp .25s ease;
+    position: relative;
+  }
+  @keyframes slideUp {
+    from { transform: translateY(40px); opacity: 0; }
+    to   { transform: translateY(0);    opacity: 1; }
+  }
+
+  .modal-handle {
+    width: 36px;
+    height: 4px;
+    border-radius: 2px;
+    background: var(--border-strong);
+    margin: 12px auto 0;
+  }
+
+  .modal-close {
+    position: absolute;
+    top: 14px;
+    right: 16px;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border: 1px solid var(--border);
+    background: var(--bg);
+    color: var(--text-secondary);
+    font-size: 18px;
+    line-height: 1;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: inherit;
+    transition: background .15s;
+  }
+  .modal-close:hover { background: var(--border); }
+
+  .modal-header {
+    padding: 16px 16px 12px;
+    border-bottom: 1px solid var(--border);
+  }
+  .modal-job {
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin: 6px 0 4px;
+    line-height: 1.3;
+  }
+  .modal-desc {
+    font-size: 13px;
+    color: var(--text-secondary);
+    line-height: 1.6;
+  }
+
+  .modal-focus-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 16px;
+    border-bottom: 1px solid var(--border);
+  }
+  .modal-focus-label {
+    font-size: 11px;
+    color: var(--text-hint);
+  }
+
+  .modal-body {
+    padding: 12px 16px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .detail-block {
+    background: var(--bg);
+    border-radius: var(--radius-md);
+    padding: 12px 14px;
+  }
+  .detail-block.warn {
+    border-left: 3px solid #E06090;
+    border-radius: 0 var(--radius-md) var(--radius-md) 0;
+  }
+  .detail-label {
+    font-size: 10px;
+    font-weight: 700;
+    color: var(--text-hint);
+    letter-spacing: .5px;
+    margin-bottom: 5px;
+    text-transform: none;
+  }
+  .detail-text {
+    font-size: 13px;
+    color: var(--text-primary);
+    line-height: 1.65;
+  }
+
+  .nav-row {
+    display: flex;
+    gap: 8px;
+    padding: 16px 16px 0;
+  }
+  .nav-btn {
+    flex: 1;
+    padding: 11px;
+    border: 1px solid var(--border-strong);
+    border-radius: var(--radius-md);
+    background: var(--surface);
+    color: var(--text-primary);
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    font-family: inherit;
+    transition: background .15s;
+  }
+  .nav-btn:hover { background: var(--bg); }
+
+  /* ── Desktop layout for modal ── */
+  @media (min-width: 600px) {
+    .overlay { align-items: center; padding: 24px; }
+    .modal {
+      border-radius: 20px;
+      max-height: 85vh;
+    }
+    .modal-handle { display: none; }
+  }
+
+  /* ── Desktop grid wider ── */
+  @media (min-width: 900px) {
+    .grid { grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 12px; }
+    .header h1 { font-size: 22px; }
+  }
+
+  /* empty state */
+  .empty {
+    grid-column: 1/-1;
+    text-align: center;
+    padding: 60px 0;
+    color: var(--text-hint);
+    font-size: 14px;
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>職種俯瞰図</h1>
+  <p>カードをタップすると、ビジョン・成果・行動特性・注意点が表示されます</p>
+</div>
+
+<div class="filter-wrap" id="filters"></div>
+<div class="grid" id="grid"></div>
+
+<!-- Modal -->
+<div class="overlay" id="overlay" role="dialog" aria-modal="true" aria-labelledby="m-job">
+  <div class="modal" id="modal">
+    <div class="modal-handle"></div>
+    <button class="modal-close" id="closeBtn" aria-label="閉じる">×</button>
+    <div class="modal-header">
+      <span class="cat-badge" id="m-cat"></span>
+      <div class="modal-job" id="m-job"></div>
+      <div class="modal-desc" id="m-desc"></div>
+    </div>
+    <div class="modal-focus-row">
+      <span class="modal-focus-label">評価重視：</span>
+      <span class="focus-badge" id="m-focus"></span>
+    </div>
+    <div class="modal-body">
+      <div class="detail-block">
+        <div class="detail-label">もてるビジョン・使命感</div>
+        <div class="detail-text" id="m-vision"></div>
+      </div>
+      <div class="detail-block">
+        <div class="detail-label">求められる成果・KPI</div>
+        <div class="detail-text" id="m-kpi"></div>
+      </div>
+      <div class="detail-block">
+        <div class="detail-label">活かしやすい行動特性</div>
+        <div class="detail-text" id="m-trait"></div>
+      </div>
+      <div class="detail-block warn">
+        <div class="detail-label">苦手な人には何が辛いか</div>
+        <div class="detail-text" id="m-hard"></div>
+      </div>
+    </div>
+    <div class="nav-row">
+      <button class="nav-btn" id="prevBtn">← 前の職種</button>
+      <button class="nav-btn" id="nextBtn">次の職種 →</button>
+    </div>
+  </div>
+</div>
+
+<script>
+const CAT_COLORS = {
+  "事務・管理系":    {bg:"#EEF4FB",text:"#1A5276",border:"#AEC6E8"},
+  "営業・販売系":    {bg:"#FEF9E7",text:"#7D6608",border:"#F0D060"},
+  "技術系（IT）":    {bg:"#E8F8F5",text:"#0B6E4F",border:"#7EC8B4"},
+  "技術系（機械等）":{bg:"#FDF2F8",text:"#7B2C6E",border:"#D7A8CE"},
+  "研究・開発系":    {bg:"#F0F3FF",text:"#2E3A8C",border:"#A0ABDC"},
+  "クリエイティブ系":{bg:"#FFF3E0",text:"#854F0B",border:"#EFBB80"},
+  "専門サービス系":  {bg:"#F9FBE7",text:"#3A5A0E",border:"#BACE80"},
+  "医療・福祉系":    {bg:"#FCE4EC",text:"#8C1F3E",border:"#ECA0B8"},
+  "公務員系":        {bg:"#F3E5F5",text:"#5B2882",border:"#C9A0DC"},
+};
+
+const FOCUS_STYLE = {
+  "プロセス重視":{bg:"#D6EAF8",text:"#1A5276"},
+  "結果重視":    {bg:"#FDEBD0",text:"#784212"},
+  "両方":        {bg:"#E8DAEF",text:"#4A235A"},
+};
+
+const DATA = [
+  ["事務・管理系","総務","会社全体が円滑に動くよう環境整備・社内調整を行う","プロセス重視","組織の基盤を支え、社員が働きやすい環境をつくりたい","手続きミスゼロ、問題対応の迅速さ、コスト管理","正確性／段取り力／調整力／継続力","細かいルールや手続きが多く、ミスが許されないプレッシャーが続く"],
+  ["事務・管理系","人事","採用・研修・評価など「人」に関する仕組みを運営する","両方","人が活きる組織をつくり、個人と会社を共に成長させたい","採用目標達成率、研修満足度、離職率低下","対人力／調整力／観察力／責任感","感情的な訴えや複雑な人間関係に巻き込まれることが多い"],
+  ["事務・管理系","経理","仕訳・決算・資金管理など企業の財務を支える","プロセス重視","数字で会社の健全性を守り、経営判断を支えたい","決算締め遵守、申告ミスゼロ、監査対応","正確性／分析力／継続力","一つのミスが大きな影響を生む緊張感が続く"],
+  ["事務・管理系","法務","契約書チェックやリスク管理で企業の法的安全を守る","プロセス重視","法の力で企業と社会を守り、トラブルを未然に防ぎたい","契約リスクの排除、係争件数、コンプライアンス遵守率","論理力／正確性／リスク感度","グレーゾーンの判断で責任が重く、精神的負荷がかかる"],
+  ["事務・管理系","営業事務","営業担当を支える事務処理・顧客対応を行う","プロセス重視","縁の下の力持ちとして営業チームの成果を最大化したい","処理スピード、ミス率、顧客対応満足度","正確性／調整力／観察力","自分の評価が見えにくく、感謝されにくいと感じることがある"],
+  ["営業・販売系","新規開拓営業","新しい顧客を見つけ提案・交渉・契約まで担当する","結果重視","自分の力で市場を切り開き、会社の成長エンジンになりたい","新規契約件数、売上金額、受注率","対人力／状況対応力／提案力／切り替えの速さ","断られ続けることへのストレス耐性が必要で、数字のプレッシャーが強い"],
+  ["営業・販売系","ルート営業","既存顧客を定期訪問し関係を深めながら追加提案を行う","両方","長期的な信頼関係を築き、顧客の成長を共に実現したい","売上維持・拡大率、顧客満足度、解約防止率","誠実さ／観察力／関係構築力／継続力","同じ顧客への訪問が続き、変化が少なく刺激が乏しいと感じることがある"],
+  ["営業・販売系","販売職","店舗で接客・商品提案・売場づくりを行う","結果重視","お客様の「いい買い物ができた」という満足を毎日つくりたい","売上・客単価・接客満足度スコア","対人力／観察力／状況対応力","立ち仕事・シフト勤務が多く、クレーム対応で精神的に消耗することがある"],
+  ["営業・販売系","インサイドセールス","電話やオンラインで顧客にアプローチし商談をつくる","結果重視","デジタルの力で効率的に市場を開拓し、営業の仕組みを進化させたい","アポ獲得数、商談化率、パイプライン件数","対人力／論理力／提案力","顔が見えないコミュニケーションで断られ続けることに慣れが必要"],
+  ["技術系（IT）","システムエンジニア","顧客の課題を聞きシステムの設計・開発を行う","両方","ITの力で人々の課題を解決し、業務や生活をより良くしたい","プロジェクト期日遵守、品質（バグ数）、顧客満足度","論理力／問題解決力／調整力","要件変更に翻弄され、長時間労働になるプロジェクトもある"],
+  ["技術系（IT）","プログラマー","仕様に沿ってソフトウェアを実装する","プロセス重視","完璧に動くシステムをつくる職人として、技術で社会を支えたい","バグ件数、実装速度、コードの品質指標","正確性／集中力／継続力","長時間同じ問題と向き合う粘り強さが必要で、孤独な作業が続くこともある"],
+  ["技術系（IT）","インフラエンジニア","ネットワークやサーバーなどIT基盤を構築・運用する","プロセス重視","見えないところで社会を支えるインフラを守り続けたい","障害件数・復旧時間、稼働率、セキュリティインシデントゼロ","問題解決力／正確性／状況対応力","夜間・休日の緊急対応があり、障害時のプレッシャーが大きい"],
+  ["技術系（IT）","QAテスター","システムの不具合を見つけ品質を保証する","プロセス重視","世に出るサービスの品質を守り、ユーザーを守る最後の砦でありたい","バグ検出率、テスト網羅率、リリース後の障害件数","観察力／正確性／粘り強さ","地味で単調に見られがちで、成果が評価されにくいと感じることがある"],
+  ["技術系（IT）","データアナリスト","データを分析し意思決定に役立つ示唆を出す","両方","データを通じて隠れた真実を発見し、意思決定の質を上げたい","分析の活用率、施策への貢献度、精度指標","分析力／論理力／仮説思考","データが不完全・現場に活かされないフラストレーションがある"],
+  ["技術系（機械等）","機械設計","製品の構造や仕組みを設計する","プロセス重視","世の中で使われるモノを自分の手で設計し、社会に価値を届けたい","設計精度、試作回数削減、製品の不具合率","分析力／正確性／継続力","設計ミスが製品事故に繋がるプレッシャーと、長い開発期間の根気が必要"],
+  ["技術系（機械等）","電気設計","電気回路や制御システムを設計する","プロセス重視","電気の力で機械や社会インフラを安全・確実に動かしたい","回路の信頼性、設計ミスゼロ、省エネ性能","論理力／正確性／安全意識","複雑な仕様変更への対応と、安全基準の厳しさに精神的負荷がかかる"],
+  ["技術系（機械等）","生産技術","工場の生産ラインを改善し効率化する","両方","現場を改善し続けることで、モノづくりの競争力を高めたい","生産性向上率、不良品率低下、コスト削減額","改善志向／分析力／継続力","現場との調整が多く、変化に抵抗する環境での改善推進が難しいことも"],
+  ["技術系（機械等）","品質保証","製品の品質をチェックし改善する","プロセス重視","顧客に届く製品の安全と信頼を守る番人でありたい","不良品流出ゼロ、クレーム件数、品質改善件数","観察力／正確性／粘り強さ","社内外からのクレーム対応で板挟みになることが多い"],
+  ["技術系（機械等）","建築技術職","建物の設計・施工管理を行う","両方","長く使われる建物を世に残し、人々の生活空間を豊かにしたい","工程遵守率、コスト管理、安全事故ゼロ","調整力／状況対応力／責任感","現場での長時間拘束・多業者調整のストレスが大きい"],
+  ["研究・開発系","研究職（メーカー）","素材・食品・化学などの研究開発を行う","プロセス重視","自分の研究が世界を変えるイノベーションに繋がることを目指したい","論文・特許件数、試験成功率、製品化貢献数","探究心／仮説思考／粘り強さ","成果が出るまでに時間がかかり、失敗続きの期間に耐えるメンタルが必要"],
+  ["研究・開発系","商品開発","新しい商品を企画・試作する","両方","人々の生活を豊かにする商品を自ら生み出したい","発売点数、売上目標達成率、消費者評価スコア","発想力／観察力／改善志向","社内調整の多さと、自分のアイデアが通らないことへの消耗"],
+  ["研究・開発系","分析技術者","成分分析や試験を行い品質を評価する","プロセス重視","正確なデータで製品と社会の安全・品質を科学的に支えたい","分析精度、報告速度、試験コスト","正確性／分析力／継続力","単調な繰り返し試験が多く、数値の意味を考える余地が少ないと感じることも"],
+  ["クリエイティブ系","デザイナー（Web/グラフィック）","見た目や使いやすさをデザインする","両方","デザインの力で人々の体験を美しく豊かにしたい","制作本数、クライアント満足度、UX指標","発想力／表現力／観察力","センスや好みの違いで主観的なフィードバックが続き、消耗しやすい"],
+  ["クリエイティブ系","動画クリエイター","動画の企画・撮影・編集を行う","結果重視","映像の力で人の心を動かし、記憶に残るコンテンツをつくりたい","再生数・視聴完了率・エンゲージメント率","表現力／改善志向／観察力","トレンドの変化が速く、常に新しいスキルの習得と発信が求められる"],
+  ["クリエイティブ系","編集者","記事やコンテンツの企画・編集を行う","両方","良質なコンテンツを世に届け、読者の知識や感動を広げたい","発行部数・PV数・読者満足度","観察力／構成力／対人力","締め切りのプレッシャーと著者・読者双方への気遣いで消耗しやすい"],
+  ["クリエイティブ系","コピーライター","広告の言葉をつくる","両方","たった一言で人を動かす言葉の力を信じ、社会に届け続けたい","反応率・CVR・クライアント満足度","発想力／言語化力／観察力","アイデアのボツが続くと自己肯定感が下がりやすい"],
+  ["専門サービス系","コンサルタント","企業の課題を分析し解決策を提案する","結果重視","さまざまな企業の課題を解決することで、産業・社会を変えたい","プロジェクト成果・クライアント継続率・提案採択率","論理力／課題発見力／対人力","長時間労働・高いアウトプット水準・クライアントからのプレッシャーが厳しい"],
+  ["専門サービス系","金融アナリスト","市場や企業を分析し投資判断を行う","結果重視","深い分析で市場の真実を読み解き、最適な資本配分に貢献したい","予測精度・レポート品質・運用パフォーマンスへの貢献","分析力／論理力／仮説思考","数字への責任が重く、外れた時のプレッシャーが大きい"],
+  ["専門サービス系","税理士補助","会計処理や申告書作成を支援する","プロセス重視","数字を通じて中小企業の経営者を支え、事業の安定に貢献したい","申告ミスゼロ・期日遵守・顧客件数","正確性／継続力／分析力","法規制の変化への対応が常に必要で、単調な処理業務が続く"],
+  ["専門サービス系","法務アシスタント","契約書作成や調査を支援する","プロセス重視","法的リスクから組織を守り、公正なビジネスの基盤を支えたい","契約処理件数・ミスゼロ・調査精度","正確性／論理力／調査力","専門知識の習得に時間がかかり、判断を求められる場面での責任が重い"],
+  ["医療・福祉系","医療事務","受付・会計・レセプト業務を行う","プロセス重視","医療の現場を陰で支え、患者さんの安心に貢献したい","レセプト返戻率・処理速度・患者対応満足度","正確性／観察力／対人力","患者の不安・怒りを受け止めることが多く、精神的に疲れやすい"],
+  ["医療・福祉系","介護職","生活支援や身体介助を行う","プロセス重視","一人ひとりの尊厳ある生活を守り、その人らしさを支えたい","利用者のQOL・事故ゼロ・家族満足度","共感力／観察力／継続力","身体的負担が大きく、感情労働で燃え尽きやすい職場環境もある"],
+  ["医療・福祉系","リハビリ助手","リハビリの補助や患者支援を行う","プロセス重視","患者さんの「できた」という瞬間を共に喜び、回復の力になりたい","リハビリ補助件数・患者の回復状況・連携精度","観察力／対人力／継続力","専門職との役割の境界が曖昧で、やりがいや評価が見えにくいことがある"],
+  ["医療・福祉系","保育士補助","子どもの生活支援や保育補助を行う","プロセス重視","子どもの健やかな成長の一助となり、未来の社会を育てたい","子どもの安全確保・保育の質・保護者満足度","観察力／共感力／状況対応力","体力を使う仕事で、予測不能な子どもの行動への対応が常に求められる"],
+  ["公務員系","行政職","住民対応・企画立案・調整業務を行う","プロセス重視","公共の利益のために働き、地域社会を内側から良くしたい","施策の達成率・住民満足度・業務効率化","調整力／責任感／論理力","変化が遅い組織の中で前例主義やルーチン業務に閉塞感を感じることがある"],
+  ["公務員系","技術職（建築・土木）","公共インフラの設計・管理を行う","両方","長期にわたって使われるインフラで地域の安全と暮らしを守りたい","工期・品質・安全事故ゼロ・コスト管理","分析力／正確性／責任感","現場監督の責任が重く、緊急対応での長時間労働もある"],
+  ["公務員系","警察・消防","治安維持・救助・防災対応を行う","結果重視","人の命と安全を守る使命に誇りをもって、社会の安心の礎になりたい","事件解決率・救助件数・事故防止実績","判断力／状況対応力／対人力","危険・不規則勤務・精神的ストレスが大きく、体力・精神力の消耗が激しい"],
+];
+
+const ALL_CATS = ["すべて", ...Object.keys(CAT_COLORS)];
+let filtered = [...DATA];
+let current = 0;
+let activeCat = "すべて";
+
+function normCat(cat) {
+  if (cat.startsWith("技術系（機械")) return "技術系（機械等）";
+  if (cat.startsWith("専門サービス")) return "専門サービス系";
+  if (cat.startsWith("公務員")) return "公務員系";
+  return cat;
+}
+
+function renderFilters() {
+  const el = document.getElementById("filters");
+  el.innerHTML = ALL_CATS.map(c =>
+    `<button class="chip${c === activeCat ? ' active' : ''}" data-cat="${c}">${c}</button>`
+  ).join("");
+  el.querySelectorAll(".chip").forEach(btn => {
+    btn.addEventListener("click", () => {
+      activeCat = btn.dataset.cat;
+      filtered = activeCat === "すべて"
+        ? [...DATA]
+        : DATA.filter(d => normCat(d[0]) === activeCat);
+      renderFilters();
+      renderGrid();
+    });
+  });
+}
+
+function renderGrid() {
+  const grid = document.getElementById("grid");
+  if (filtered.length === 0) {
+    grid.innerHTML = '<div class="empty">該当する職種がありません</div>';
+    return;
+  }
+  grid.innerHTML = filtered.map((d, i) => {
+    const ck = normCat(d[0]);
+    const cc = CAT_COLORS[ck] || {bg:"#eee",text:"#333",border:"#ccc"};
+    const fs = FOCUS_STYLE[d[3]] || {bg:"#eee",text:"#333"};
+    return `<div class="card" data-idx="${i}" role="button" tabindex="0" aria-label="${d[1]}の詳細を見る">
+      <span class="cat-badge" style="background:${cc.bg};color:${cc.text};border:1px solid ${cc.border}">${ck}</span>
+      <div class="card-job">${d[1]}</div>
+      <div class="card-desc">${d[2]}</div>
+      <span class="focus-badge" style="background:${fs.bg};color:${fs.text}">${d[3]}</span>
+    </div>`;
+  }).join("");
+
+  grid.querySelectorAll(".card").forEach(card => {
+    const open = () => openModal(parseInt(card.dataset.idx));
+    card.addEventListener("click", open);
+    card.addEventListener("keydown", e => {
+      if (e.key === "Enter" || e.key === " ") { e.preventDefault(); open(); }
+    });
+  });
+}
+
+function openModal(idx) {
+  current = idx;
+  const d = filtered[idx];
+  const ck = normCat(d[0]);
+  const cc = CAT_COLORS[ck] || {bg:"#eee",text:"#333",border:"#ccc"};
+  const fs = FOCUS_STYLE[d[3]] || {bg:"#eee",text:"#333"};
+
+  document.getElementById("m-cat").textContent = ck;
+  document.getElementById("m-cat").style.cssText = `background:${cc.bg};color:${cc.text};border:1px solid ${cc.border}`;
+  document.getElementById("m-job").textContent = d[1];
+  document.getElementById("m-desc").textContent = d[2];
+  document.getElementById("m-focus").textContent = d[3];
+  document.getElementById("m-focus").style.cssText = `background:${fs.bg};color:${fs.text}`;
+  document.getElementById("m-vision").textContent = d[4];
+  document.getElementById("m-kpi").textContent = d[5];
+  document.getElementById("m-trait").textContent = d[6];
+  document.getElementById("m-hard").textContent = d[7];
+
+  document.getElementById("overlay").classList.add("open");
+  document.getElementById("modal").scrollTop = 0;
+  document.body.style.overflow = "hidden";
+}
+
+function closeModal() {
+  document.getElementById("overlay").classList.remove("open");
+  document.body.style.overflow = "";
+}
+
+document.getElementById("closeBtn").addEventListener("click", closeModal);
+document.getElementById("overlay").addEventListener("click", e => {
+  if (e.target === document.getElementById("overlay")) closeModal();
+});
+document.getElementById("prevBtn").addEventListener("click", () => {
+  openModal((current - 1 + filtered.length) % filtered.length);
+});
+document.getElementById("nextBtn").addEventListener("click", () => {
+  openModal((current + 1) % filtered.length);
+});
+document.addEventListener("keydown", e => {
+  const isOpen = document.getElementById("overlay").classList.contains("open");
+  if (e.key === "Escape" && isOpen) closeModal();
+  if (e.key === "ArrowLeft" && isOpen) openModal((current - 1 + filtered.length) % filtered.length);
+  if (e.key === "ArrowRight" && isOpen) openModal((current + 1) % filtered.length);
+});
+
+renderFilters();
+renderGrid();
+</script>
+</body>
+</html>
