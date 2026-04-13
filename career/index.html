@@ -32,19 +32,40 @@
             <h1 class="text-4xl md:text-6xl font-bold font-serif mb-6 tracking-wider">
                 Samurai Career Suite
             </h1>
-           <p class="text-lg md:text-xl text-slate-300 mb-10 font-light leading-relaxed">
+           <p class="text-base md:text-lg text-slate-300 mb-10 font-light leading-relaxed">
     侍AIキャリアコンサルタントが軍師・相棒となって、<br class="hidden md:block">
     君の秘めた才能や志を言語化します。<br class="hidden md:block">
-    （自己PR、仕事ビジョン、学業PR、適職分析）
-</p>
+   </p>
+<p class="text-amber-400 text-sm font-medium">
+                        <i class="fas fa-shield-check mr-1"></i> ログイン不要・ニックネームのみで今すぐ参陣可能
+                    </p>
 
-<p class="text-lg md:text-xl text-white font-medium mb-12">
+
+ <!-- 4つの機能カード（コンパクト横並び） -->
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-3 w-full max-w-3xl mx-auto pt-2">
+                    <div class="bg-slate-800/60 border border-amber-500/20 rounded-xl p-3 text-center group hover:border-amber-500/50 hover:bg-slate-800 transition-all">
+                        <div class="text-2xl mb-1">⚔️</div>
+                        <p class="text-amber-400 font-bold text-xs font-serif leading-snug">自己PR<br>作成の門</p>
+                    </div>
+                    <div class="bg-slate-800/60 border border-amber-400/20 rounded-xl p-3 text-center group hover:border-amber-400/50 hover:bg-slate-800 transition-all">
+                        <div class="text-2xl mb-1">📜</div>
+                        <p class="text-amber-300 font-bold text-xs font-serif leading-snug">学業PR<br>作成の陣</p>
+                    </div>
+                    <div class="bg-slate-800/60 border border-blue-400/20 rounded-xl p-3 text-center group hover:border-blue-400/50 hover:bg-slate-800 transition-all">
+                        <div class="text-2xl mb-1">🔭</div>
+                        <p class="text-blue-400 font-bold text-xs font-serif leading-snug">仕事ビジョン<br>描画の門</p>
+                    </div>
+                    <div class="bg-slate-800/60 border border-rose-400/20 rounded-xl p-3 text-center group hover:border-rose-400/50 hover:bg-slate-800 transition-all relative">
+                        <div class="text-2xl mb-1">🎯</div>
+                        <p class="text-rose-400 font-bold text-xs font-serif leading-snug">適職<br>マッチングの陣</p>
+                    </div>
+                </div>
+
+
+<p class="text-xs md:text-sm text-white font-medium mb-12">
    AIの回答が途中で止まることがありますが、50秒待って、「続けて」と入力してください。<br>
 　　大半の場合は、復活します。<br>
-復活しない場合は、恐れ入りますが、手動でそこまでの問答をコピーし、少したってからやり直してみてください。<br>
-    4/10 国家プロジェクト（4大国策16項目）研究エリアを追加しました。<br>
-    4/11 職種研究（9分類37職種）エリアを追加しました。<br>
-終了時にコピーする場合は、Ctrl+A → Ctrl+C で全選択・コピーできます。<br>
+終了時は、Ctrl+A → Ctrl+C で全選択・コピーできます。
 </p>
             
             <div class="space-y-12 flex flex-col items-center">
@@ -55,13 +76,18 @@
                     Samurai Career Suite (AI版) で自己PR等を作成する
                 </a>
 
+                <!-- 見本リンク -->
+                <button onclick="document.getElementById('sampleModal').classList.remove('hidden')"
+                    class="text-amber-400 hover:text-amber-300 underline underline-offset-4 text-base font-medium transition-colors flex items-center gap-2 mx-auto">
+                    <i class="fas fa-scroll text-sm"></i>
+                    初めての方のための見本はこちら
+                </button>
+
                 <div class="flex flex-col lg:flex-row gap-8 w-full max-w-6xl mx-auto mt-10">
                     
+                    
+                    
                     <div class="flex-1 flex flex-col md:flex-row lg:flex-col items-center gap-6 p-6 rounded-2xl bg-white/5 border border-white/10 transition-all hover:border-slate-600 group">
-                        <div class="flex-1 w-full max-w-sm">
-                            <img src="kokusaku.jpg" alt="国策俯瞰図プレビュー" 
-                                 class="w-full rounded-xl shadow-2xl border border-white/10 transform group-hover:scale-105 transition-transform">
-                        </div>
                         <div class="flex-1 text-center md:text-right lg:text-center space-y-4">
                             <a href="../kokusaku/policy_index.html" 
                                class="inline-block px-8 py-4 bg-slate-100 hover:bg-white text-slate-900 font-bold text-lg rounded-xl transition-all border-b-4 border-slate-300 active:border-b-0 active:translate-y-1 w-full md:w-auto">
@@ -72,13 +98,18 @@
                                 公務員・民間志望者必見。国策と自分の志を紐付け面接の説得力を高めよう。
                             </p>
                         </div>
-                    </div>
-
-                    <div class="flex-1 flex flex-col md:flex-row-reverse lg:flex-col items-center gap-6 p-6 rounded-2xl bg-white/5 border border-white/10 transition-all hover:border-slate-600 group">
+                        
                         <div class="flex-1 w-full max-w-sm">
-                            <img src="job.jpg" alt="職種俯瞰図プレビュー" 
+                            <img src="kokusaku.jpg" alt="国策俯瞰図プレビュー" 
                                  class="w-full rounded-xl shadow-2xl border border-white/10 transform group-hover:scale-105 transition-transform">
                         </div>
+                        
+                    </div>
+
+                    
+                    
+                    <div class="flex-1 flex flex-col md:flex-row-reverse lg:flex-col items-center gap-6 p-6 rounded-2xl bg-white/5 border border-white/10 transition-all hover:border-slate-600 group">
+                        
                         <div class="flex-1 text-center md:text-left lg:text-center space-y-4">
                             <a href="../job/job_overview_index.html" 
                                class="inline-block px-8 py-4 bg-slate-100 hover:bg-white text-slate-900 font-bold text-lg rounded-xl transition-all border-b-4 border-slate-300 active:border-b-0 active:translate-y-1 w-full md:w-auto">
@@ -89,13 +120,21 @@
                                 9分類37職種。「結果とプロセス」「苦手な人」などがわかるデータベース。
                             </p>
                         </div>
+                        
+                        <div class="flex-1 w-full max-w-sm">
+                            <img src="job.jpg" alt="職種俯瞰図プレビュー" 
+                                 class="w-full rounded-xl shadow-2xl border border-white/10 transform group-hover:scale-105 transition-transform">
+                        </div>
+                        
                     </div>
 
                 </div>  
 
 
 
-                <div class="space-y-4 pt-10">
+               
+
+                <div class="space-y-4 pt-6">
                     <p class="text-amber-400 text-sm font-medium">
                         <i class="fas fa-shield-check mr-1"></i> ログイン不要・ニックネームのみで今すぐ参陣可能
                     </p>
@@ -112,54 +151,6 @@
             </div>
         </div>
     </header>
-
-    <section id="gates" class="py-24 px-6 relative">
-        <div class="max-w-5xl mx-auto">
-            <div class="text-center mb-16">
-                <h2 class="text-3xl font-bold font-serif mb-4 italic text-amber-500">
-                    ～ 四つの門 ～
-                </h2>
-                <p class="text-slate-400">目的の門を選び、その扉を叩け。</p>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                
-                <div class="bg-slate-900/50 rounded-2xl p-8 card-shadow border border-white/5 relative group overflow-hidden">
-                    <div class="absolute top-0 right-0 p-4 opacity-10 text-6xl group-hover:scale-110 transition-transform">⚔️</div>
-                    <h3 class="text-2xl font-bold mb-4 font-serif text-amber-500">自己PR作成の門</h3>
-                    <p class="text-slate-300 leading-relaxed">
-                        君のドラマを凝縮。侍が喜怒哀楽に寄り添い、類推の力で400文字のプロフェッショナルな案を贈ります。
-                    </p>
-                </div>
-
-                <div class="bg-slate-900/50 rounded-2xl p-8 card-shadow border border-rose-400/30 relative group overflow-hidden">
-                    <div class="absolute top-0 right-0 p-4 opacity-10 text-6xl group-hover:scale-110 transition-transform">🎯</div>
-                    <div class="absolute top-4 left-4 bg-rose-600 text-[10px] px-2 py-0.5 rounded font-bold uppercase tracking-tighter">New</div>
-                    <h3 class="text-2xl font-bold mb-4 font-serif text-rose-400">適職マッチングの陣</h3>
-                    <p class="text-slate-300 leading-relaxed">
-                        志、喜び、苦手……三段構えの問答で君の「魂の置き所」を特定。地雷を避け、真に輝ける職種を侍が見定めます。
-                    </p>
-                </div>
-
-                <div class="bg-slate-900/50 rounded-2xl p-8 card-shadow border border-amber-400/30 relative group overflow-hidden">
-                    <div class="absolute top-0 right-0 p-4 opacity-10 text-6xl group-hover:scale-110 transition-transform">📜</div>
-                    <h3 class="text-2xl font-bold mb-4 font-serif text-amber-400">ゼミ・研究室PRの陣</h3>
-                    <p class="text-slate-300 leading-relaxed">
-                        学問への情熱、研究の苦労を「志」へ変換。企業や自治体に響く、学問的背景を尊重した自己表現をサポートします。
-                    </p>
-                </div>
-
-                <div class="bg-slate-900/50 rounded-2xl p-8 card-shadow border border-white/5 relative group overflow-hidden">
-                    <div class="absolute top-0 right-0 p-4 opacity-10 text-6xl group-hover:scale-110 transition-transform">🔭</div>
-                    <h3 class="text-2xl font-bold mb-4 font-serif text-blue-400">仕事ビジョン描画の門</h3>
-                    <p class="text-slate-300 leading-relaxed">
-                        社会課題を読み解き、次世代産業の動向を交えた「視座の高いビジョン」を描きます。君の仕事が世界をどう変えるかを言葉に。
-                    </p>
-                </div>
-
-            </div>
-        </div>
-    </section>
 
     <section class="py-12 px-6 bg-slate-900/30 border-y border-white/5">
         <div class="max-w-3xl mx-auto text-center">
@@ -225,6 +216,209 @@
             Produced by Samurai Code JP / Shigeru
         </p>
     </footer>
+
+
+<!-- ========== 見本モーダル ========== -->
+<div id="sampleModal" class="hidden fixed inset-0 z-50 flex items-start justify-center bg-black/80 backdrop-blur-sm p-4 overflow-y-auto">
+    <div class="relative w-full max-w-4xl my-8 bg-slate-900 border border-amber-500/30 rounded-2xl shadow-2xl">
+
+        <!-- ヘッダー -->
+        <div class="sticky top-0 bg-slate-900 border-b border-white/10 rounded-t-2xl px-6 py-4 flex items-center justify-between z-10">
+            <h2 class="font-serif text-xl font-bold text-amber-400">
+                <i class="fas fa-scroll mr-2"></i>初めての方のための見本問答
+            </h2>
+            <button onclick="closeModal()" class="text-slate-400 hover:text-white transition-colors text-2xl leading-none">&times;</button>
+        </div>
+
+        <!-- カード選択エリア -->
+        <div id="cardList" class="p-6">
+            <p class="text-slate-400 text-sm text-center mb-6">カードをクリックして、AIとの問答例をご覧ください。</p>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                
+                <button onclick="showSample(0)" class="text-left p-5 bg-slate-800 hover:bg-slate-700 border border-amber-500/20 hover:border-amber-500/60 rounded-xl transition-all group">
+                    <div class="text-3xl mb-3">⚔️</div>
+                    <h3 class="font-serif font-bold text-amber-400 text-lg mb-2">自己PR作成の陣</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed">サークル活動を通じた人間関係構築のガクチカ作成の見本問答です。</p>
+                    <span class="mt-3 inline-flex items-center gap-1 text-amber-500 text-xs font-medium group-hover:gap-2 transition-all">
+                        見本を見る <i class="fas fa-chevron-right"></i>
+                    </span>
+                </button>
+
+                <button onclick="showSample(1)" class="text-left p-5 bg-slate-800 hover:bg-slate-700 border border-amber-400/20 hover:border-amber-400/60 rounded-xl transition-all group">
+                    <div class="text-3xl mb-3">📜</div>
+                    <h3 class="font-serif font-bold text-amber-300 text-lg mb-2">学業PR作成の陣</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed">AIを活用した古文書解析をテーマとした学業PRの見本問答です。</p>
+                    <span class="mt-3 inline-flex items-center gap-1 text-amber-400 text-xs font-medium group-hover:gap-2 transition-all">
+                        見本を見る <i class="fas fa-chevron-right"></i>
+                    </span>
+                </button>
+
+                <button onclick="showSample(2)" class="text-left p-5 bg-slate-800 hover:bg-slate-700 border border-blue-400/20 hover:border-blue-400/60 rounded-xl transition-all group">
+                    <div class="text-3xl mb-3">🔭</div>
+                    <h3 class="font-serif font-bold text-blue-400 text-lg mb-2">仕事ビジョン形成の陣</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed">人口減少・地方創生をテーマとした仕事ビジョン形成の見本問答です。</p>
+                    <span class="mt-3 inline-flex items-center gap-1 text-blue-400 text-xs font-medium group-hover:gap-2 transition-all">
+                        見本を見る <i class="fas fa-chevron-right"></i>
+                    </span>
+                </button>
+
+                <button onclick="showSample(3)" class="text-left p-5 bg-slate-800 hover:bg-slate-700 border border-rose-400/20 hover:border-rose-400/60 rounded-xl transition-all group">
+                    <div class="text-3xl mb-3">🎯</div>
+                    <h3 class="font-serif font-bold text-rose-400 text-lg mb-2">適職分析の陣</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed">スポーツサークルの経験をもとにした適職マッチングの見本問答です。</p>
+                    <span class="mt-3 inline-flex items-center gap-1 text-rose-400 text-xs font-medium group-hover:gap-2 transition-all">
+                        見本を見る <i class="fas fa-chevron-right"></i>
+                    </span>
+                </button>
+
+            </div>
+        </div>
+
+        <!-- 問答詳細エリア（初期非表示） -->
+        <div id="sampleDetail" class="hidden p-6 pt-0">
+            <button onclick="backToCards()" class="mb-5 flex items-center gap-2 text-slate-400 hover:text-amber-400 transition-colors text-sm">
+                <i class="fas fa-chevron-left"></i> カード一覧に戻る
+            </button>
+            <div id="sampleContent" class="space-y-3"></div>
+        </div>
+
+    </div>
+</div>
+
+<script>
+// ---- お手本問答データ ----
+const samples = [
+    {
+        title: "自己PR作成の陣（見本）",
+        icon: "⚔️",
+        color: "text-amber-400",
+        messages: [
+            { role: "ai", text: "しげる殿、よくぞ参られた！\n課題「学生時代に頑張ったこと」、しかと承ったでござる。\nさあ、しげる殿が学生時代に心血を注いだ「武勇伝（エピソード）」を、ぜひ拙者に語ってくだされ！\n例えば、力を注いだ活動は？ 力を注ごうと思った「理由」や、どんな「目標」をもったかを教えてくだされ。\n考えがまとまっていないならば、箇条書きや断片的な表現でも構いませぬ。まずは思うがままに投げてくだされ。拙者がそれを拾い上げ、共に最高の「ガクチカ」を練り上げようではござらんか！" },
+            { role: "user", text: "サークル、人間関係を充実させたかった" },
+            { role: "ai", text: "ふむふむ、サークル活動を通じて人間関係を充実させたいという目標でござったか。\nでは、その活動において、最初にぶつかった「高い壁（苦労したこと）」は何でござったかな？悩んだ気持ちや、うまく出来なかったことを思い出すままに、メモ書きレベルでいくつか書いてみて下され。" },
+            { role: "user", text: "他の人のように気安く声をかけられなかった、馴染めていないと感じた" },
+            { role: "ai", text: "左様でござったか。他の者のように気安く声をかけられず、馴染めていないと感じた日々は、心苦しいものでござったな。\nでは、その壁を乗り越えるために、しげる殿はどのような「独自の工夫や努力」をされたのでござろう？" },
+            { role: "user", text: "友人の多い人をお手本にしようと人を観察した、お手本にしたいと思った先輩を見つけてからは、自分から積極的に先輩のお手伝いをした" },
+            { role: "ai", text: "ふむふむ、友人の多い方を手本とし、特に尊敬する先輩を見つけては積極的に手伝いをされたのでござるな。その行動力、見事である。\nでは、その工夫や努力の結果、最終的にどのような「成果」を得られ、その経験を通じて「自身の成長や自信」に繋がったのでござるか？" },
+            { role: "user", text: "次第に多くの先輩から仕事を頼まれるようになった。運営事務の手伝いを頼まれたので、同期に自然に話しかける機会が増えた。役立つことをすれば、自然と人との関りを増やせるという自信がついた" },
+            { role: "ai", text: "【称賛】しげる殿、自らの殻を破り、見事な人間関係を築き上げられたその歩み、誠に天晴れでございます！\n\n【完成版：ガクチカ 〜貢献を以て道を拓く〜】\n私は学生時代、サークル活動を通して人間関係の充実を目指しました。当初、私は周囲に気兼ねなく声をかけることができず、なかなか輪に馴染めないという課題に直面しました。\nこの状況を打破するため、私は友人の多いメンバーを注意深く観察し、特に手本としたい先輩を見つけました。その先輩に対し、積極的に「何かお手伝いできることはありますか？」と声をかけ、自主的にサポートすることを心がけました。\nその結果、次第に多くの先輩方から様々な仕事や相談を任されるようになりました。中でも運営事務の手伝いを任されたことで、同期とも自然な形で会話する機会が増え、交流を深めることができました。この経験を通じて、他者に貢献する行動が、自ずと人との繋がりを生み出すことを実感し、人との関わりを自らの力で増やせるという大きな自信を得ることができました。" }
+        ]
+    },
+    {
+        title: "学業PR作成の陣（見本）",
+        icon: "📜",
+        color: "text-amber-300",
+        messages: [
+            { role: "ai", text: "しげる殿、よくぞ参られた！ここは学業という戦場での功績を、一生モノの「型（武具）」へと変える場にござる。\nまずは、貴殿が所属している（もしくは目指している）ゼミ・研究室の「テーマ」「目的」や、「キーワード」などを教えてくだされ！箇条書きでよいぞ。" },
+            { role: "user", text: "歴史をAIで解析、朽ちてゆく古文書をAIの力を借りて解読をスピードアップし、日本の歴史を守る" },
+            { role: "ai", text: "うむ、貴殿の研究テーマ、しかと承知した。貴殿の研究は、まさに時を超えた「護りの兵法」にござるな。AIという現代の識字の兵器を用い、難解な古文書を瞬く間に読み解き、眠れる知恵を蘇らせようとしている。過去の英知を未来の城造りに活かす、壮大な探求と言えよう。" },
+            { role: "user", text: "（次へボタンを押す）" },
+            { role: "ai", text: "そのテーマを選んだ理由や、興味を持ったきっかけ（学部・学科を選んだ背景）を教えてくだされ。" },
+            { role: "user", text: "解読されぬまま扱いに困って朽ちてゆく古文書がたくさんあることをニュースで知った。これは日本の財産である歴史が、時とともに失われてゆくことであり、このまま放置すれば日本の価値が減少するという危機感をもった。" },
+            { role: "ai", text: "うむ、貴殿の志の原点、しかと胸に刻んだ。日本の財産が失われる危機感から、この道を選んだと。まことに先見の明に溢れた視点にござる。\n現代日本は「デジタル田園都市国家構想」を推進しており、貴殿の研究はまさにこの国策の一端を担い、地域の歴史と文化を未来へ繋ぐ重要な役割を果たすものでございます。" },
+            { role: "user", text: "（次へボタンを押す）" },
+            { role: "ai", text: "貴殿が研究を進める中で直面した「壁」は？\n1. 周囲との熱量の差　2. 目標の高さ　3. 知識不足　4. その他" },
+            { role: "user", text: "２、最初はまったく理解できず、一語一語、調べる必要があった。その進行の遅さに、自分にはハードルが高い学問であると感じ、モチベーションが下がった。" },
+            { role: "ai", text: "では、その壁に対し、貴殿はどう取り組まれましたかな？\n1. 率先する　2. 他分野にヒントを求める　3. 研鑽量を増やす　4. その他" },
+            { role: "user", text: "2、AIの活用というヒントを友人から得て、独自にAIについて調べた。テクノロジーの進歩のスピードに期待をもつようになり、自分は少しでも後輩に解析結果を残せればよいと感じるようになり、気持ちが軽くなった。" },
+            { role: "ai", text: "友からの助言に耳を傾け、AIという新たな「策」を見出したと。まことに見事な「越境の型」にございます！\n\n【学業PR文】\n私は、歴史的価値のある古文書をAIで解析し、その知恵を未来へと繋ぐ研究に注力しております。研究の初期段階では専門知識の不足から、進行の遅さにモチベーションが低下する壁に直面しました。この壁を突破したのは、友人からの「AI活用」というヒントでした。異なる分野の知見を取り入れる「越境の型」を活かし、AI技術について独自に深く調査しました。その結果、テクノロジーの進歩に大きな期待を抱くようになり、再び前向きな気持ちで研究に取り組めるようになりました。この「越境の型」を活かし、将来は古文書だけでなく、祭りや風習といった無形の文化財にも対象を広げ、次世代への継承に貢献したいと考えております。" }
+        ]
+    },
+    {
+        title: "仕事ビジョン形成の陣（見本）",
+        icon: "🔭",
+        color: "text-blue-400",
+        messages: [
+            { role: "ai", text: "しげる殿、よくぞ参られた！拙者と共に、10年後も色褪せぬ「仕事ビジョン」を鍛え上げようではないか。まずは、気になっている業界名や「都市鉱山」「食糧問題」などのキーワードを教えてくだされ。" },
+            { role: "user", text: "人口減少　地方創生　移民との共生" },
+            { role: "ai", text: "うむ、人口減少、地方創生、そして移民との共生という着眼、誠に見事でございます！これからの日本にとって、まさに避けては通れぬ大課題に目を向けられた。\n\nしげる殿の志を具体的な「進むべき道」へと導くため、三つの方向性をお示ししよう。\n\n①「デジタル技術を活用した地域社会の再構築」\n②「多文化共生社会の実現に向けた新たなコミュニティ形成」\n③「地域資源を活かした持続可能な経済圏の創出」" },
+            { role: "user", text: "３，住民の誇りを育むって、とても大事だと思う。こういう人が多いとコミュニティが機能し、その地域をよくしようとするパワーが生まれ、他地域の人が魅力を感じてくれると思う。だから、地元が持つ豊かな自然、歴史、文化、そして伝統産業といった資源を最大限に活用、大事にしたい。" },
+            { role: "ai", text: "しげる殿、「住民の誇りを育む」という着眼、誠に素晴らしい！その誇りが地域の機能を高め、他者を惹きつける力となる、という見立て、まさに本質を突いておりますな。\n\n【今と未来】現代において、多くの地方が人口減少と高齢化の波に直面しております。しかし、地域固有の豊かな自然、文化、伝統産業といった「地域資源」が見直され始めておる。AIやIoTといった先端技術と組み合わせることで、伝統的な産業に革新をもたらし、若者が地元に戻り、誇りを持って暮らせる未来を築くことが期待されます。" },
+            { role: "user", text: "（次へボタンを押す）" },
+            { role: "ai", text: "【具体的な成功事例】\n九州地方のある自治体では、耕作放棄地となっていた棚田を再生し、地元産のブランド米を栽培。さらに、その米を活用した日本酒を開発し、国内外の富裕層向けに販売することで、新たな高付加価値ビジネスを創出しました。\n\nこれらの情報に触れて、しげる殿が特に注目した点はどこか、「仕事で、こんなことができたらいいな」と思ったことは何か、聞かせてくだされ。" },
+            { role: "user", text: "放棄地やシャッター商店街の再生が可能なうちに、知恵を出して活用したい。先の事例をモデルとしたい。" },
+            { role: "ai", text: "【私の仕事ビジョン】\n私は、地域に眠る耕作放棄地やシャッター商店街といった未利用資源を、高付加価値を生み出す新たなビジネスへと再生させることで、住民の誇りを育み、持続可能な地域経済圏を創出します。これにより、地域コミュニティの活性化と外部からの新たな魅力創出に貢献いたします。\n\n【侍の伝授：国策との合致】\n貴殿の志は「地方創生とデジタル田園都市国家構想」という国策に合致しております。国からの予算や支援という強い追い風が吹いておるぞ！ゆめゆめ疑うことなかれ！" }
+        ]
+    },
+    {
+        title: "適職分析の陣（見本）",
+        icon: "🎯",
+        color: "text-rose-400",
+        messages: [
+            { role: "ai", text: "しげる殿、よくぞ参られた。これより貴殿が真に輝く「陣（職種）」を見出すための軍議を始める。\n\nまずは第一の問いでございます。貴殿は、「結果」と「プロセス」、どちらが重視される職を希望されるかな？率直な心でどちらかを選び、選択した理由や心にあるイメージを語ってくだされ。" },
+            { role: "user", text: "結果。スポーツサークルでずっと試合を経験してきたので、どちらも大事だとは分かっています。練習の過程も大切ですが、やはり最後は『結果』が出てこそ報われると感じます。なので、仕事でも結果がしっかりと評価に直結する環境を希望します。" },
+            { role: "ai", text: "左様でございます！スポーツのご経験から、結果が報われる瞬間を知っておられるのですね。そのお気持ち、よく理解いたしました。\n\n第二段階に進みます。これまでの人生において、どのような時に「喜び」を感じ、自らの成長や充実を覚えたか教えてくだされ。\n\n1. 自己成長：新たな知識やスキルを習得した時\n2. 他者貢献：誰かの役に立てた時\n3. 創造完遂：アイデアを形にした時\n4. 共創達成：仲間と共に目標を達成した時\n5. 自由記入" },
+            { role: "user", text: "自己成長。練習を重ねて、それが結果に結びついたとき。サーブの確率が悪く自滅することが多かった。その点を自覚していたので、練習時から何割の確率で入っているか、フォームのぶれを無くすトレーニングを重ね、8割以上サーブが入るようになり、勝つことも増えた。" },
+            { role: "ai", text: "なるほど！自己の課題を認識し、地道な努力を重ね、それが具体的な結果に繋がった時の喜び。まさに自己成長の真髄でございます。\n\n「正確性」「継続力」「問題解決力」といった強みが感じ取れます。\n\n第三段階。周囲の方々から「しげる殿はこのような人物だ」と評価されたことはありますか？" },
+            { role: "user", text: "コツコツ型、まじめ、ていねいなどと言われたり、評価されたことがある" },
+            { role: "ai", text: "第四段階に進みましょう。これまで生きてきた中で、「これは苦手だ」「この状況は避けたい」と感じたことはありますか？\n\n1. 停滞：変化がなく成長が見えない環境\n2. 孤立：一人で全てを抱え込む状況\n3. 混迷：指示が曖昧で何から手をつけて良いか分からない状況\n4. 硬直：ルールに縛られ新しい挑戦ができない環境" },
+            { role: "user", text: "混迷。高校の時、何かがきっかけで歯車がくるって、何をやってもダメな時があった。成績も伸びず、部活ではレギュラーから落ちた。そのときは、しんどかった。" },
+            { role: "ai", text: "これまでの軍議で得た情報を統合し、しげる殿に最も相応しい「陣」を三つの型に分けて提案いたします。\n\n【剛（本命）】プログラマー\n設計書をもとに完璧に動くシステムを実現するコードを書き、技術で社会を支える職人。貴殿の「結果重視」と「正確性・継続力」が、高品質なシステム開発に直結します。\n\n【柔（対抗）】経理\n企業の財務を正確に記録・報告し、数字の力で会社の健全性を守る職種。「コツコツ型」「まじめ」「ていねい」という他者評価が、数字の正確性を追求するこの職種に合致します。\n\n【変（潜在）】データアナリスト\nデータを収集・分析し、事業判断の質を上げる役割。自己成長の喜びで示された問題解決への意欲と、数字への責任感が大いに活かされます。" }
+        ]
+    }
+];
+
+let currentSample = null;
+
+function showSample(index) {
+    currentSample = index;
+    const sample = samples[index];
+    document.getElementById('cardList').classList.add('hidden');
+    document.getElementById('sampleDetail').classList.remove('hidden');
+
+    const content = document.getElementById('sampleContent');
+    content.innerHTML = `
+        <div class="flex items-center gap-3 mb-6 pb-4 border-b border-white/10">
+            <span class="text-3xl">${sample.icon}</span>
+            <h3 class="font-serif font-bold ${sample.color} text-xl">${sample.title}</h3>
+        </div>
+        ${sample.messages.map(msg => {
+            if (msg.role === 'ai') {
+                return `
+                <div class="flex gap-3 items-start">
+                    <div class="flex-shrink-0 w-8 h-8 rounded-full bg-amber-600 flex items-center justify-center text-white text-xs font-bold">侍</div>
+                    <div class="flex-1 bg-slate-800 border border-amber-500/20 rounded-2xl rounded-tl-sm px-4 py-3 text-slate-200 text-sm leading-relaxed whitespace-pre-line">${escapeHtml(msg.text)}</div>
+                </div>`;
+            } else {
+                return `
+                <div class="flex gap-3 items-start justify-end">
+                    <div class="flex-1 bg-slate-700 border border-slate-600 rounded-2xl rounded-tr-sm px-4 py-3 text-slate-100 text-sm leading-relaxed whitespace-pre-line max-w-sm ml-auto">${escapeHtml(msg.text)}</div>
+                    <div class="flex-shrink-0 w-8 h-8 rounded-full bg-slate-600 flex items-center justify-center text-white text-xs font-bold">私</div>
+                </div>`;
+            }
+        }).join('')}
+        <div class="mt-6 pt-4 border-t border-white/10 text-center">
+            <a href="https://samurai-career-suite.vercel.app" target="_blank"
+               class="inline-flex items-center gap-2 px-6 py-3 bg-amber-600 hover:bg-amber-500 text-white font-bold rounded-full transition-all text-sm">
+                <i class="fas fa-sword"></i> AI版で実際に試してみる
+            </a>
+        </div>
+    `;
+}
+
+function backToCards() {
+    document.getElementById('cardList').classList.remove('hidden');
+    document.getElementById('sampleDetail').classList.add('hidden');
+    document.getElementById('sampleContent').innerHTML = '';
+}
+
+function closeModal() {
+    document.getElementById('sampleModal').classList.add('hidden');
+    backToCards();
+}
+
+function escapeHtml(text) {
+    return text
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;');
+}
+
+// モーダル背景クリックで閉じる
+document.getElementById('sampleModal').addEventListener('click', function(e) {
+    if (e.target === this) closeModal();
+});
+</script>
 
 </body>
 </html>
