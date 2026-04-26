@@ -54,6 +54,28 @@ header::after {
 .hdr-en { font-family:'Cinzel',serif; font-size:11px; letter-spacing:.35em; color:var(--gold); margin-bottom:4px; position:relative; }
 .hdr-ja { font-family:'Noto Serif JP',serif; font-size:24px; font-weight:700; letter-spacing:.1em; position:relative; }
 .hdr-sub { font-size:11px; color:rgba(245,240,232,.45); letter-spacing:.12em; margin-top:4px; position:relative; }
+.hdr-save-row { display:flex; align-items:center; gap:14px; margin-top:10px; position:relative; flex-wrap:wrap; }
+.save-badge {
+  display:inline-flex; align-items:center; gap:5px;
+  padding:4px 12px; border-radius:20px;
+  font-size:10px; letter-spacing:.08em;
+  border:1px solid rgba(200,146,42,.35);
+  color:rgba(200,146,42,.7); background:rgba(200,146,42,.08);
+  transition:all .4s;
+}
+.save-badge.saved { border-color:rgba(200,146,42,.7); color:var(--gold); background:rgba(200,146,42,.15); }
+.save-badge .dot { width:6px; height:6px; border-radius:50%; background:rgba(200,146,42,.4); transition:background .4s; }
+.save-badge.saved .dot { background:var(--gold); }
+.save-time { font-size:10px; color:rgba(245,240,232,.3); letter-spacing:.06em; }
+.clear-btn {
+  display:inline-flex; align-items:center; gap:4px;
+  padding:3px 10px; border-radius:2px;
+  border:1px solid rgba(139,26,26,.35); background:transparent;
+  color:rgba(192,57,43,.6); font-size:10px; cursor:pointer;
+  font-family:'Noto Sans JP',sans-serif; letter-spacing:.06em;
+  transition:all .2s;
+}
+.clear-btn:hover { border-color:var(--crimson); color:var(--crimson); background:rgba(139,26,26,.08); }
 
 /* ── PROGRESS ── */
 .progress-bar {
@@ -303,6 +325,11 @@ input[type="range"]::-webkit-slider-thumb {
   <div class="hdr-en">Samurai Career Suite</div>
   <div class="hdr-ja">志望動機 作成の陣</div>
   <div class="hdr-sub">PC専用 ── あなたのAIだけを使う、志望動機生成フロー</div>
+  <div class="hdr-save-row">
+    <div class="save-badge" id="save-badge"><span class="dot"></span><span id="save-badge-text">未保存</span></div>
+    <span class="save-time" id="save-time"></span>
+    <button class="clear-btn" onclick="clearStorage()" id="clear-btn" style="display:none">🗑 保存内容を消去</button>
+  </div>
 </header>
 
 <nav class="progress-bar">
@@ -833,9 +860,108 @@ function showToast(msg) {
 }
 
 // ══════════════════════════════════════
+// LOCAL STORAGE  ── 自動保存・自動復元
+// ══════════════════════════════════════
+const STORAGE_KEY = 'samurai_career_v1';
+
+function saveToStorage() {
+  try {
+    const data = {};
+    FIELDS.forEach(id => { data[id] = document.getElementById(id).value; });
+    data._vals = vals.slice();
+    data._savedAt = new Date().toISOString();
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+    updateSaveBadge(true, data._savedAt);
+  } catch(e) { /* quota exceeded etc — silently ignore */ }
+}
+
+function loadFromStorage() {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (!raw) return false;
+    const data = JSON.parse(raw);
+    // restore fields
+    FIELDS.forEach(id => {
+      if (data[id] !== undefined) {
+        document.getElementById(id).value = data[id];
+      }
+    });
+    // restore ratio
+    if (Array.isArray(data._vals) && data._vals.length === 3) {
+      vals[0] = data._vals[0];
+      vals[1] = data._vals[1];
+      vals[2] = data._vals[2];
+    }
+    updateSaveBadge(true, data._savedAt);
+    return true;
+  } catch(e) { return false; }
+}
+
+function clearStorage() {
+  if (!confirm('保存内容をすべて消去しますか？\n入力フォームもリセットされます。')) return;
+  try { localStorage.removeItem(STORAGE_KEY); } catch(e) {}
+  FIELDS.forEach(id => { document.getElementById(id).value = ''; });
+  vals = [35, 50, 15];
+  renderRatio();
+  updateSaveBadge(false, null);
+  showToast('🗑 保存内容を消去しました');
+}
+
+function updateSaveBadge(saved, isoString) {
+  const badge = document.getElementById('save-badge');
+  const text  = document.getElementById('save-badge-text');
+  const time  = document.getElementById('save-time');
+  const btn   = document.getElementById('clear-btn');
+  if (saved) {
+    badge.classList.add('saved');
+    text.textContent = '💾 保存済';
+    btn.style.display = 'inline-flex';
+    if (isoString) {
+      const d = new Date(isoString);
+      const fmt = `${d.getFullYear()}/${String(d.getMonth()+1).padStart(2,'0')}/${String(d.getDate()).padStart(2,'0')} ${String(d.getHours()).padStart(2,'0')}:${String(d.getMinutes()).padStart(2,'0')}`;
+      time.textContent = '最終保存：' + fmt;
+    }
+  } else {
+    badge.classList.remove('saved');
+    text.textContent = '未保存';
+    btn.style.display = 'none';
+    time.textContent = '';
+  }
+}
+
+// debounced auto-save on any input change
+let saveTimer;
+function scheduleAutoSave() {
+  clearTimeout(saveTimer);
+  saveTimer = setTimeout(() => {
+    saveToStorage();
+    showToast('💾 入力内容を自動保存しました');
+  }, 1200);
+}
+
+function attachAutoSave() {
+  FIELDS.forEach(id => {
+    const el = document.getElementById(id);
+    el.addEventListener('input', scheduleAutoSave);
+  });
+  // also save when ratio changes
+  [0,1,2].forEach(i => {
+    document.getElementById('rs'+i).addEventListener('input', () => {
+      clearTimeout(saveTimer);
+      saveTimer = setTimeout(saveToStorage, 800);
+    });
+  });
+}
+
+// ══════════════════════════════════════
 // INIT
 // ══════════════════════════════════════
+const restored = loadFromStorage();
 renderRatio();
+attachAutoSave();
+if (restored) {
+  showToast('📂 前回の入力内容を復元しました');
+}
 </script>
 </body>
 </html>
