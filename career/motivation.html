@@ -1,0 +1,840 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>サムライ・キャリア・スイート ── 志望動機作成の陣</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;700;900&family=Noto+Sans+JP:wght@300;400;500&family=Cinzel:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --ink: #1a1209;
+  --paper: #f5f0e8;
+  --paper-dark: #ede7d5;
+  --gold: #c8922a;
+  --gold-light: #e8b84b;
+  --crimson: #8b1a1a;
+  --crimson-light: #c0392b;
+  --brush: #2c1810;
+  --shadow: rgba(26,18,9,0.15);
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: 'Noto Sans JP', sans-serif;
+  font-weight: 300;
+  min-height: 100vh;
+  overflow-x: hidden;
+  background-image:
+    radial-gradient(ellipse at 15% 60%, rgba(200,146,42,0.06) 0%, transparent 55%),
+    radial-gradient(ellipse at 85% 15%, rgba(139,26,26,0.05) 0%, transparent 50%),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.025'/%3E%3C/svg%3E");
+}
+
+/* ── HEADER ── */
+header {
+  background: var(--brush);
+  color: var(--paper);
+  padding: 24px 40px 18px;
+  position: relative;
+  overflow: hidden;
+  border-bottom: 3px solid var(--gold);
+}
+header::before {
+  content:'';
+  position:absolute; inset:0;
+  background: repeating-linear-gradient(90deg, transparent, transparent 60px, rgba(200,146,42,0.04) 60px, rgba(200,146,42,0.04) 61px);
+}
+header::after {
+  content:'武';
+  position:absolute; right:40px; top:50%; transform:translateY(-50%);
+  font-family:'Noto Serif JP',serif; font-size:110px; font-weight:900;
+  color:rgba(200,146,42,0.07); pointer-events:none; line-height:1;
+}
+.hdr-en { font-family:'Cinzel',serif; font-size:11px; letter-spacing:.35em; color:var(--gold); margin-bottom:4px; position:relative; }
+.hdr-ja { font-family:'Noto Serif JP',serif; font-size:24px; font-weight:700; letter-spacing:.1em; position:relative; }
+.hdr-sub { font-size:11px; color:rgba(245,240,232,.45); letter-spacing:.12em; margin-top:4px; position:relative; }
+
+/* ── PROGRESS ── */
+.progress-bar {
+  background:var(--ink); display:flex;
+  position:sticky; top:0; z-index:100;
+  border-bottom:1px solid rgba(200,146,42,.3);
+  padding:0 32px;
+}
+.prog-step { flex:1; padding:12px 14px; display:flex; align-items:center; gap:9px; border-bottom:3px solid transparent; transition:all .3s; }
+.prog-step.active { border-bottom-color:var(--gold); }
+.prog-step.done   { border-bottom-color:var(--crimson); }
+.prog-num {
+  width:26px; height:26px; border-radius:50%; border:2px solid rgba(245,240,232,.18);
+  display:flex; align-items:center; justify-content:center;
+  font-family:'Noto Serif JP',serif; font-size:12px; color:rgba(245,240,232,.35); flex-shrink:0; transition:all .3s;
+}
+.prog-step.active .prog-num { border-color:var(--gold); color:var(--gold); background:rgba(200,146,42,.1); }
+.prog-step.done   .prog-num { border-color:var(--crimson); background:var(--crimson); color:var(--paper); }
+.prog-lbl { font-size:10.5px; color:rgba(245,240,232,.32); letter-spacing:.07em; line-height:1.4; transition:color .3s; }
+.prog-step.active .prog-lbl { color:var(--gold-light); }
+.prog-step.done   .prog-lbl { color:rgba(245,240,232,.55); }
+.prog-kanji { font-family:'Noto Serif JP',serif; font-size:14px; font-weight:700; }
+
+/* ── MAIN ── */
+main { max-width:880px; margin:0 auto; padding:36px 28px 80px; }
+.step-page { display:none; }
+.step-page.active { display:block; animation:fadeUp .45s ease; }
+.sub-step { display:none; }
+.sub-step.active { display:block; animation:fadeUp .4s ease; }
+@keyframes fadeUp { from{opacity:0;transform:translateY(14px)} to{opacity:1;transform:translateY(0)} }
+
+/* ── STEP HEADING ── */
+.step-heading { display:flex; align-items:baseline; gap:14px; margin-bottom:26px; padding-bottom:14px; border-bottom:1px solid rgba(200,146,42,.2); }
+.step-kanji-bg { font-family:'Noto Serif JP',serif; font-size:52px; font-weight:900; color:rgba(200,146,42,.13); line-height:1; flex-shrink:0; }
+.step-title-en { font-family:'Cinzel',serif; font-size:10px; letter-spacing:.3em; color:var(--gold); margin-bottom:3px; }
+.step-title-ja { font-family:'Noto Serif JP',serif; font-size:19px; font-weight:700; color:var(--brush); line-height:1.3; }
+
+/* ── EDICT ── */
+.edict {
+  background:var(--brush); color:var(--paper);
+  border-left:4px solid var(--gold);
+  padding:18px 22px; margin-bottom:28px;
+  position:relative; border-radius:2px;
+}
+.edict::before {
+  content:'軍令'; position:absolute; top:-10px; left:18px;
+  background:var(--gold); color:var(--brush);
+  font-family:'Noto Serif JP',serif; font-size:10px; font-weight:700;
+  padding:2px 10px; letter-spacing:.2em; border-radius:1px;
+}
+.edict p { font-size:13px; line-height:2; color:rgba(245,240,232,.88); }
+.edict strong { color:var(--gold-light); }
+
+/* ── FIELDS ── */
+.field-group { margin-bottom:22px; }
+.field-label { display:block; font-family:'Noto Serif JP',serif; font-size:13px; font-weight:700; color:var(--crimson); margin-bottom:7px; letter-spacing:.05em; }
+textarea, input[type="text"], input[type="url"] {
+  width:100%; background:white;
+  border:1.5px solid rgba(26,18,9,.15); border-radius:3px;
+  padding:11px 13px;
+  font-family:'Noto Sans JP',sans-serif; font-size:13px; color:var(--ink);
+  line-height:1.8; transition:border-color .2s, box-shadow .2s; resize:vertical;
+}
+textarea:focus, input:focus {
+  outline:none; border-color:var(--gold); box-shadow:0 0 0 3px rgba(200,146,42,.1);
+}
+textarea { min-height:78px; }
+
+/* ── DIVIDER ── */
+.divider {
+  display:flex; align-items:center; gap:14px;
+  margin:32px 0; color:rgba(26,18,9,.18);
+  font-size:10px; letter-spacing:.3em; font-family:'Cinzel',serif;
+}
+.divider::before,.divider::after { content:''; flex:1; height:1px; background:linear-gradient(90deg,transparent,rgba(200,146,42,.28),transparent); }
+
+/* ══════════════════════════════════════════
+   RATIO BLOCK  ── linked sliders
+══════════════════════════════════════════ */
+.ratio-block {
+  background:white; border:1.5px solid rgba(200,146,42,.25);
+  border-radius:4px; padding:22px; margin-bottom:26px;
+}
+.ratio-block h3 {
+  font-family:'Noto Serif JP',serif; font-size:14px; font-weight:700;
+  color:var(--brush); margin-bottom:5px;
+}
+.ratio-subtitle { font-size:11px; color:rgba(26,18,9,.45); margin-bottom:18px; line-height:1.7; }
+.ratio-subtitle strong { color:var(--crimson); }
+
+/* priority badges */
+.ratio-rows { display:flex; flex-direction:column; gap:0; }
+.ratio-row {
+  display:flex; align-items:center; gap:10px;
+  padding:10px 8px; border-radius:3px;
+  transition:background .2s;
+  cursor:default;
+}
+.ratio-row:hover { background:rgba(200,146,42,.04); }
+.priority-badge {
+  width:22px; height:22px; border-radius:50%;
+  display:flex; align-items:center; justify-content:center;
+  font-family:'Cinzel',serif; font-size:10px; font-weight:700;
+  flex-shrink:0; border:1.5px solid;
+  transition:all .3s;
+}
+.priority-badge.p1 { background:var(--crimson); border-color:var(--crimson); color:white; }
+.priority-badge.p2 { background:var(--gold); border-color:var(--gold); color:var(--brush); }
+.priority-badge.p3 { background:var(--brush); border-color:var(--brush); color:white; opacity:.7; }
+.ratio-lbl { font-size:11.5px; font-weight:500; color:var(--ink); width:160px; flex-shrink:0; line-height:1.4; }
+.ratio-lbl small { display:block; font-size:10px; color:rgba(26,18,9,.38); font-weight:300; margin-top:1px; }
+input[type="range"] {
+  flex:1; -webkit-appearance:none; height:5px;
+  border-radius:3px; border:none; padding:0;
+  cursor:pointer; background:var(--paper-dark);
+  min-width:0;
+}
+input[type="range"].track-1::-webkit-slider-runnable-track { background:linear-gradient(90deg,rgba(139,26,26,.35) var(--pct),var(--paper-dark) var(--pct)); }
+input[type="range"].track-2::-webkit-slider-runnable-track { background:linear-gradient(90deg,rgba(200,146,42,.5) var(--pct),var(--paper-dark) var(--pct)); }
+input[type="range"].track-3::-webkit-slider-runnable-track { background:linear-gradient(90deg,rgba(44,24,16,.35) var(--pct),var(--paper-dark) var(--pct)); }
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance:none; width:18px; height:18px;
+  background:white; border-radius:50%;
+  cursor:pointer; border:2.5px solid;
+  box-shadow:0 1px 5px rgba(0,0,0,.18);
+}
+.s1::-webkit-slider-thumb { border-color:var(--crimson); }
+.s2::-webkit-slider-thumb { border-color:var(--gold); }
+.s3::-webkit-slider-thumb { border-color:var(--brush); }
+.ratio-val {
+  font-family:'Cinzel',serif; font-size:16px; font-weight:700;
+  width:42px; text-align:right; flex-shrink:0; transition:color .2s;
+}
+.rv1 { color:var(--crimson); }
+.rv2 { color:var(--gold); }
+.rv3 { color:var(--brush); }
+
+/* stacked bar */
+.ratio-bar { display:flex; height:10px; border-radius:5px; overflow:hidden; margin-top:16px; gap:2px; }
+.rbar-seg { height:100%; transition:flex .25s; border-radius:3px; }
+.rbar-1 { background:var(--crimson); opacity:.75; }
+.rbar-2 { background:var(--gold); opacity:.85; }
+.rbar-3 { background:var(--brush); opacity:.6; }
+.ratio-legend { display:flex; gap:16px; margin-top:8px; flex-wrap:wrap; }
+.rl-item { display:flex; align-items:center; gap:5px; font-size:10px; color:rgba(26,18,9,.5); }
+.rl-dot { width:8px; height:8px; border-radius:50%; }
+
+/* ── PRIORITY SELECTOR ── */
+.priority-select-row { display:flex; gap:8px; margin-bottom:18px; flex-wrap:wrap; }
+.pri-btn {
+  flex:1; min-width:160px; padding:10px 12px;
+  border:1.5px solid rgba(26,18,9,.15); border-radius:3px;
+  background:white; cursor:pointer; text-align:left;
+  font-family:'Noto Sans JP',sans-serif; font-size:12px;
+  line-height:1.5; transition:all .2s; color:var(--ink);
+}
+.pri-btn.selected { border-color:var(--gold); background:rgba(200,146,42,.06); }
+.pri-btn-title { font-weight:700; font-size:13px; display:block; margin-bottom:2px; }
+.pri-btn-sub { font-size:10px; color:rgba(26,18,9,.4); }
+
+/* ── BUTTONS ── */
+.btn {
+  display:inline-flex; align-items:center; gap:8px;
+  padding:11px 26px; border:none; border-radius:3px;
+  font-family:'Noto Serif JP',serif; font-size:13.5px; font-weight:700;
+  cursor:pointer; letter-spacing:.07em; transition:all .2s;
+}
+.btn-primary { background:var(--crimson); color:var(--paper); box-shadow:0 3px 12px rgba(139,26,26,.28); }
+.btn-primary:hover { background:var(--crimson-light); transform:translateY(-1px); box-shadow:0 5px 18px rgba(139,26,26,.38); }
+.btn-gold { background:var(--gold); color:var(--brush); box-shadow:0 3px 12px rgba(200,146,42,.32); }
+.btn-gold:hover { background:var(--gold-light); transform:translateY(-1px); }
+.btn-outline { background:transparent; color:var(--ink); border:1.5px solid rgba(26,18,9,.2); }
+.btn-outline:hover { border-color:var(--gold); color:var(--gold); }
+.btn-row { display:flex; gap:12px; margin-top:28px; align-items:center; flex-wrap:wrap; }
+
+/* ── OUTPUT BOX ── */
+.output-box { background:white; border:1.5px solid rgba(200,146,42,.28); border-radius:4px; margin-top:22px; }
+.ob-header { background:var(--brush); color:var(--paper); padding:9px 15px; display:flex; align-items:center; justify-content:space-between; border-radius:3px 3px 0 0; }
+.ob-title { font-family:'Noto Serif JP',serif; font-size:12px; font-weight:700; letter-spacing:.12em; color:var(--gold); }
+.ob-body { padding:18px; font-size:12px; line-height:2; color:var(--ink); white-space:pre-wrap; word-break:break-word; max-height:400px; overflow-y:auto; font-family:'Noto Sans JP',sans-serif; }
+
+/* ── COPY BTN ── */
+.copy-btn {
+  display:inline-flex; align-items:center; gap:5px;
+  padding:4px 13px; border:1px solid rgba(200,146,42,.5); border-radius:2px;
+  background:transparent; color:var(--gold); font-size:11px;
+  font-family:'Noto Sans JP',sans-serif; cursor:pointer; transition:all .2s;
+}
+.copy-btn:hover { background:rgba(200,146,42,.1); }
+.copy-btn.copied { background:rgba(139,26,26,.1); border-color:var(--crimson); color:var(--crimson); }
+
+/* ── TOOL LINK ── */
+.tool-link-row { display:flex; gap:10px; margin:18px 0; flex-wrap:wrap; }
+.tool-link {
+  display:inline-flex; align-items:center; gap:7px;
+  padding:9px 18px; background:white;
+  border:1.5px solid rgba(26,18,9,.15); border-radius:3px;
+  color:var(--ink); text-decoration:none; font-size:13px; transition:all .2s;
+}
+.tool-link:hover { border-color:var(--gold); color:var(--gold); transform:translateY(-1px); box-shadow:0 3px 10px var(--shadow); }
+
+/* ── INFO BOX ── */
+.info-box {
+  background:rgba(200,146,42,.06); border:1px solid rgba(200,146,42,.2);
+  border-radius:3px; padding:13px 17px; margin-bottom:18px;
+}
+.info-box p { font-size:12.5px; line-height:1.9; color:rgba(26,18,9,.7); }
+.info-box strong { color:var(--crimson); }
+
+/* ══════════════════════════════════════════
+   URL MANUAL INPUT
+══════════════════════════════════════════ */
+.url-manual {
+  background:white; border:1.5px solid rgba(200,146,42,.25);
+  border-radius:4px; padding:22px; margin-bottom:24px;
+}
+.url-manual h3 {
+  font-family:'Noto Serif JP',serif; font-size:14px; font-weight:700;
+  color:var(--brush); margin-bottom:6px;
+}
+.url-manual-sub { font-size:11px; color:rgba(26,18,9,.42); margin-bottom:14px; line-height:1.7; }
+
+/* ── TOAST ── */
+#toast {
+  position:fixed; bottom:28px; left:50%; transform:translateX(-50%) translateY(16px);
+  background:var(--brush); color:var(--paper); border-left:3px solid var(--gold);
+  padding:11px 22px; border-radius:3px;
+  font-family:'Noto Serif JP',serif; font-size:13px; letter-spacing:.1em;
+  opacity:0; pointer-events:none; transition:all .32s ease;
+  z-index:9999; box-shadow:0 8px 28px rgba(0,0,0,.22); white-space:nowrap;
+}
+#toast.show { opacity:1; transform:translateX(-50%) translateY(0); }
+
+@media(max-width:620px) {
+  header{padding:18px 16px}
+  main{padding:22px 14px 60px}
+  .progress-bar{padding:0 12px}
+  .ratio-lbl{width:120px}
+  .ratio-val{font-size:14px}
+  .pri-btn{min-width:120px}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="hdr-en">Samurai Career Suite</div>
+  <div class="hdr-ja">志望動機 作成の陣</div>
+  <div class="hdr-sub">PC専用 ── あなたのAIだけを使う、志望動機生成フロー</div>
+</header>
+
+<nav class="progress-bar">
+  <div class="prog-step active" id="nav-1">
+    <div class="prog-num">一</div>
+    <div class="prog-lbl"><span class="prog-kanji">自己分析</span><br>己を知る</div>
+  </div>
+  <div class="prog-step" id="nav-2">
+    <div class="prog-num">二</div>
+    <div class="prog-lbl"><span class="prog-kanji">偵察</span><br>会社を知る</div>
+  </div>
+  <div class="prog-step" id="nav-3">
+    <div class="prog-num">三</div>
+    <div class="prog-lbl"><span class="prog-kanji">合戦</span><br>志望動機を清書</div>
+  </div>
+</nav>
+
+<main>
+
+<!-- ══════════ STEP 1 ══════════ -->
+<div class="step-page active" id="step-1">
+  <div class="step-heading">
+    <div class="step-kanji-bg">一</div>
+    <div>
+      <div class="step-title-en">Phase I · Self-Analysis</div>
+      <div class="step-title-ja">第一陣：自己分析 ── 己を知る</div>
+    </div>
+  </div>
+
+  <div class="edict">
+    <p>まずは汝の武器を確認する。以下の項目を入力して下され。<br>
+    これらは「秘伝の指示書」の素材となる。<br>
+    また、下段にて志望動機の<strong>構成比率と優先順位</strong>を自らの手で設定されたし。<br>
+    入力を終えたら「次の陣へ」ボタンを押して下され。</p>
+  </div>
+
+  <div class="field-group">
+    <label class="field-label" for="f-impression">会社説明会で印象に残った説明</label>
+    <textarea id="f-impression" placeholder="例：グローバル展開の方針、技術への投資姿勢など"></textarea>
+  </div>
+  <div class="field-group">
+    <label class="field-label" for="f-website">会社案内Webサイトで印象に残ったこと（コピペ可）</label>
+    <textarea id="f-website" placeholder="気になった文章をそのままコピペするか、要点をメモ"></textarea>
+  </div>
+  <div class="field-group">
+    <label class="field-label" for="f-strength">私の強み・長所</label>
+    <textarea id="f-strength" placeholder="例：粘り強さ、チームをまとめる力、論理的思考力"></textarea>
+  </div>
+  <div class="field-group">
+    <label class="field-label" for="f-experience">仕事に活かしたい授業・課外活動の知識や経験</label>
+    <textarea id="f-experience" placeholder="例：卒業論文で〇〇を研究。ゼミで△△プロジェクトを主導"></textarea>
+  </div>
+  <div class="field-group">
+    <label class="field-label" for="f-skill">スキル（語学・資格・得意なプログラミング言語など）</label>
+    <textarea id="f-skill" rows="2" placeholder="例：TOEIC 820点、Python・SQL、普通自動車免許"></textarea>
+  </div>
+  <div class="field-group">
+    <label class="field-label" for="f-motto">私のモットー・座右の銘</label>
+    <input type="text" id="f-motto" placeholder="例：凡事徹底・石の上にも三年">
+  </div>
+  <div class="field-group">
+    <label class="field-label" for="f-competitor">同業他社調査で印象に残ったこと</label>
+    <textarea id="f-competitor" placeholder="他社と比較して志望企業を選んだ理由のヒントになる情報"></textarea>
+  </div>
+  <div class="field-group">
+    <label class="field-label" for="f-vision">仕事ビジョン（コピペ可）</label>
+    <textarea id="f-vision" placeholder="将来どんな仕事をしていたいか、どんな人間になりたいか"></textarea>
+  </div>
+  <div class="field-group">
+    <label class="field-label" for="f-jobs">適職マッチした職種（コピペ可）</label>
+    <textarea id="f-jobs" rows="2" placeholder="例：企画職、マーケティング、営業（法人）"></textarea>
+  </div>
+  <div class="field-group">
+    <label class="field-label" for="f-culture">入社する会社に求める社風・事業理念</label>
+    <textarea id="f-culture" placeholder="例：若手に裁量を与える文化、社会課題に向き合う姿勢"></textarea>
+  </div>
+
+  <div class="divider">構成比率の設定</div>
+
+  <!-- ══ RATIO BLOCK ══ -->
+  <div class="ratio-block">
+    <h3>⚖ 志望動機の構成比率を設定</h3>
+    <p class="ratio-subtitle">
+      まず<strong>最も重視する要素（第一位）</strong>を選んでください。<br>
+      次に、スライダーで比率を調整します。<strong>1つ動かすと残り2つが自動で連動し、常に合計100%</strong>を維持します（5%刻み）。
+    </p>
+
+    <!-- Priority selector -->
+    <div style="font-size:11px;font-weight:700;color:var(--crimson);letter-spacing:.1em;margin-bottom:8px;">第一位（最重視）を選択</div>
+    <div class="priority-select-row" id="pri-select">
+      <button class="pri-btn selected" data-pri="0" onclick="setPriority(0)">
+        <span class="pri-btn-title">企業理念への共鳴</span>
+        <span class="pri-btn-sub">企業のビジョン・文化への共感</span>
+      </button>
+      <button class="pri-btn" data-pri="1" onclick="setPriority(1)">
+        <span class="pri-btn-title">強みと経験の適合</span>
+        <span class="pri-btn-sub">自分の実力が会社でどう活きるか</span>
+      </button>
+      <button class="pri-btn" data-pri="2" onclick="setPriority(2)">
+        <span class="pri-btn-title">入社後の展望</span>
+        <span class="pri-btn-sub">入社後に成し遂げたいこと</span>
+      </button>
+    </div>
+
+    <!-- Sliders -->
+    <div class="ratio-rows" id="ratio-rows">
+      <div class="ratio-row" id="rrow-0">
+        <div class="priority-badge p1" id="badge-0">1</div>
+        <div class="ratio-lbl">企業理念への共鳴<small>企業のビジョン・文化への共感</small></div>
+        <input type="range" id="rs0" class="s1 track-1" min="10" max="80" step="5" value="35" oninput="onSlide(0)">
+        <div class="ratio-val rv1" id="rv0">35%</div>
+      </div>
+      <div class="ratio-row" id="rrow-1">
+        <div class="priority-badge p2" id="badge-1">2</div>
+        <div class="ratio-lbl">強みと経験の適合<small>自分の実力が会社でどう活きるか</small></div>
+        <input type="range" id="rs1" class="s2 track-2" min="10" max="80" step="5" value="50" oninput="onSlide(1)">
+        <div class="ratio-val rv2" id="rv1">50%</div>
+      </div>
+      <div class="ratio-row" id="rrow-2">
+        <div class="priority-badge p3" id="badge-2">3</div>
+        <div class="ratio-lbl">入社後の展望<small>入社後に成し遂げたいこと</small></div>
+        <input type="range" id="rs2" class="s3 track-3" min="5" max="40" step="5" value="15" oninput="onSlide(2)">
+        <div class="ratio-val rv3" id="rv2">15%</div>
+      </div>
+    </div>
+
+    <!-- Bar -->
+    <div class="ratio-bar" style="margin-top:18px;">
+      <div class="rbar-seg rbar-1" id="rbar0" style="flex:35"></div>
+      <div class="rbar-seg rbar-2" id="rbar1" style="flex:50"></div>
+      <div class="rbar-seg rbar-3" id="rbar2" style="flex:15"></div>
+    </div>
+    <div class="ratio-legend">
+      <div class="rl-item"><div class="rl-dot" style="background:var(--crimson)"></div>企業理念への共鳴 <strong id="rl0">35%</strong></div>
+      <div class="rl-item"><div class="rl-dot" style="background:var(--gold)"></div>強みと経験の適合 <strong id="rl1">50%</strong></div>
+      <div class="rl-item"><div class="rl-dot" style="background:var(--brush)"></div>入社後の展望 <strong id="rl2">15%</strong></div>
+    </div>
+  </div>
+
+  <div class="btn-row">
+    <button class="btn btn-primary" onclick="goToStep2()">次の陣へ ── 第二陣：偵察 →</button>
+  </div>
+</div>
+
+<!-- ══════════ STEP 2 ══════════ -->
+<div class="step-page" id="step-2">
+  <div class="step-heading">
+    <div class="step-kanji-bg">二</div>
+    <div>
+      <div class="step-title-en">Phase II · Reconnaissance</div>
+      <div class="step-title-ja">第二陣：偵察 ── 志望会社を知る</div>
+    </div>
+  </div>
+
+  <!-- 2A: NotebookLM -->
+  <div class="sub-step active" id="sub-2a">
+    <div class="edict">
+      <p>敵（志望会社）を知ることが、勝利への第一歩。<br>
+      まずは下の<strong>「URL偵察ツール」</strong>で会社ドメインを入力し、NotebookLMに読み込ませるURLの候補を取得せよ。<br>
+      次に「指示書①」をコピーし、NotebookLMに貼り付けて実行して下され。</p>
+    </div>
+
+    <!-- ══ URL MANUAL INPUT ══ -->
+    <div class="url-manual">
+      <h3>🔗 NotebookLMに読み込ませるURL</h3>
+      <p class="url-manual-sub">
+        志望会社の採用ページ・会社概要・IRページなどのURLを1行ずつ入力してください。<br>
+        上場企業の場合は有価証券報告書（PDF）を別途NotebookLMにドロップするのが効果的です。
+      </p>
+      <div class="field-group" style="margin-bottom:0">
+        <textarea id="source-urls" rows="5" placeholder="https://www.example.co.jp/recruit/&#10;https://www.example.co.jp/company/&#10;https://www.example.co.jp/ir/&#10;（1行につき1URLを入力）"></textarea>
+      </div>
+    </div>
+
+    <div class="info-box">
+      <p>
+        <strong>NotebookLM操作の流れ</strong><br>
+        ① <a href="https://notebooklm.google.com" target="_blank" rel="noopener" style="color:var(--crimson)">NotebookLMを開く</a> → 新しいNotebookを作成<br>
+        ② Notebookの名前を志望会社名に変更する<br>
+        ③ 上のURLをソースとして追加（＋有価証券報告書PDFがあればドロップ）<br>
+        ④ 下の「指示書①をコピー」→ NotebookLMの入力欄に貼り付けて送信<br>
+        ⑤ 生成された回答を、下の「NotebookLMの回答」欄に貼り付ける
+      </p>
+    </div>
+
+    <div class="tool-link-row">
+      <a href="https://notebooklm.google.com" target="_blank" rel="noopener" class="tool-link">
+        <span>📓</span> NotebookLMを開く
+      </a>
+    </div>
+
+    <div class="output-box">
+      <div class="ob-header">
+        <span class="ob-title">📜 指示書① ── NotebookLM用プロンプト</span>
+        <button class="copy-btn" id="cp2a" onclick="copyBox('prompt2a','cp2a')">コピー</button>
+      </div>
+      <div class="ob-body" id="prompt2a">（読み込み中...）</div>
+    </div>
+
+    <div class="field-group" style="margin-top:22px;">
+      <label class="field-label">NotebookLMの回答をここに貼り付けて下され</label>
+      <textarea id="notebooklm-answer" rows="8" placeholder="NotebookLMが生成した回答をここにコピペ..."></textarea>
+    </div>
+
+    <div class="btn-row">
+      <button class="btn btn-outline" onclick="goToStep1()">← 第一陣に戻る</button>
+      <button class="btn btn-primary" onclick="goToSub2B()">Geminiへ進む →</button>
+    </div>
+  </div>
+
+  <!-- 2B: Gemini -->
+  <div class="sub-step" id="sub-2b">
+    <div class="edict">
+      <p>偵察結果を活用し、最終指示書を生成した。<br>
+      「指示書②」をコピーして、<strong>Gemini</strong>に貼り付けて実行して下され。<br>
+      汝の志望動機が清書される。</p>
+    </div>
+
+    <div class="tool-link-row">
+      <a href="https://gemini.google.com" target="_blank" rel="noopener" class="tool-link">
+        <span>✨</span> Geminiを開く
+      </a>
+    </div>
+
+    <div class="output-box">
+      <div class="ob-header">
+        <span class="ob-title">📜 指示書② ── Gemini用プロンプト（最終）</span>
+        <button class="copy-btn" id="cp2b" onclick="copyBox('prompt2b','cp2b')">コピー</button>
+      </div>
+      <div class="ob-body" id="prompt2b">（読み込み中...）</div>
+    </div>
+
+    <div class="btn-row">
+      <button class="btn btn-outline" onclick="goToSub2A()">← NotebookLMに戻る</button>
+      <button class="btn btn-gold" onclick="goToStep3()">完了 ── 第三陣へ →</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════ STEP 3 ══════════ -->
+<div class="step-page" id="step-3">
+  <div class="step-heading">
+    <div class="step-kanji-bg">三</div>
+    <div>
+      <div class="step-title-en">Phase III · Final Battle</div>
+      <div class="step-title-ja">第三陣：合戦 ── Geminiで清書完了</div>
+    </div>
+  </div>
+
+  <div class="edict">
+    <p>仕上げである。Geminiに「指示書②」を貼り付けて実行すると、志望動機の草稿が生成される。<br>
+    気に入らない部分があれば追加で指示して磨き上げよ。<br>
+    完成した志望動機は、<strong>汝自身の言葉で最終確認・加筆</strong>すること。</p>
+  </div>
+
+  <div class="info-box">
+    <p>
+      <strong>磨き上げのヒント（Geminiへの追加指示例）</strong><br>
+      ・「もっと具体的なエピソードを入れて400字で」<br>
+      ・「企業理念との関連をより強調して」<br>
+      ・「もう少し情熱的な表現で書き直して」<br>
+      ・「敬語を統一して、読みやすい文体に整えて」
+    </p>
+  </div>
+
+  <div class="tool-link-row">
+    <a href="https://gemini.google.com" target="_blank" rel="noopener" class="tool-link">
+      <span>✨</span> Geminiを開く
+    </a>
+  </div>
+
+  <div class="output-box">
+    <div class="ob-header">
+      <span class="ob-title">📋 指示書②（コピー用）</span>
+      <button class="copy-btn" id="cp3" onclick="copyBox('prompt3','cp3')">コピー</button>
+    </div>
+    <div class="ob-body" id="prompt3">（読み込み中...）</div>
+  </div>
+
+  <div class="divider">完了</div>
+  <div style="text-align:center;padding:18px 0;">
+    <div style="font-family:'Noto Serif JP',serif;font-size:14px;color:var(--gold);letter-spacing:.2em;margin-bottom:8px;">── 天下統一への道は開かれた ──</div>
+    <div style="font-size:12px;color:rgba(26,18,9,.42);line-height:2;">生成された文章は必ず自分の言葉で見直し、<br>面接で自信を持って語れる内容に仕上げること。</div>
+  </div>
+  <div class="btn-row" style="justify-content:center;">
+    <button class="btn btn-outline" onclick="goToSub2B()">← Geminiに戻る</button>
+    <button class="btn btn-outline" onclick="resetAll()">🔄 最初からやり直す</button>
+  </div>
+</div>
+
+</main>
+<div id="toast"></div>
+
+<script>
+// ══════════════════════════════════════
+// FIELDS
+// ══════════════════════════════════════
+const FIELDS = ['f-impression','f-website','f-strength','f-experience','f-skill','f-motto','f-competitor','f-vision','f-jobs','f-culture'];
+const LABELS = {
+  'f-impression':'会社説明会で印象に残った説明',
+  'f-website':'Webサイトで印象に残ったこと',
+  'f-strength':'私の強み・長所',
+  'f-experience':'仕事に活かしたい知識・経験',
+  'f-skill':'スキル',
+  'f-motto':'モットー・座右の銘',
+  'f-competitor':'同業他社調査で印象に残ったこと',
+  'f-vision':'仕事ビジョン',
+  'f-jobs':'適職マッチした職種',
+  'f-culture':'求める社風・事業理念'
+};
+
+// ══════════════════════════════════════
+// LINKED RATIO SLIDERS
+// ══════════════════════════════════════
+// vals[i] = 0..100 (multiples of 5)
+let vals = [35, 50, 15];
+let priority = 0; // index of first-priority item
+
+const NAMES = ['企業理念への共鳴', '強みと経験の適合', '入社後の展望'];
+const COLORS = ['rv1','rv2','rv3'];
+const BADGE_CLASSES = ['p1','p2','p3'];
+
+function setPriority(idx) {
+  priority = idx;
+  document.querySelectorAll('.pri-btn').forEach((b,i) => {
+    b.classList.toggle('selected', i === idx);
+  });
+  renderRatio();
+}
+
+function onSlide(idx) {
+  const raw = parseInt(document.getElementById('rs'+idx).value);
+  // snap to 5
+  const snapped = Math.round(raw/5)*5;
+  vals[idx] = snapped;
+  // distribute remainder to the other two, respecting their ratio
+  const others = [0,1,2].filter(i=>i!==idx);
+  const remain = 100 - snapped;
+  const sumOthers = vals[others[0]] + vals[others[1]];
+  if(sumOthers === 0) {
+    vals[others[0]] = Math.round(remain/2/5)*5;
+    vals[others[1]] = remain - vals[others[0]];
+  } else {
+    let a = Math.round((remain * vals[others[0]] / sumOthers) / 5) * 5;
+    let b = remain - a;
+    // clamp
+    const minA = parseInt(document.getElementById('rs'+others[0]).min);
+    const maxA = parseInt(document.getElementById('rs'+others[0]).max);
+    const minB = parseInt(document.getElementById('rs'+others[1]).min);
+    const maxB = parseInt(document.getElementById('rs'+others[1]).max);
+    a = Math.max(minA, Math.min(maxA, a));
+    b = remain - a;
+    b = Math.max(minB, Math.min(maxB, b));
+    a = remain - b;
+    vals[others[0]] = a;
+    vals[others[1]] = b;
+  }
+  // final correction for rounding
+  const total = vals[0]+vals[1]+vals[2];
+  if(total !== 100) {
+    const diff = 100-total;
+    // adjust last 'other' that isn't being slid
+    vals[others[1]] = Math.max(5, vals[others[1]] + diff);
+  }
+  renderRatio();
+}
+
+function renderRatio() {
+  // determine rank order by value (higher = lower badge number)
+  const sorted = [0,1,2].slice().sort((a,b)=>vals[b]-vals[a]);
+  for(let i=0;i<3;i++){
+    const rank = sorted.indexOf(i)+1;
+    const badge = document.getElementById('badge-'+i);
+    badge.textContent = rank;
+    badge.className = 'priority-badge p'+rank;
+  }
+  // sliders
+  for(let i=0;i<3;i++){
+    document.getElementById('rs'+i).value = vals[i];
+    document.getElementById('rv'+i).textContent = vals[i]+'%';
+    document.getElementById('rbar'+i).style.flex = vals[i];
+    document.getElementById('rl'+i).textContent = vals[i]+'%';
+    // update track fill
+    const sl = document.getElementById('rs'+i);
+    const min = parseInt(sl.min), max = parseInt(sl.max);
+    const pct = ((vals[i]-min)/(max-min)*100).toFixed(1)+'%';
+    sl.style.setProperty('--pct', pct);
+  }
+}
+
+// ══════════════════════════════════════
+// USER DATA
+// ══════════════════════════════════════
+function getUserData() {
+  const d={};
+  FIELDS.forEach(id=>{d[id]=document.getElementById(id).value.trim();});
+  return d;
+}
+function formatUserBlock(data) {
+  return FIELDS.map(id=>`【${LABELS[id]}】\n${data[id]||'（未入力）'}`).join('\n\n');
+}
+function getRatioObj() {
+  return {r0:vals[0], r1:vals[1], r2:vals[2]};
+}
+
+// ══════════════════════════════════════
+// BUILD PROMPTS
+// ══════════════════════════════════════
+function buildPrompt2A(data) {
+  return `以下はユーザー（就職活動中の学生）の自己分析データです。
+
+${formatUserBlock(data)}
+
+───────────────────────────────
+【指示】
+読み込ませたソースは、このユーザーが志望する会社の情報です。
+上記のユーザー情報とすり合わせ、以下の観点で合致する会社情報を箇条書きで10個以内にリストアップしてください。
+
+観点：
+・ユーザーと会社が共感・賛同しあえる理念・文化
+・ユーザーの希望（社風・事業理念）と合致する点
+・ユーザーの強み・経験・スキルが活きる事業・職種
+・ユーザーの将来ビジョンと会社の方向性の一致点
+・ユーザーが競合他社より当社を選ぶ理由になりうる特徴
+
+出力形式：箇条書き（各項目50〜100字程度）`;
+}
+
+function buildPrompt2B(data, nbAnswer) {
+  const nb = nbAnswer.trim()||'（NotebookLMの回答が未入力です）';
+  return `以下の情報をもとに、400字程度の志望動機を作成してください。
+
+━━━━━━━━━━━━━━━━━━━━━━━━
+【ユーザー自己分析データ】
+${formatUserBlock(data)}
+
+━━━━━━━━━━━━━━━━━━━━━━━━
+【会社情報の要約（NotebookLMによる分析）】
+${nb}
+
+━━━━━━━━━━━━━━━━━━━━━━━━
+【志望動機の構成比率（厳守）】
+・${NAMES[0]}：${vals[0]}%
+・${NAMES[1]}：${vals[1]}%
+・${NAMES[2]}：${vals[2]}%
+
+優先順位：${[0,1,2].slice().sort((a,b)=>vals[b]-vals[a]).map((i,r)=>`第${r+1}位「${NAMES[i]}」${vals[i]}%`).join('、')}
+
+━━━━━━━━━━━━━━━━━━━━━━━━
+【作成条件】
+・文字数：400字程度（±20字）
+・上記の構成比率と優先順位を守り、3つの要素を自然な流れでつなぐこと
+・プロのキャリアコンサルタントの視点で、論理的かつ情熱的に記述すること
+・ユーザー自身の言葉・エピソードが感じられるよう、具体性を持たせること
+・「貴社」を使い、丁寧語・敬語を統一すること
+・冒頭から結論（志望理由の核心）を述べ、その根拠を展開する構成にすること`;
+}
+
+// ══════════════════════════════════════
+// NAVIGATION
+// ══════════════════════════════════════
+function setNav(n) {
+  [1,2,3].forEach(i=>{
+    document.getElementById('nav-'+i).className='prog-step'+(i<n?' done':i===n?' active':'');
+  });
+  ['step-1','step-2','step-3'].forEach(id=>document.getElementById(id).classList.remove('active'));
+}
+
+function goToStep1() { setNav(1); document.getElementById('step-1').classList.add('active'); window.scrollTo({top:0,behavior:'smooth'}); }
+
+function goToStep2() {
+  setNav(2);
+  document.getElementById('step-2').classList.add('active');
+  goToSub2A();
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function goToSub2A() {
+  document.getElementById('sub-2a').className='sub-step active';
+  document.getElementById('sub-2b').className='sub-step';
+  document.getElementById('prompt2a').textContent = buildPrompt2A(getUserData());
+}
+
+function goToSub2B() {
+  document.getElementById('sub-2a').className='sub-step';
+  document.getElementById('sub-2b').className='sub-step active';
+  const p = buildPrompt2B(getUserData(), document.getElementById('notebooklm-answer').value);
+  document.getElementById('prompt2b').textContent = p;
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function goToStep3() {
+  setNav(3);
+  document.getElementById('step-3').classList.add('active');
+  const p = buildPrompt2B(getUserData(), document.getElementById('notebooklm-answer').value);
+  document.getElementById('prompt3').textContent = p;
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function resetAll() {
+  if(!confirm('最初からやり直しますか？')) return;
+  goToStep1();
+}
+
+// ══════════════════════════════════════
+// COPY
+// ══════════════════════════════════════
+function copyBox(boxId, btnId) {
+  const text = document.getElementById(boxId).textContent;
+  navigator.clipboard.writeText(text).then(()=>{
+    const btn = document.getElementById(btnId);
+    btn.textContent='✓ コピー済'; btn.classList.add('copied');
+    setTimeout(()=>{btn.textContent='コピー';btn.classList.remove('copied');},2500);
+    showToast('📋 指示書を控え帳に預けました');
+  }).catch(()=>showToast('⚠ コピーに失敗しました。手動で選択して下され'));
+}
+
+// ══════════════════════════════════════
+// TOAST
+// ══════════════════════════════════════
+let toastTimer;
+function showToast(msg) {
+  const t=document.getElementById('toast');
+  t.textContent=msg; t.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer=setTimeout(()=>t.classList.remove('show'),2800);
+}
+
+// ══════════════════════════════════════
+// INIT
+// ══════════════════════════════════════
+renderRatio();
+</script>
+</body>
+</html>
