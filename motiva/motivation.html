@@ -54,28 +54,6 @@ header::after {
 .hdr-en { font-family:'Cinzel',serif; font-size:11px; letter-spacing:.35em; color:var(--gold); margin-bottom:4px; position:relative; }
 .hdr-ja { font-family:'Noto Serif JP',serif; font-size:24px; font-weight:700; letter-spacing:.1em; position:relative; }
 .hdr-sub { font-size:11px; color:rgba(245,240,232,.45); letter-spacing:.12em; margin-top:4px; position:relative; }
-.hdr-save-row { display:flex; align-items:center; gap:14px; margin-top:10px; position:relative; flex-wrap:wrap; }
-.save-badge {
-  display:inline-flex; align-items:center; gap:5px;
-  padding:4px 12px; border-radius:20px;
-  font-size:10px; letter-spacing:.08em;
-  border:1px solid rgba(200,146,42,.35);
-  color:rgba(200,146,42,.7); background:rgba(200,146,42,.08);
-  transition:all .4s;
-}
-.save-badge.saved { border-color:rgba(200,146,42,.7); color:var(--gold); background:rgba(200,146,42,.15); }
-.save-badge .dot { width:6px; height:6px; border-radius:50%; background:rgba(200,146,42,.4); transition:background .4s; }
-.save-badge.saved .dot { background:var(--gold); }
-.save-time { font-size:10px; color:rgba(245,240,232,.3); letter-spacing:.06em; }
-.clear-btn {
-  display:inline-flex; align-items:center; gap:4px;
-  padding:3px 10px; border-radius:2px;
-  border:1px solid rgba(139,26,26,.35); background:transparent;
-  color:rgba(192,57,43,.6); font-size:10px; cursor:pointer;
-  font-family:'Noto Sans JP',sans-serif; letter-spacing:.06em;
-  transition:all .2s;
-}
-.clear-btn:hover { border-color:var(--crimson); color:var(--crimson); background:rgba(139,26,26,.08); }
 
 /* ── PROGRESS ── */
 .progress-bar {
@@ -325,11 +303,6 @@ input[type="range"]::-webkit-slider-thumb {
   <div class="hdr-en">Samurai Career Suite</div>
   <div class="hdr-ja">志望動機 作成の陣</div>
   <div class="hdr-sub">PC専用 ── あなたのAIだけを使う、志望動機生成フロー</div>
-  <div class="hdr-save-row">
-    <div class="save-badge" id="save-badge"><span class="dot"></span><span id="save-badge-text">未保存</span></div>
-    <span class="save-time" id="save-time"></span>
-    <button class="clear-btn" onclick="clearStorage()" id="clear-btn" style="display:none">🗑 保存内容を消去</button>
-  </div>
 </header>
 
 <nav class="progress-bar">
@@ -440,19 +413,19 @@ input[type="range"]::-webkit-slider-thumb {
       <div class="ratio-row" id="rrow-0">
         <div class="priority-badge p1" id="badge-0">1</div>
         <div class="ratio-lbl">企業理念への共鳴<small>企業のビジョン・文化への共感</small></div>
-        <input type="range" id="rs0" class="s1 track-1" min="10" max="80" step="5" value="35" oninput="onSlide(0)">
+        <input type="range" id="rs0" class="s1 track-1" min="5" max="90" step="5" value="35" oninput="onSlide(0)">
         <div class="ratio-val rv1" id="rv0">35%</div>
       </div>
       <div class="ratio-row" id="rrow-1">
         <div class="priority-badge p2" id="badge-1">2</div>
         <div class="ratio-lbl">強みと経験の適合<small>自分の実力が会社でどう活きるか</small></div>
-        <input type="range" id="rs1" class="s2 track-2" min="10" max="80" step="5" value="50" oninput="onSlide(1)">
+        <input type="range" id="rs1" class="s2 track-2" min="5" max="90" step="5" value="50" oninput="onSlide(1)">
         <div class="ratio-val rv2" id="rv1">50%</div>
       </div>
       <div class="ratio-row" id="rrow-2">
         <div class="priority-badge p3" id="badge-2">3</div>
         <div class="ratio-lbl">入社後の展望<small>入社後に成し遂げたいこと</small></div>
-        <input type="range" id="rs2" class="s3 track-3" min="5" max="40" step="5" value="15" oninput="onSlide(2)">
+        <input type="range" id="rs2" class="s3 track-3" min="5" max="90" step="5" value="15" oninput="onSlide(2)">
         <div class="ratio-val rv3" id="rv2">15%</div>
       </div>
     </div>
@@ -662,39 +635,48 @@ function setPriority(idx) {
 }
 
 function onSlide(idx) {
+  // 1) snap to 5
   const raw = parseInt(document.getElementById('rs'+idx).value);
-  // snap to 5
-  const snapped = Math.round(raw/5)*5;
-  vals[idx] = snapped;
-  // distribute remainder to the other two, respecting their ratio
-  const others = [0,1,2].filter(i=>i!==idx);
-  const remain = 100 - snapped;
+  let v = Math.round(raw / 5) * 5;
+  v = Math.max(5, Math.min(90, v));
+  vals[idx] = v;
+
+  // 2) 残り2つに (100 - v) を分配。現在の比率を維持、最低5%保証
+  const others = [0,1,2].filter(i => i !== idx);
+  const remain = 100 - v;
+
+  // 現在の合計で比率を出す（ゼロ除算対策）
   const sumOthers = vals[others[0]] + vals[others[1]];
-  if(sumOthers === 0) {
-    vals[others[0]] = Math.round(remain/2/5)*5;
-    vals[others[1]] = remain - vals[others[0]];
+  let a, b;
+  if (sumOthers === 0) {
+    a = Math.round(remain / 2 / 5) * 5;
   } else {
-    let a = Math.round((remain * vals[others[0]] / sumOthers) / 5) * 5;
-    let b = remain - a;
-    // clamp
-    const minA = parseInt(document.getElementById('rs'+others[0]).min);
-    const maxA = parseInt(document.getElementById('rs'+others[0]).max);
-    const minB = parseInt(document.getElementById('rs'+others[1]).min);
-    const maxB = parseInt(document.getElementById('rs'+others[1]).max);
-    a = Math.max(minA, Math.min(maxA, a));
-    b = remain - a;
-    b = Math.max(minB, Math.min(maxB, b));
-    a = remain - b;
-    vals[others[0]] = a;
-    vals[others[1]] = b;
+    a = Math.round((remain * vals[others[0]] / sumOthers) / 5) * 5;
   }
-  // final correction for rounding
-  const total = vals[0]+vals[1]+vals[2];
-  if(total !== 100) {
-    const diff = 100-total;
-    // adjust last 'other' that isn't being slid
-    vals[others[1]] = Math.max(5, vals[others[1]] + diff);
+  a = Math.max(5, Math.min(remain - 5, a)); // aは最低5、bのために少なくとも5残す
+  b = remain - a;
+  b = Math.max(5, b);
+  // bを保証した分だけaを再調整
+  a = remain - b;
+  a = Math.max(5, a);
+  b = remain - a;
+
+  vals[others[0]] = a;
+  vals[others[1]] = b;
+
+  // 3) 合計が100になっているか最終チェック（丸め誤差修正）
+  const total = vals[0] + vals[1] + vals[2];
+  if (total !== 100) {
+    // 動かしていないスライダーのうち大きい方に差分を足す
+    const adj = others.slice().sort((x,y) => vals[y] - vals[x])[0];
+    vals[adj] = vals[adj] + (100 - total);
+    if (vals[adj] < 5) {
+      vals[adj] = 5;
+      // それでも合計がずれるなら idx を調整
+      vals[idx] = 100 - vals[others[0]] - vals[others[1]];
+    }
   }
+
   renderRatio();
 }
 
@@ -860,108 +842,9 @@ function showToast(msg) {
 }
 
 // ══════════════════════════════════════
-// LOCAL STORAGE  ── 自動保存・自動復元
-// ══════════════════════════════════════
-const STORAGE_KEY = 'samurai_career_v1';
-
-function saveToStorage() {
-  try {
-    const data = {};
-    FIELDS.forEach(id => { data[id] = document.getElementById(id).value; });
-    data._vals = vals.slice();
-    data._savedAt = new Date().toISOString();
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
-    updateSaveBadge(true, data._savedAt);
-  } catch(e) { /* quota exceeded etc — silently ignore */ }
-}
-
-function loadFromStorage() {
-  try {
-    const raw = localStorage.getItem(STORAGE_KEY);
-    if (!raw) return false;
-    const data = JSON.parse(raw);
-    // restore fields
-    FIELDS.forEach(id => {
-      if (data[id] !== undefined) {
-        document.getElementById(id).value = data[id];
-      }
-    });
-    // restore ratio
-    if (Array.isArray(data._vals) && data._vals.length === 3) {
-      vals[0] = data._vals[0];
-      vals[1] = data._vals[1];
-      vals[2] = data._vals[2];
-    }
-    updateSaveBadge(true, data._savedAt);
-    return true;
-  } catch(e) { return false; }
-}
-
-function clearStorage() {
-  if (!confirm('保存内容をすべて消去しますか？\n入力フォームもリセットされます。')) return;
-  try { localStorage.removeItem(STORAGE_KEY); } catch(e) {}
-  FIELDS.forEach(id => { document.getElementById(id).value = ''; });
-  vals = [35, 50, 15];
-  renderRatio();
-  updateSaveBadge(false, null);
-  showToast('🗑 保存内容を消去しました');
-}
-
-function updateSaveBadge(saved, isoString) {
-  const badge = document.getElementById('save-badge');
-  const text  = document.getElementById('save-badge-text');
-  const time  = document.getElementById('save-time');
-  const btn   = document.getElementById('clear-btn');
-  if (saved) {
-    badge.classList.add('saved');
-    text.textContent = '💾 保存済';
-    btn.style.display = 'inline-flex';
-    if (isoString) {
-      const d = new Date(isoString);
-      const fmt = `${d.getFullYear()}/${String(d.getMonth()+1).padStart(2,'0')}/${String(d.getDate()).padStart(2,'0')} ${String(d.getHours()).padStart(2,'0')}:${String(d.getMinutes()).padStart(2,'0')}`;
-      time.textContent = '最終保存：' + fmt;
-    }
-  } else {
-    badge.classList.remove('saved');
-    text.textContent = '未保存';
-    btn.style.display = 'none';
-    time.textContent = '';
-  }
-}
-
-// debounced auto-save on any input change
-let saveTimer;
-function scheduleAutoSave() {
-  clearTimeout(saveTimer);
-  saveTimer = setTimeout(() => {
-    saveToStorage();
-    showToast('💾 入力内容を自動保存しました');
-  }, 1200);
-}
-
-function attachAutoSave() {
-  FIELDS.forEach(id => {
-    const el = document.getElementById(id);
-    el.addEventListener('input', scheduleAutoSave);
-  });
-  // also save when ratio changes
-  [0,1,2].forEach(i => {
-    document.getElementById('rs'+i).addEventListener('input', () => {
-      clearTimeout(saveTimer);
-      saveTimer = setTimeout(saveToStorage, 800);
-    });
-  });
-}
-
-// ══════════════════════════════════════
 // INIT
 // ══════════════════════════════════════
-const restored = loadFromStorage();
 renderRatio();
-attachAutoSave();
-if (restored) {
-  showToast('📂 前回の入力内容を復元しました');
-}
 </script>
 </body>
 </html>
