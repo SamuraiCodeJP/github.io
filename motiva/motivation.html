@@ -54,6 +54,25 @@ header::after {
 .hdr-en { font-family:'Cinzel',serif; font-size:11px; letter-spacing:.35em; color:var(--gold); margin-bottom:4px; position:relative; }
 .hdr-ja { font-family:'Noto Serif JP',serif; font-size:24px; font-weight:700; letter-spacing:.1em; position:relative; }
 .hdr-sub { font-size:11px; color:rgba(245,240,232,.45); letter-spacing:.12em; margin-top:4px; position:relative; }
+.hdr-save-row { display:flex; align-items:center; gap:14px; margin-top:10px; position:relative; flex-wrap:wrap; }
+.save-badge {
+  display:inline-flex; align-items:center; gap:5px;
+  padding:4px 12px; border-radius:20px; font-size:10px; letter-spacing:.08em;
+  border:1px solid rgba(200,146,42,.35); color:rgba(200,146,42,.6);
+  background:rgba(200,146,42,.07); transition:all .4s;
+}
+.save-badge.saved { border-color:rgba(200,146,42,.7); color:var(--gold); background:rgba(200,146,42,.15); }
+.save-badge .dot { width:6px; height:6px; border-radius:50%; background:rgba(200,146,42,.35); transition:background .4s; }
+.save-badge.saved .dot { background:var(--gold); }
+.save-time { font-size:10px; color:rgba(245,240,232,.3); letter-spacing:.06em; }
+.clear-btn {
+  display:inline-flex; align-items:center; gap:4px;
+  padding:3px 10px; border-radius:2px;
+  border:1px solid rgba(139,26,26,.35); background:transparent;
+  color:rgba(192,57,43,.6); font-size:10px; cursor:pointer;
+  font-family:'Noto Sans JP',sans-serif; letter-spacing:.06em; transition:all .2s;
+}
+.clear-btn:hover { border-color:var(--crimson); color:var(--crimson); background:rgba(139,26,26,.08); }
 
 /* ── PROGRESS ── */
 .progress-bar {
@@ -303,6 +322,11 @@ input[type="range"]::-webkit-slider-thumb {
   <div class="hdr-en">Samurai Career Suite</div>
   <div class="hdr-ja">志望動機 作成の陣</div>
   <div class="hdr-sub">PC専用 ── あなたのAIだけを使う、志望動機生成フロー</div>
+  <div class="hdr-save-row">
+    <div class="save-badge" id="save-badge"><span class="dot"></span><span id="save-badge-text">未保存</span></div>
+    <span class="save-time" id="save-time"></span>
+    <button class="clear-btn" onclick="clearStorage()" id="clear-btn" style="display:none">🗑 保存内容を消去</button>
+  </div>
 </header>
 
 <nav class="progress-bar">
@@ -461,17 +485,20 @@ input[type="range"]::-webkit-slider-thumb {
   <!-- 2A: NotebookLM -->
   <div class="sub-step active" id="sub-2a">
     <div class="edict">
-      <p>敵（志望会社）を知ることが、勝利への第一歩。<br>
-      まずは下の<strong>「URL偵察ツール」</strong>で会社ドメインを入力し、NotebookLMに読み込ませるURLの候補を取得せよ。<br>
+      <p>志望会社を知ることが、勝利への第一歩。<br>
+      まずは下の<strong>「ソース貼り付け例」</strong>を参考にして、NotebookLMに志望会社の情報を読み込ませよ。<br>
       次に「指示書①」をコピーし、NotebookLMに貼り付けて実行して下され。</p>
     </div>
 
     <!-- ══ URL MANUAL INPUT ══ -->
     <div class="url-manual">
-      <h3>🔗 NotebookLMに読み込ませるURL</h3>
+      <h3>🔗 NotebookLMに読み込ませる複数のURLの貼り付け方</h3>
       <p class="url-manual-sub">
-        志望会社の採用ページ・会社概要・IRページなどのURLを1行ずつ入力してください。<br>
-        上場企業の場合は有価証券報告書（PDF）を別途NotebookLMにドロップするのが効果的です。
+        <strong>
+          <span style="color:#333;">
+        志望会社の主に採用ページの中であなたが重要と感じる記述のあったページのURLを1行ずつ入力してください。<br>
+        上場企業の場合は有価証券報告書（PDF）を別途NotebookLMにドロップするのが効果的です。</span>
+      </strong>
       </p>
       <div class="field-group" style="margin-bottom:0">
         <textarea id="source-urls" rows="5" placeholder="https://www.example.co.jp/recruit/&#10;https://www.example.co.jp/company/&#10;https://www.example.co.jp/ir/&#10;（1行につき1URLを入力）"></textarea>
@@ -484,8 +511,8 @@ input[type="range"]::-webkit-slider-thumb {
         ① <a href="https://notebooklm.google.com" target="_blank" rel="noopener" style="color:var(--crimson)">NotebookLMを開く</a> → 新しいNotebookを作成<br>
         ② Notebookの名前を志望会社名に変更する<br>
         ③ 上のURLをソースとして追加（＋有価証券報告書PDFがあればドロップ）<br>
-        ④ 下の「指示書①をコピー」→ NotebookLMの入力欄に貼り付けて送信<br>
-        ⑤ 生成された回答を、下の「NotebookLMの回答」欄に貼り付ける
+        <strong>④ 下の「指示書①をコピー」→ NotebookLMの入力欄に貼り付けて実行<br></strong>
+        ⑤ 生成された回答を、さらに下の「NotebookLMの回答」欄に貼り付ける
       </p>
     </div>
 
@@ -517,7 +544,7 @@ input[type="range"]::-webkit-slider-thumb {
   <!-- 2B: Gemini -->
   <div class="sub-step" id="sub-2b">
     <div class="edict">
-      <p>偵察結果を活用し、最終指示書を生成した。<br>
+      <p>偵察結果を活用し、下に最終指示書を生成した。<br>
       「指示書②」をコピーして、<strong>Gemini</strong>に貼り付けて実行して下され。<br>
       汝の志望動機が清書される。</p>
     </div>
@@ -549,14 +576,14 @@ input[type="range"]::-webkit-slider-thumb {
     <div class="step-kanji-bg">三</div>
     <div>
       <div class="step-title-en">Phase III · Final Battle</div>
-      <div class="step-title-ja">第三陣：合戦 ── Geminiで清書完了</div>
+      <div class="step-title-ja">第三陣：合戦 ── 磨き上げる</div>
     </div>
   </div>
 
   <div class="edict">
-    <p>仕上げである。Geminiに「指示書②」を貼り付けて実行すると、志望動機の草稿が生成される。<br>
+    <p>仕上げである。Geminiに「指示書②」を貼り付けて実行したならば、志望動機の草稿が生成されたはずじゃ。<br>
     気に入らない部分があれば追加で指示して磨き上げよ。<br>
-    完成した志望動機は、<strong>汝自身の言葉で最終確認・加筆</strong>すること。</p>
+    完成した志望動機は、必ず<strong>汝自身で最終確認し、面接で自信を持って語れる内容に磨き上げること</strong>。</p>
   </div>
 
   <div class="info-box">
@@ -569,28 +596,12 @@ input[type="range"]::-webkit-slider-thumb {
     </p>
   </div>
 
-  <div class="tool-link-row">
-    <a href="https://gemini.google.com" target="_blank" rel="noopener" class="tool-link">
-      <span>✨</span> Geminiを開く
-    </a>
-  </div>
+  
 
-  <div class="output-box">
-    <div class="ob-header">
-      <span class="ob-title">📋 指示書②（コピー用）</span>
-      <button class="copy-btn" id="cp3" onclick="copyBox('prompt3','cp3')">コピー</button>
-    </div>
-    <div class="ob-body" id="prompt3">（読み込み中...）</div>
-  </div>
-
-  <div class="divider">完了</div>
-  <div style="text-align:center;padding:18px 0;">
-    <div style="font-family:'Noto Serif JP',serif;font-size:14px;color:var(--gold);letter-spacing:.2em;margin-bottom:8px;">── 天下統一への道は開かれた ──</div>
-    <div style="font-size:12px;color:rgba(26,18,9,.42);line-height:2;">生成された文章は必ず自分の言葉で見直し、<br>面接で自信を持って語れる内容に仕上げること。</div>
-  </div>
+ 
   <div class="btn-row" style="justify-content:center;">
-    <button class="btn btn-outline" onclick="goToSub2B()">← Geminiに戻る</button>
-    <button class="btn btn-outline" onclick="resetAll()">🔄 最初からやり直す</button>
+    <button class="btn btn-outline" onclick="goToStep1()">← 第一陣に戻る</button>
+    
   </div>
 </div>
 
@@ -618,13 +629,9 @@ const LABELS = {
 // ══════════════════════════════════════
 // LINKED RATIO SLIDERS
 // ══════════════════════════════════════
-// vals[i] = 0..100 (multiples of 5)
-let vals = [35, 50, 15];
-let priority = 0; // index of first-priority item
-
+let vals = [35, 50, 15]; // 各要素の比率（5%刻み、合計100）
+let priority = 0;
 const NAMES = ['企業理念への共鳴', '強みと経験の適合', '入社後の展望'];
-const COLORS = ['rv1','rv2','rv3'];
-const BADGE_CLASSES = ['p1','p2','p3'];
 
 function setPriority(idx) {
   priority = idx;
@@ -713,9 +720,6 @@ function getUserData() {
 }
 function formatUserBlock(data) {
   return FIELDS.map(id=>`【${LABELS[id]}】\n${data[id]||'（未入力）'}`).join('\n\n');
-}
-function getRatioObj() {
-  return {r0:vals[0], r1:vals[1], r2:vals[2]};
 }
 
 // ══════════════════════════════════════
@@ -812,10 +816,7 @@ function goToStep3() {
   window.scrollTo({top:0,behavior:'smooth'});
 }
 
-function resetAll() {
-  if(!confirm('最初からやり直しますか？')) return;
-  goToStep1();
-}
+
 
 // ══════════════════════════════════════
 // COPY
@@ -842,9 +843,99 @@ function showToast(msg) {
 }
 
 // ══════════════════════════════════════
+// LOCAL STORAGE ── 自動保存・自動復元
+// ══════════════════════════════════════
+const STORAGE_KEY = 'samurai_motivation_v1';
+
+function saveToStorage() {
+  try {
+    const data = {};
+    FIELDS.forEach(id => { data[id] = document.getElementById(id).value; });
+    data._vals    = vals.slice();
+    data._savedAt = new Date().toISOString();
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+    updateSaveBadge(true, data._savedAt);
+  } catch(e) { /* quota exceeded など — 無視 */ }
+}
+
+function loadFromStorage() {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (!raw) return false;
+    const data = JSON.parse(raw);
+    FIELDS.forEach(id => {
+      if (data[id] !== undefined) document.getElementById(id).value = data[id];
+    });
+    if (Array.isArray(data._vals) && data._vals.length === 3) {
+      vals[0] = data._vals[0];
+      vals[1] = data._vals[1];
+      vals[2] = data._vals[2];
+    }
+    updateSaveBadge(true, data._savedAt);
+    return true;
+  } catch(e) { return false; }
+}
+
+function clearStorage() {
+  if (!confirm('保存内容をすべて消去しますか？\n入力フォームもリセットされます。')) return;
+  try { localStorage.removeItem(STORAGE_KEY); } catch(e) {}
+  FIELDS.forEach(id => { document.getElementById(id).value = ''; });
+  vals = [35, 50, 15];
+  renderRatio();
+  updateSaveBadge(false, null);
+  showToast('🗑 保存内容を消去しました');
+}
+
+function updateSaveBadge(saved, isoString) {
+  const badge = document.getElementById('save-badge');
+  const text  = document.getElementById('save-badge-text');
+  const time  = document.getElementById('save-time');
+  const btn   = document.getElementById('clear-btn');
+  if (saved) {
+    badge.classList.add('saved');
+    text.textContent = '💾 保存済';
+    btn.style.display = 'inline-flex';
+    if (isoString) {
+      const d = new Date(isoString);
+      const fmt = `${d.getFullYear()}/${String(d.getMonth()+1).padStart(2,'0')}/${String(d.getDate()).padStart(2,'0')} ${String(d.getHours()).padStart(2,'0')}:${String(d.getMinutes()).padStart(2,'0')}`;
+      time.textContent = '最終保存：' + fmt;
+    }
+  } else {
+    badge.classList.remove('saved');
+    text.textContent = '未保存';
+    btn.style.display = 'none';
+    time.textContent = '';
+  }
+}
+
+let saveTimer;
+function scheduleAutoSave() {
+  clearTimeout(saveTimer);
+  saveTimer = setTimeout(() => {
+    saveToStorage();
+    showToast('💾 入力内容を自動保存しました');
+  }, 1200);
+}
+
+function attachAutoSave() {
+  FIELDS.forEach(id => {
+    document.getElementById(id).addEventListener('input', scheduleAutoSave);
+  });
+  [0,1,2].forEach(i => {
+    document.getElementById('rs'+i).addEventListener('input', () => {
+      clearTimeout(saveTimer);
+      saveTimer = setTimeout(saveToStorage, 800);
+    });
+  });
+}
+
+// ══════════════════════════════════════
 // INIT
 // ══════════════════════════════════════
+const restored = loadFromStorage();
 renderRatio();
+attachAutoSave();
+if (restored) showToast('📂 前回の入力内容を復元しました');
 </script>
 </body>
 </html>
