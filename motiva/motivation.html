@@ -492,16 +492,59 @@ input[type="range"]::-webkit-slider-thumb {
 
     <!-- ══ URL MANUAL INPUT ══ -->
     <div class="url-manual">
-      <h3>🔗 NotebookLMに読み込ませる複数のURLの貼り付け方</h3>
+      <h3>🔗 NotebookLMに読み込ませるURLを取得する</h3>
       <p class="url-manual-sub">
-        <strong>
-          <span style="color:#333;">
-        志望会社の主に採用ページの中であなたが重要と感じる記述のあったページのURLを1行ずつ入力してください。<br>
-        上場企業の場合は有価証券報告書（PDF）を別途NotebookLMにドロップするのが効果的です。</span>
-      </strong>
+        <strong><span style="color:#333;">
+        【STEP A】採用トップページのURLを1つ貼り付けて「リスト化プロンプトを生成」ボタンを押す<br>
+        → 画面内にClaude用プロンプト「URL＋リスト化プ指示」が表示されるので「コピー＆Claudeを開く」ボタンを押す<br>
+        【STEP B】Claudeに貼り付けて実行 → 生成されたURLリストを②のボックスに貼り付ける<br>
+        上場企業の場合は有価証券報告書（PDF）を別途NotebookLMにドロップするのが効果的です。
+        </span></strong>
       </p>
-      <div class="field-group" style="margin-bottom:0">
-        <textarea id="source-urls" rows="5" placeholder="https://www.example.co.jp/recruit/&#10;https://www.example.co.jp/company/&#10;https://www.example.co.jp/ir/&#10;（1行につき1URLを入力）"></textarea>
+
+      <!-- ① 採用TOPページURL入力 -->
+      <div class="field-group" style="margin-bottom:12px">
+        <label class="field-label" style="font-size:12px;">① 採用トップページのURL（1行・1つだけ）</label>
+        <input type="url" id="recruit-top-url" placeholder="https://www.example.co.jp/recruit/fresh/" style="font-size:13px;">
+      </div>
+
+      <!-- プロンプト生成ボタン -->
+      <div style="margin-bottom:18px;">
+        <button class="btn btn-gold" onclick="generateUrlPrompt()" style="font-size:13px; padding:10px 22px;">
+          🔍 リスト化プロンプトを生成
+        </button>
+      </div>
+
+      <!-- 生成されたプロンプト表示エリア（初期非表示） -->
+      <div id="url-prompt-area" style="display:none; margin-bottom:18px;">
+        <div class="output-box" style="margin-bottom:10px;">
+          <div class="ob-header">
+            <span class="ob-title">📋 Claude用プロンプト（URL＋リスト化指示）</span>
+          </div>
+          <div class="ob-body" id="url-prompt-text" style="white-space:pre-wrap; font-size:12px; line-height:1.8;"></div>
+        </div>
+        <button class="btn btn-primary" onclick="copyAndOpenClaude()" style="font-size:13px; padding:10px 22px;">
+          🤖 コピー＆Claudeを開く
+        </button>
+        <div id="claude-copy-msg" style="display:none; margin-top:8px; font-size:11px; color:var(--crimson); font-weight:700; letter-spacing:.05em;">
+          ✓ コピーしました。Claudeに貼り付けて実行してください。
+        </div>
+      </div>
+
+      <!-- ② 取得したURLを貼り付けるエリア -->
+      <div class="field-group" style="margin-bottom:10px">
+        <label class="field-label" style="font-size:12px;">② Claudeが生成したURLリストをここに貼り付け（最大49件）</label>
+        <textarea id="source-urls" rows="7" placeholder="https://www.example.co.jp/recruit/&#10;https://www.example.co.jp/company/&#10;https://www.example.co.jp/ir/&#10;（Claudeの回答をここにコピペ）"></textarea>
+      </div>
+
+      <!-- NotebookLMを開くボタン -->
+      <div style="margin-bottom:4px;">
+        <button class="btn btn-gold" onclick="copyUrlsAndOpenNotebookLM()" style="font-size:13px; padding:10px 22px;">
+          📓 URLリストをコピー＆NotebookLMを開く
+        </button>
+        <div id="notebooklm-copy-msg" style="display:none; margin-top:8px; font-size:11px; color:var(--crimson); font-weight:700; letter-spacing:.05em;">
+          ✓ URLリストをコピーしました。NotebookLMのソース追加欄に貼り付けてください。
+        </div>
       </div>
     </div>
 
@@ -545,15 +588,12 @@ input[type="range"]::-webkit-slider-thumb {
   <div class="sub-step" id="sub-2b">
     <div class="edict">
       <p>偵察結果を活用し、下に最終指示書を生成した。<br>
-      「指示書②」をコピーして、<strong>Gemini</strong>に貼り付けて実行して下され。<br>
-      汝の志望動機が清書される。</p>
+      「指示書②」の右上のコピーボタンを押してから、<strong>「Geminiを開く」ボタン</strong>を押し、<br>
+      開いたGeminiの入力欄に貼り付けて実行して下され。<br>
+        汝の志望動機が清書される。</p>
     </div>
 
-    <div class="tool-link-row">
-      <a href="https://gemini.google.com" target="_blank" rel="noopener" class="tool-link">
-        <span>✨</span> Geminiを開く
-      </a>
-    </div>
+    
 
     <div class="output-box">
       <div class="ob-header">
@@ -562,6 +602,13 @@ input[type="range"]::-webkit-slider-thumb {
       </div>
       <div class="ob-body" id="prompt2b">（読み込み中...）</div>
     </div>
+
+　　<div class="tool-link-row">
+      <a href="https://gemini.google.com" target="_blank" rel="noopener" class="tool-link">
+        <span>✨</span> Geminiを開く
+      </a>
+    </div>
+
 
     <div class="btn-row">
       <button class="btn btn-outline" onclick="goToSub2A()">← NotebookLMに戻る</button>
@@ -773,6 +820,66 @@ ${nb}
 ・ユーザー自身の言葉・エピソードが感じられるよう、具体性を持たせること
 ・「貴社」を使い、丁寧語・敬語を統一すること
 ・冒頭から結論（志望理由の核心）を述べ、その根拠を展開する構成にすること`;
+}
+
+// ══════════════════════════════════════
+// CLAUDE URL LIST PROMPT
+// ══════════════════════════════════════
+function generateUrlPrompt() {
+  const url = document.getElementById('recruit-top-url').value.trim();
+  if (!url) {
+    showToast('⚠ まず採用トップページのURLを入力してください');
+    return;
+  }
+
+  const prompt = `以下の採用トップページのURLを起点に、そのページにリンクされている採用関連ページ（企業理念・社員紹介・事業紹介・募集要項・職場環境・福利厚生など）のURLをリスト化してください。
+
+採用トップページURL：
+${url}
+
+【条件】
+・実行前に必ずrobots.txtを確認し、クロールを禁止しているパスは除外すること
+・同じドメイン内のリンクのみ対象とすること
+・外部サービス（エントリーフォーム・SNS等）は除外すること
+・最大49件でリスト化してください
+・URLのみを1行ずつ出力し、番号・説明・記号は一切つけないこと
+・サーバーに負荷をかけないよう、リクエストの間隔を空けて取得すること`;
+
+  document.getElementById('url-prompt-text').textContent = prompt;
+  document.getElementById('url-prompt-area').style.display = 'block';
+  document.getElementById('url-prompt-area').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+
+function copyAndOpenClaude() {
+  const text = document.getElementById('url-prompt-text').textContent;
+  navigator.clipboard.writeText(text).then(() => {
+    document.getElementById('claude-copy-msg').style.display = 'block';
+    setTimeout(() => {
+      document.getElementById('claude-copy-msg').style.display = 'none';
+    }, 6000);
+    window.open('https://claude.ai', '_blank');
+  }).catch(() => {
+    showToast('⚠ コピーに失敗しました。テキストを手動で選択してコピーしてください');
+    window.open('https://claude.ai', '_blank');
+  });
+}
+
+function copyUrlsAndOpenNotebookLM() {
+  const text = document.getElementById('source-urls').value.trim();
+  if (!text) {
+    showToast('⚠ まずClaudeが生成したURLリストを②のボックスに貼り付けてください');
+    return;
+  }
+  navigator.clipboard.writeText(text).then(() => {
+    document.getElementById('notebooklm-copy-msg').style.display = 'block';
+    setTimeout(() => {
+      document.getElementById('notebooklm-copy-msg').style.display = 'none';
+    }, 6000);
+    window.open('https://notebooklm.google.com', '_blank');
+  }).catch(() => {
+    showToast('⚠ コピーに失敗しました。②のボックスを手動でコピーしてください');
+    window.open('https://notebooklm.google.com', '_blank');
+  });
 }
 
 // ══════════════════════════════════════
