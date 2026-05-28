@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>自己PRの陣</title>
+    <style>
+        body {
+            background-color: #1a1a1a;
+            color: #ffffff;
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            padding: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .section {
+            background-color: #2a2a2a;
+            border: 1px solid #444;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 25px;
+        }
+        h2 {
+            color: #d4af37; /* 陣にふさわしいゴールド */
+            border-bottom: 2px solid #d4af37;
+            padding-bottom: 5px;
+        }
+        label {
+            display: block;
+            margin-top: 15px;
+            font-weight: bold;
+            color: #ccc;
+        }
+        input[type="text"], textarea {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            background-color: #333;
+            color: #fff;
+            border: 1px solid #555;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        textarea {
+            height: 80px;
+            resize: vertical;
+        }
+        .btn {
+            background-color: #d4af37;
+            color: #1a1a1a;
+            border: none;
+            padding: 12px 24px;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 10px 5px 10px 0;
+            display: inline-block;
+            transition: background 0.3s;
+        }
+        .btn:hover {
+            background-color: #f1c40f;
+        }
+        .button-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 15px;
+        }
+        .message-box {
+            background-color: #222;
+            border-left: 4px solid #d4af37;
+            padding: 15px;
+            margin-top: 15px;
+            white-space: pre-wrap;
+        }
+        /* 両翼展開バナー用装飾 */
+        .hq-banner {
+            background: rgba(212, 175, 55, 0.1);
+            border: 1px solid #d4af37;
+            padding: 16px 20px;
+            margin-bottom: 25px;
+            border-radius: 8px;
+            font-size: 14px;
+            line-height: 1.7;
+        }
+        /* 備忘録スクロール箱 */
+        .scroll-box {
+            background: #222;
+            border: 1.5px dashed rgba(212, 175, 55, 0.7);
+            border-radius: 4px;
+            padding: 20px;
+            margin-top: 15px;
+            margin-bottom: 15px;
+        }
+        .scroll-box h4 {
+            color: #e74c3c;
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            margin-top: 0;
+        }
+        .scroll-box p { font-size: 13.5px; line-height: 1.8; color: #fff; margin-bottom: 0; }
+    </style>
+</head>
+<body>
+
+    <h1>🏯 自己PRの陣（両翼連動・Vercel完全防衛版）</h1>
+
+    <div class="hq-banner">
+        ⚔️ <strong>ユーザー殿、2つのボタンで完璧な陣形を敷きまする：</strong><br>
+        ジェミニ殿と問答しやすいように、この本陣とジェミニ画面を並べて立ち上げまする。以下の順にぽちぽちと押してくだされ。<br>
+        <div class="button-group">
+            <button class="btn" onclick="deployWorkspaceLeft()">一、本陣（作戦盤）を左翼に敷く（幅2/3）</button>
+            <button class="btn" onclick="deployGeminiRight()">二、ジェミニ本陣を右翼に据える（幅1/3）</button>
+        </div>
+        <div style="font-size: 11.5px; color: #ff6b6b; font-weight: 700; margin-top: 10px;">
+            ※「一」を押すと、左側2/3の大きさで新しいウィンドウが立ち上がります。そちらが本番の作戦盤となりますので、今見ている元の全画面タブは閉じていただいて構いません。
+        </div>
+    </div>
+
+    <div class="section" id="sec-welcome">
+        <p>ようこそ。まずはニックネームを入力して下され。</p>
+        <input type="text" id="nickname" placeholder="（例）カムイ" oninput="saveData('nickname', this.value)">
+        <button class="btn" onclick="greetUser()">陣へ入る</button>
+        <div id="greeting-msg" style="display:none;" class="message-box"></div>
+    </div>
+
+    <div class="section" id="sec-questions-first" style="display:none;">
+        <h2>第一陣：基礎能力の抽出</h2>
+        
+        <label>Q1：学生時代に力を入れられた活動は、サークル、アルバイト、留学…？</label>
+        <input type="text" id="q1" placeholder="（例）サークル" oninput="saveData('q1', this.value)">
+
+        <label>Q2：力を入れた動機や目標を教えて下され（箇条書きでよいぞ）</label>
+        <textarea id="q2" placeholder="（例）・動機は、友人、先輩、後輩という財産をたくさん作りたい。&#10;・目標は50人。" oninput="saveData('q2', this.value)"></textarea>
+
+        <label>Q3：動機や目標を実現するために、努力されたことは？（２〜３つ箇条書きで）</label>
+        <textarea id="q3" placeholder="（例）・先輩のお手伝いを意識して行った&#10;・自分から挨拶を積極的に行った&#10;・2年次の初期は、特に後輩のサポートを心がけた" oninput="saveData('q3', this.value)"></textarea>
+
+        <label>Q4：力を入れた現在の結果は？成長できたこと、自信がついたこと、学びは？</label>
+        <textarea id="q4" placeholder="（例）・サークルを中心に50人の友人、知り合いを達成できている。&#10;・自分から相手のために動けば、自然と人間関係が充実する&#10;・新しい環境で積極的に行動できる自信がついた" oninput="saveData('q4', this.value)"></textarea>
+
+        <button class="btn" onclick="generateFirstPrompt()">前半のメモを集約する</button>
+    </div>
+
+    <div class="section" id="sec-actions-first" style="display:none;">
+        <p><span class="user-name"></span>殿、ご苦労。以下に記されたＱ１～４のメモを集約した。右翼に据えたジェミニ本陣へお貼りくだされ。</p>
+        <p style="font-size: 12px; color: #d4af37;">※防衛術により画面上のプレビューは簡易表示ですが、コピーされる指令書は完全なるものですぞ。</p>
+        
+        <div class="button-group">
+            <button class="btn" onclick="copyFirstPrompt()">伝令の指示書をコピー</button>
+        </div>
+
+        <textarea id="merged-prompt-1" style="height: 60px;" readonly></textarea>
+
+        <p style="margin-top:20px;">ジェミニ殿が作成した自己ＰＲを以下のボックスに貼り付けられよ。</p>
+        <label>「学生時代に力を入れたこと」</label>
+        <textarea id="gemini-input-1" style="height: 150px;" placeholder="ここにジェミニさんの回答を貼り付け" oninput="saveData('gemini-input-1', this.value)"></textarea>
+        <button class="btn" onclick="proceedToSecondStage()">後半戦へ進む</button>
+    </div>
+
+    <div class="section" id="sec-questions-second" style="display:none;">
+        <h2>第二陣：逆境と問題解決力の抽出</h2>
+        <p>まずは、戦うための陣を築くことができましたの。さぁ、更に武器を研ぎ澄まそうぞ。再び質問に答えて下され。</p>
+
+        <label>Q5：力を注いだ活動でぶちあたった困難や問題は？</label>
+        <textarea id="q5" placeholder="（例）運営方針で考えが割れて分裂の危機が生じた。学業やサークルと両立できるように…" oninput="saveData('q5', this.value)"></textarea>
+
+        <label>Q6：その困難や壁の克服や解決のために、あなたはどのような考えをもち、行動を起こした？</label>
+        <textarea id="q6" placeholder="（例）・どちらも否定せず、中立の立場で話を聞き、それぞれの気持ちに応えられるように努力した…" oninput="saveData('q6', this.value)"></textarea>
+
+        <label>Q7：克服や解決につながった創意工夫や協力しあったこと</label>
+        <textarea id="q7" placeholder="（例）・50人以上のメンバーがいることで出会いが増え、楽しい。新人勧誘もしやすく…" oninput="saveData('q7', this.value)"></textarea>
+
+        <label>Q8：困難の克服や解決を通しての気づきは？</label>
+        <textarea id="q8" placeholder="（例）・それぞれが理想としているものがあり、そのことに耳を傾ける必要があることに気づいた…" oninput="saveData('q8', this.value)"></textarea>
+
+        <button class="btn" onclick="generateSecondPrompt()">後半のメモを集約する</button>
+    </div>
+
+    <div class="section" id="sec-actions-second" style="display:none;">
+        <p><span class="user-name"></span>殿、ご苦労。以下のボックスに記されたＱ5～8のメモを集約した。それをジェミニ殿に貼り付けて下され。</p>
+        
+        <button class="btn" onclick="copySecondPrompt()">ジェミニに以下をコピペする</button>
+        <textarea id="merged-prompt-2" style="height: 60px;" readonly></textarea>
+
+        <p style="margin-top:20px;">ジェミニ殿の回答を以下のボックスに貼り付けられよ。</p>
+        <textarea id="gemini-input-2" style="height: 150px;" placeholder="ジェミニさんの回答の貼り付けボックス" oninput="saveData('gemini-input-2', this.value)"></textarea>
+        <button class="btn" onclick="revealGift()">最後の贈り物を受け取る</button>
+    </div>
+
+    <div class="section" id="sec-gift" style="display:none;">
+        <h2>🎁 <span class="user-name"></span>殿への贈り物</h2>
+        <p>よいか、<span class="user-name"></span>殿。これを、まるまるコピペして企業に送るのではなく、特にカタカナ言葉や知らないキーワードは調べて、自分の言葉で書き直すのですぞ。その過程で、これがあなたのものへへと変わってゆきます。</p>
+        <p>さて、最後に私からの贈り物である。<span class="user-name"></span>殿に、もう一つの自己PRを贈らせて頂く。以下のボタンを押して貼り付けられよ。</p>
+        
+        <button class="btn" onclick="copyFinalGiftPrompt()">ジェミニへの最後の指令をコピー</button>
+        <textarea id="merged-prompt-final" style="height: 60px;" readonly></textarea>
+        <button class="btn" onclick="proceedToFinalStage()">第四陣（最終保存の間）へ進む ──＞</button>
+    </div>
+
+    <div class="section" id="sec-final-registry" style="display:none;">
+        <h2>第四陣：本陣 ── 世界の偉人の金言入り自己PR保存処</h2>
+        <p>これぞ魂の傑作、しかとここに収めました！<br><span class="user-name"></span>殿の行動力と世界の偉人の金言が完全に融合した情熱の自己PRを、以下の特設ボックスへ永久に保存されよ！</p>
+        
+        <div class="scroll-box">
+            <h4>📌 <span class="user-name"></span>殿の絶対の行動指針</h4>
+            <p><strong>一、自ら先にギブを成す：</strong> 挨拶も手伝いも、常に己から一歩踏み出すことで、豊かな信頼の果実が実る。<br>
+            <strong>二、多様な新環境を恐れぬ：</strong> 自ら主体的に周囲へ働きかけ構築した強固な人間関係と情熱の力は、いかなる社会の荒波をも乗り越える最大の盾となる。</p>
+        </div>
+
+        <label style="color: #e74c3c;">⚔️ 魂の座右の銘・最終自己PR【ここに貼り付けて保存くだされ】</label>
+        <textarea id="gemini-input-final" style="height: 250px;" placeholder="ジェミニ殿が選定した、世界の偉人の金言から始まる熱い自己PRをここに貼り付けて、いつでも出陣（エントリー）できるよう保存されよ..." oninput="saveData('gemini-input-final', this.value)"></textarea>
+    </div>
+
+    <script>
+        let userName = "カムイ";
+        let geminiWindowRef = null;
+        const GEMINI_URL = "https://gemini.google.com";
+        const WINDOW_NAME_GEMINI = "SamuraiGeminiHQ";
+
+        // 📡 あなたのVercel本陣（Next.js App Routerの正しいエンドポイントURL）
+        const VERCEL_API_URL = "https://samurai-career-suite.vercel.app/api/htmlpr-generate-prompt";
+
+        // ページ読み込み時の自動復元処理
+        window.onload = function() {
+            const fields = ['nickname', 'q1', 'q2', 'q3', 'q4', 'gemini-input-1', 'q5', 'q6', 'q7', 'q8', 'gemini-input-2', 'gemini-input-final'];
+            fields.forEach(field => {
+                const savedValue = localStorage.getItem('pr_jin_' + field);
+                if (savedValue) document.getElementById(field).value = savedValue;
+            });
+
+            if (document.getElementById('nickname').value.trim()) greetUser();
+            if (document.getElementById('gemini-input-1').value) proceedToSecondStage();
+            if (document.getElementById('q5').value || document.getElementById('q8').value) generateSecondPrompt();
+            if (document.getElementById('gemini-input-2').value) revealGift();
+            if (document.getElementById('gemini-input-final').value) proceedToFinalStage();
+        };
+
+        function saveData(key, value) {
+            localStorage.setItem('pr_jin_' + key, value);
+        }
+
+        // ══════════════════════════════════════
+        // 両翼独立ウィンドウ制御ロジック
+        // ══════════════════════════════════════
+        function deployWorkspaceLeft() {
+            const screenW = window.screen.availWidth;
+            const screenH = window.screen.availHeight;
+            const leftW = Math.floor(screenW * 0.67);
+            const currentUrl = window.location.href;
+            
+            const features = `width=${leftW},height=${screenH},left=0,top=0,menubar=no,toolbar=yes,location=yes,status=no,resizable=yes,scrollbars=yes`;
+            window.open(currentUrl, "_blank", features);
+        }
+
+        function deployGeminiRight() {
+            const screenW = window.screen.availWidth;
+            const screenH = window.screen.availHeight;
+            const leftW = Math.floor(screenW * 0.67);
+            const rightW = screenW - leftW;
+
+            const features = `width=${rightW},height=${screenH},left=${leftW},top=0,menubar=no,toolbar=no,location=yes,status=no,resizable=yes,scrollbars=yes`;
+            
+            if (geminiWindowRef && !geminiWindowRef.closed) {
+                geminiWindowRef.focus();
+            } else {
+                geminiWindowRef = window.open(GEMINI_URL, WINDOW_NAME_GEMINI, features);
+            }
+        }
+
+        function greetUser() {
+            const inputName = document.getElementById('nickname').value.trim();
+            if(inputName) {
+                userName = inputName;
+                saveData('nickname', userName);
+            }
+            const nameSpans = document.querySelectorAll('.user-name');
+            nameSpans.forEach(span => span.textContent = userName);
+
+            const greetingBox = document.getElementById('greeting-msg');
+            greetingBox.innerHTML = `<strong>「${userName}」殿、よう、参られた。</strong><br>さっそく自己PRを共に創り、理想の仕事の獲得を目指そうぞ！そこで、以下のそれぞれの問いに対するあなたの回答をボックスに入力して下され。`;
+            greetingBox.style.display = 'block';
+            
+            document.getElementById('sec-questions-first').style.display = 'block';
+        }
+
+        // 🛡️ Vercel裏倉庫と通信し、クリップボードへ直に保護コピーするコア関数
+        async function fetchAndCopyPrompt(type, dataPayload) {
+            try {
+                const response = await fetch(VERCEL_API_URL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ type: type, data: dataPayload })
+                });
+
+                if (!response.ok) throw new Error('通信の乱れ、またはVercel本陣が応答しませぬ');
+
+                const result = await response.json();
+                
+                // クリップボードへコピー
+                await navigator.clipboard.writeText(result.prompt);
+                
+                alert('伝令の指示書（学習禁止命令＋完全プロンプト）をVercel本陣より取得し、クリップボードへ保護コピーしました！右翼のジェミニ殿にそのまま貼り付けて下され。');
+                if (geminiWindowRef && !geminiWindowRef.closed) geminiWindowRef.focus();
+
+            } catch (err) {
+                alert('防衛通信に失敗しました。Vercelのデプロイ状況やURLを確認してくだされ。：' + err.message);
+            }
+        }
+
+        // 前半プロンプト生成（画面上は隠蔽）
+        function generateFirstPrompt() {
+            document.getElementById('merged-prompt-1').value = "🛡️ プロンプトはVercel裏倉庫に完全秘匿されています。そのまま下のボタンを押してくだされ。";
+            document.getElementById('sec-actions-first').style.display = 'block';
+        }
+
+        function copyFirstPrompt() {
+            const dataPayload = {
+                q1: document.getElementById('q1').value,
+                q2: document.getElementById('q2').value,
+                q3: document.getElementById('q3').value,
+                q4: document.getElementById('q4').value
+            };
+            fetchAndCopyPrompt('first', dataPayload);
+        }
+
+        function proceedToSecondStage() {
+            document.getElementById('sec-questions-second').style.display = 'block';
+        }
+
+        // 後半プロンプト生成（画面上は隠蔽）
+        function generateSecondPrompt() {
+            document.getElementById('merged-prompt-2').value = "🛡️ プロンプトはVercel裏倉庫に完全秘匿されています。そのまま下のボタンを押してくだされ。";
+            document.getElementById('sec-actions-second').style.display = 'block';
+        }
+
+        function copySecondPrompt() {
+            const dataPayload = {
+                q5: document.getElementById('q5').value,
+                q6: document.getElementById('q6').value,
+                q7: document.getElementById('q7').value,
+                q8: document.getElementById('q8').value
+            };
+            fetchAndCopyPrompt('second', dataPayload);
+        }
+
+        // 最後の贈り物プロンプト生成（画面上は隠蔽）
+        function revealGift() {
+            document.getElementById('merged-prompt-final').value = "🛡️ プロンプトはVercel裏倉庫に完全秘匿されています。そのまま下のボタンを押してくだされ。";
+            document.getElementById('sec-gift').style.display = 'block';
+        }
+
+        function copyFinalGiftPrompt() {
+            const dataPayload = {
+                q1: document.getElementById('q1').value,
+                q2: document.getElementById('q2').value,
+                q3: document.getElementById('q3').value,
+                q4: document.getElementById('q4').value
+            };
+            fetchAndCopyPrompt('final', dataPayload);
+        }
+
+        // 第四陣（最終保存の間）を展開
+        function proceedToFinalStage() {
+            document.getElementById('sec-final-registry').style.display = 'block';
+            document.getElementById('sec-final-registry').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+    </script>
+</body>
+</html>

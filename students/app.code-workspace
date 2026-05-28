@@ -1,0 +1,11 @@
+{
+	"folders": [
+		{
+			"path": "../../samurai-career-suite/src/app"
+		},
+		{
+			"path": "../../samurai-suite-test/src/app/jobmatching"
+		}
+	],
+	"settings": {}
+}
