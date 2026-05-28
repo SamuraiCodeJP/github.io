@@ -105,7 +105,7 @@
 </head>
 <body>
 
-    <h1>🏯 自己PRの陣（両翼連動・Vercel完全防衛版）</h1>
+    <h1>🏯 自己PRの陣（両翼連動版）</h1>
 
     <div class="hq-banner">
         ⚔️ <strong>ユーザー殿、2つのボタンで完璧な陣形を敷きまする：</strong><br>
@@ -122,7 +122,8 @@
     <div class="section" id="sec-welcome">
         <p>ようこそ。まずはニックネームを入力して下され。</p>
         <input type="text" id="nickname" placeholder="（例）カムイ" oninput="saveData('nickname', this.value)">
-        <button class="btn" onclick="greetUser()">陣へ入る</button>
+        <button class="btn" onclick="greetUser()">陣へ入る</button>        
+　　　　 <button class="btn" style="background-color: #e74c3c; color: #fff;" onclick="clearAllData()">最初からやり直す</button>
         <div id="greeting-msg" style="display:none;" class="message-box"></div>
     </div>
 
@@ -145,11 +146,11 @@
     </div>
 
     <div class="section" id="sec-actions-first" style="display:none;">
-        <p><span class="user-name"></span>殿、ご苦労。以下に記されたＱ１～４のメモを集約した。右翼に据えたジェミニ本陣へお貼りくだされ。</p>
-        <p style="font-size: 12px; color: #d4af37;">※防衛術により画面上のプレビューは簡易表示ですが、コピーされる指令書は完全なるものですぞ。</p>
+        <p><span class="user-name"></span>殿、ご苦労。以下のボックスにＱ１～４のメモを自動集約した。以下の「ジェミニ殿への指示書をコピー」ボタンを押して、右翼に据えたジェミニ入力欄へコピペして下され。</p>
+        <p style="font-size: 12px; color: #d4af37;">※画面上のプレビューは簡易表示ですが、コピーされる指令書は完全なるものですぞ。</p>
         
         <div class="button-group">
-            <button class="btn" onclick="copyFirstPrompt()">伝令の指示書をコピー</button>
+            <button class="btn" onclick="copyFirstPrompt()">ジェミニ殿への指示書をコピー</button>
         </div>
 
         <textarea id="merged-prompt-1" style="height: 60px;" readonly></textarea>
@@ -180,9 +181,9 @@
     </div>
 
     <div class="section" id="sec-actions-second" style="display:none;">
-        <p><span class="user-name"></span>殿、ご苦労。以下のボックスに記されたＱ5～8のメモを集約した。それをジェミニ殿に貼り付けて下され。</p>
+        <p><span class="user-name"></span>殿、ご苦労。以下のボックスに自動集約されたＱ5～8のメモと指令をジェミニ殿に貼り付けて下され。</p>
         
-        <button class="btn" onclick="copySecondPrompt()">ジェミニに以下をコピペする</button>
+        <button class="btn" onclick="copySecondPrompt()">ジェミニ殿への指令を含めてコピペする</button>
         <textarea id="merged-prompt-2" style="height: 60px;" readonly></textarea>
 
         <p style="margin-top:20px;">ジェミニ殿の回答を以下のボックスに貼り付けられよ。</p>
@@ -195,7 +196,7 @@
         <p>よいか、<span class="user-name"></span>殿。これを、まるまるコピペして企業に送るのではなく、特にカタカナ言葉や知らないキーワードは調べて、自分の言葉で書き直すのですぞ。その過程で、これがあなたのものへへと変わってゆきます。</p>
         <p>さて、最後に私からの贈り物である。<span class="user-name"></span>殿に、もう一つの自己PRを贈らせて頂く。以下のボタンを押して貼り付けられよ。</p>
         
-        <button class="btn" onclick="copyFinalGiftPrompt()">ジェミニへの最後の指令をコピー</button>
+        <button class="btn" onclick="copyFinalGiftPrompt()">ジェミニ殿への最後の指令をコピー</button>
         <textarea id="merged-prompt-final" style="height: 60px;" readonly></textarea>
         <button class="btn" onclick="proceedToFinalStage()">第四陣（最終保存の間）へ進む ──＞</button>
     </div>
@@ -312,7 +313,7 @@
 
         // 前半プロンプト生成（画面上は隠蔽）
         function generateFirstPrompt() {
-            document.getElementById('merged-prompt-1').value = "🛡️ プロンプトはVercel裏倉庫に完全秘匿されています。そのまま下のボタンを押してくだされ。";
+            document.getElementById('merged-prompt-1').value = "🛡️ 見えぬかもしれませんが、ここにジェミニ殿への指令や、あなたのメモが入っております。";
             document.getElementById('sec-actions-first').style.display = 'block';
         }
 
@@ -332,7 +333,7 @@
 
         // 後半プロンプト生成（画面上は隠蔽）
         function generateSecondPrompt() {
-            document.getElementById('merged-prompt-2').value = "🛡️ プロンプトはVercel裏倉庫に完全秘匿されています。そのまま下のボタンを押してくだされ。";
+            document.getElementById('merged-prompt-2').value = "🛡️ 見えぬかもしれませんが、ここにジェミニ殿への指令や、あなたのメモが入っております。";
             document.getElementById('sec-actions-second').style.display = 'block';
         }
 
@@ -348,7 +349,7 @@
 
         // 最後の贈り物プロンプト生成（画面上は隠蔽）
         function revealGift() {
-            document.getElementById('merged-prompt-final').value = "🛡️ プロンプトはVercel裏倉庫に完全秘匿されています。そのまま下のボタンを押してくだされ。";
+            document.getElementById('merged-prompt-final').value = "🛡️ 見えぬかもしれませんが、ここにジェミニ殿への指令が記されております。";
             document.getElementById('sec-gift').style.display = 'block';
         }
 
@@ -367,6 +368,22 @@
             document.getElementById('sec-final-registry').style.display = 'block';
             document.getElementById('sec-final-registry').scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
+
+       // 🧹 保存されたすべてのメモ書きを一括消去して画面を初期化する関数
+       function clearAllData() {
+       if (confirm("これまでに記入したすべてのメモ書きが消去されます。本当によろしいですか？")) {
+        const fields = ['nickname', 'q1', 'q2', 'q3', 'q4', 'gemini-input-1', 'q5', 'q6', 'q7', 'q8', 'gemini-input-2', 'gemini-input-final'];
+        
+        // ローカルストレージのデータをすべて削除
+        fields.forEach(field => {
+            localStorage.removeItem('pr_jin_' + field);
+        });
+
+        // 画面を強制的に再読み込みしてフレッシュな状態に戻す
+        window.location.reload();
+    }
+}
+
     </script>
 </body>
 </html>
