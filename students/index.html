@@ -16,7 +16,7 @@
         }
         .font-serif { font-family: 'Noto Serif JP', serif; }
 
-        /* ── 書籍カルーセル（干渉要素排除で確実に動く仕様） ── */
+        /* ── 書籍カルーセル ── */
         .books-track {
             display: flex;
             gap: 14px;
@@ -101,12 +101,13 @@
 
 
         <!-- ── ③ 数行のメッセージ欄 ── -->
-        <div class="max-w-2xl mx-auto bg-slate-800/40 border border-amber-500/20 rounded-xl p-6 mb-10 text-center">
+        <div class="max-w-2xl mx-auto bg-slate-800/40 border border-amber-500/20 rounded-xl p-6 mb-12 text-center">
             <p class="text-amber-400 font-bold text-base mb-3">
                 <i class="fas fa-shield-check mr-1"></i> ログイン不要・ニックネームのみで今すぐ参陣可能
             </p>
             <p class="text-xs md:text-sm text-slate-200 leading-relaxed font-medium">
                PCでの使用を前提としています<br>
+               5/29 新機能「仕事ビジョン作成の陣」をアップしました！国策連動ギミック搭載<br>
                5/28 自己PR作成をアップしました。Gemini（無料版）を使用します<br> 
                5/4 会社志望動機作成の陣、採用情報URL一括取得版をアップしました。<br>
                 「Claude・NotebookLM・Gemini」の各AI（無料版）利用に慣れておくとスムーズに使えます。
@@ -114,68 +115,101 @@
         </div>
 
 
-        <!-- ── ④ 新・自己PRの陣へのリンクボタン ── -->
-        <div class="mb-20">
-            <!-- prhtmlverフォルダ内のhtmlpr.htmlへ確実にジャンプする絶対的リンク -->
-            <a href="../prhtmlver/htmlpr.html" 
-               class="inline-flex items-center gap-3 px-12 py-5 bg-gradient-to-r from-amber-600 to-amber-700 hover:from-amber-500 hover:to-amber-600 text-white font-bold text-2xl rounded-full transition-all transform hover:scale-105 shadow-xl shadow-amber-900/40">
-                <i class="fas fa-sword"></i>
-                AI Career Suite で自己PRを作成する
-            </a>
-        </div>
-
-
-        <!-- ── ⑤ 国家プロジェクト研究、職種俯瞰、会社志望動機へのリンク（3列並列） ── -->
-        <div class="flex flex-col lg:flex-row gap-8 w-full max-w-6xl mx-auto mt-6">
+        <!-- ── ④ 2×3格子陣形（横に3つ並ぶ美しい配置） ── -->
+        <!-- md:grid-cols-3 によって、大画面環境では3列×2行の完璧なバランスになります -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 w-full max-w-6xl mx-auto text-left">
             
-            <!-- 国家プロジェクト研究 -->
-            <div class="flex-1 flex flex-col items-center gap-4 p-6 rounded-2xl bg-white/5 border border-white/10 group">
-                <div class="text-center space-y-3">
-                    <a href="../kokusaku/policy_index.html" 
-                       class="inline-block px-6 py-4 bg-slate-100 hover:bg-white text-slate-900 font-bold text-base rounded-xl transition-all border-b-4 border-slate-300 active:border-b-0 active:translate-y-1 w-full">
-                        <i class="fas fa-map-location-dot mr-2"></i>
-                        国家プロジェクト研究 (有望市場を学ぶ)
+            <!-- 一、自己PR作成の陣 -->
+            <div class="flex flex-col justify-between p-5 rounded-2xl bg-white/5 border border-amber-500/20 transition-all hover:border-amber-500/50 group">
+                <div class="space-y-3 mb-4">
+                    <a href="../prhtmlver/htmlpr.html" 
+                       class="inline-block px-4 py-3 bg-gradient-to-r from-amber-600 to-amber-700 hover:from-amber-500 hover:to-amber-600 text-white font-bold text-base rounded-xl transition-all border-b-4 border-amber-800 active:border-b-0 active:translate-y-1 w-full text-center">
+                        <i class="fas fa-sword mr-2"></i>
+                        自己PR作成の陣
                     </a>
-                    <p class="text-xs text-slate-400 leading-relaxed">
-                        公務員・民間志望者必見。国家プロジェクトと自分の志を紐付け面接の説得力を高めよう。
+                    <p class="text-xs text-slate-400 leading-relaxed pt-1">
+                        学生時代の経験から、強みと逆境を乗り越える力を抽出。世界の偉人の金言と融合した情熱の自己PRを創り上げます。
                     </p>
                 </div>
-                <div class="w-full max-w-xs mt-auto">
-                    <img src="kokusaku.jpg" alt="国策俯瞰図" class="w-full rounded-xl border border-white/10">
+                <div class="w-full mt-auto overflow-hidden rounded-xl border border-white/10">
+                    <!-- ★ご指定の自己PR画面写真（prhtmlver.jpg）をここに綺麗に配置！ -->
+                    <img src="../prhtmlver/prhtmlver.jpg" alt="自己PRの陣 プレビュー" class="w-full h-36 object-cover transform group-hover:scale-105 transition-transform">
                 </div>
             </div>
 
-            <!-- 職種俯瞰 -->
-            <div class="flex-1 flex flex-col items-center gap-4 p-6 rounded-2xl bg-white/5 border border-white/10 group">
-                <div class="text-center space-y-3">
-                    <a href="../job/job_overview_index.html" 
-                       class="inline-block px-6 py-4 bg-slate-100 hover:bg-white text-slate-900 font-bold text-base rounded-xl transition-all border-b-4 border-slate-300 active:border-b-0 active:translate-y-1 w-full">
-                        <i class="fas fa-briefcase mr-2"></i>
-                        職種俯瞰 (仕事を知る)
+            <!-- 二、仕事ビジョン作成の陣 -->
+            <div class="flex flex-col justify-between p-5 rounded-2xl bg-white/5 border border-sky-400/20 transition-all hover:border-sky-400/50 group">
+                <div class="space-y-3 mb-4">
+                    <a href="../visionhtmlver/htmlvision.html" 
+                       class="inline-block px-4 py-3 bg-gradient-to-r from-sky-600 to-sky-700 hover:from-sky-500 hover:to-sky-600 text-white font-bold text-base rounded-xl transition-all border-b-4 border-sky-800 active:border-b-0 active:translate-y-1 w-full text-center">
+                        <i class="fas fa-compass mr-2"></i>
+                        仕事ビジョン作成の陣
                     </a>
-                    <p class="text-xs text-slate-400 leading-relaxed">
-                        9分類37職種。「結果とプロセス」「苦手な人」などがわかるデータベース。
+                    <p class="text-xs text-slate-400 leading-relaxed pt-1">
+                        君の胸が高鳴るキーワードから10年後の大計を策定。画面に自動で浮き出る「国策大計」の事例をヒントに思考を深めます。
                     </p>
                 </div>
-                <div class="w-full max-w-xs mt-auto">
-                    <img src="job.jpg" alt="職種俯瞰図" class="w-full rounded-xl border border-white/10">
+                <div class="w-full mt-auto overflow-hidden rounded-xl border border-white/10">
+                    <img src="../visionhtmlver/visionhtmlver.jpg" alt="仕事ビジョン作成の陣 プレビュー" class="w-full h-36 object-cover transform group-hover:scale-105 transition-transform">
                 </div>
             </div>
 
-            <!-- 会社志望動機 -->
-            <div class="flex-1 flex flex-col items-center gap-4 p-6 rounded-2xl bg-white/5 border border-emerald-400/10 group">
-                <div class="text-center space-y-3">
+            <!-- 三、会社志望動機作成の陣 -->
+            <div class="flex flex-col justify-between p-5 rounded-2xl bg-white/5 border border-emerald-400/10 transition-all hover:border-emerald-400/30 group">
+                <div class="space-y-3 mb-4">
                     <a href="../motiva/motivation.html"
-                       class="inline-block px-6 py-4 bg-emerald-900 hover:bg-emerald-800 text-emerald-100 font-bold text-base rounded-xl transition-all border-b-4 border-emerald-700 active:border-b-0 active:translate-y-1 w-full">
+                       class="inline-block px-4 py-3 bg-emerald-900 hover:bg-emerald-800 text-emerald-100 font-bold text-base rounded-xl transition-all border-b-4 border-emerald-700 active:border-b-0 active:translate-y-1 w-full text-center">
                         <i class="fas fa-building mr-2"></i>
                         会社志望動機 作成の陣
                     </a>
-                    <p class="text-xs text-slate-400 leading-relaxed">
-                        自己分析データ×企業情報をAIで統合。あなた専用の志望動機を生成します。
+                    <p class="text-xs text-slate-400 leading-relaxed pt-1">
+                        自己分析データ×企業情報をAIで美しく融合。君だけの唯一無二の泥臭くも熱い志望動機を生成します。
                     </p>
                 </div>
-                <div class="w-full max-w-xs mt-auto">
-                    <img src="../motiva/motiva.jpg" alt="会社志望動機" class="w-full rounded-xl border border-white/10">
+                <div class="w-full mt-auto overflow-hidden rounded-xl border border-white/10">
+                    <img src="../motiva/motiva.jpg" alt="会社志望動機" class="w-full h-36 object-cover transform group-hover:scale-105 transition-transform">
+                </div>
+            </div>
+
+            <!-- 四、国家プロジェクト研究 -->
+            <div class="flex flex-col justify-between p-5 rounded-2xl bg-white/5 border border-white/10 transition-all hover:border-slate-600 group">
+                <div class="space-y-3 mb-4">
+                    <a href="../kokusaku/policy_index.html" 
+                       class="inline-block px-4 py-3 bg-slate-100 hover:bg-white text-slate-900 font-bold text-base rounded-xl transition-all border-b-4 border-slate-300 active:border-b-0 active:translate-y-1 w-full text-center">
+                        <i class="fas fa-map-location-dot mr-2"></i>
+                        国家プロジェクト研究
+                    </a>
+                    <p class="text-xs text-slate-400 leading-relaxed pt-1">
+                        政府が推進する4大分類・16テーマの有望国策市場を徹底網羅。己の志と紐付け、面接での説得力を爆発的に高めます。
+                    </p>
+                </div>
+                <div class="w-full max-w-xs mx-auto mt-auto overflow-hidden rounded-xl border border-white/10">
+                    <img src="kokusaku.jpg" alt="国策俯瞰図" class="w-full h-36 object-cover transform group-hover:scale-105 transition-transform">
+                </div>
+            </div>
+
+            <!-- 五、職種俯瞰（完全復活！） -->
+            <div class="flex flex-col justify-between p-5 rounded-2xl bg-white/5 border border-white/10 transition-all hover:border-slate-600 group">
+                <div class="space-y-3 mb-4">
+                    <a href="../job/job_overview_index.html" 
+                       class="inline-block px-4 py-3 bg-slate-100 hover:bg-white text-slate-900 font-bold text-base rounded-xl transition-all border-b-4 border-slate-300 active:border-b-0 active:translate-y-1 w-full text-center">
+                        <i class="fas fa-briefcase mr-2"></i>
+                        職種俯瞰 (仕事を知る)
+                    </a>
+                    <p class="text-xs text-slate-400 leading-relaxed pt-1">
+                        9分類37職種。実社会にどんな仕事があるのかを網羅。「結果とプロセス」「苦手な人」のタイプなどが一目でわかるデータベース。
+                    </p>
+                </div>
+                <div class="w-full max-w-xs mx-auto mt-auto overflow-hidden rounded-xl border border-white/10">
+                    <img src="job.jpg" alt="職種俯瞰図" class="w-full h-36 object-cover transform group-hover:scale-105 transition-transform">
+                </div>
+            </div>
+
+            <!-- 六、空き枠（将来の拡張用、またはデザインバランス用ダミー） -->
+            <!-- 2×3の綺麗な長方形を維持するため、背景に馴染むスマートな黒塗りの本陣スペースにしてあります -->
+            <div class="hidden md:flex flex-col justify-center items-center p-5 rounded-2xl bg-slate-950/20 border border-dashed border-white/5 text-center">
+                <div class="text-slate-600 text-xs font-serif tracking-widest">
+                    ⚔️<br>SAMURAI CAREER SUITE<br>天下布武
                 </div>
             </div>
 
@@ -184,7 +218,6 @@
     </div>
 
 <script>
-    // ── カルーセルの左右スライド処理（シンプル化で確実に動作） ──
     function scrollBooks(dir) {
         const track = document.getElementById('booksTrack');
         if (track) {
