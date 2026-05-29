@@ -338,10 +338,10 @@
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ type: type, data: dataPayload })
                 });
-                if (!response.ok) throw new Error('Vercel本陣からの応答が途絶えました');
+                if (!response.ok) throw new Error('V本陣からの応答が途絶えました');
                 const result = await response.json();
                 await navigator.clipboard.writeText(result.prompt);
-                alert('指示書をVercel本陣より取得し、クリップボードに保護コピーしました！ジェミニ殿へ貼り付けて下され。');
+                alert('指示書をV本陣より取得し、クリップボードに保護コピーしました！ジェミニ殿へ貼り付けて下され。');
                 if (geminiWindowRef && !geminiWindowRef.closed) geminiWindowRef.focus();
             } catch (err) {
                 alert('通信防衛エラー：' + err.message);
@@ -350,7 +350,7 @@
 
         // 【第一陣】プロンプト合成
         function generateFirstPrompt() {
-            document.getElementById('merged-prompt-1').value = "🛡️ プロンプトはVercel裏倉庫に完全秘匿されています。そのままボタンを押してくだされ。";
+            document.getElementById('merged-prompt-1').value = "🛡️ ジェミニ殿への指令を受取済み。そのままボタンを押してくだされ。";
             document.getElementById('sec-actions-first').style.display = 'block';
         }
         function copyFirstPrompt() {
@@ -394,7 +394,7 @@
         }
 
         function generateSecondPrompt() {
-            document.getElementById('merged-prompt-2').value = "🛡️ プロンプトはVercel裏倉庫に完全秘匿されています。そのままボタンを押してくだされ。";
+            document.getElementById('merged-prompt-2').value = "🛡️ ジェミニ殿への指令を受取済み。そのままボタンを押してくだされ。";
             document.getElementById('sec-actions-second').style.display = 'block';
         }
         function copySecondPrompt() {
@@ -428,7 +428,7 @@
         }
 
         function generateThirdPrompt() {
-            document.getElementById('merged-prompt-final').value = "🛡️ プロンプトはVercel裏倉庫に完全秘匿されています。そのままボタンを押してくだされ。";
+            document.getElementById('merged-prompt-final').value = "🛡️ ジェミニ殿への指令を受取済み。そのままボタンを押してくだされ。";
             document.getElementById('sec-actions-third').style.display = 'block';
         }
         function copyThirdPrompt() {
