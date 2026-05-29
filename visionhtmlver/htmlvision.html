@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>仕事ビジョンの陣</title>
+    <style>
+        body {
+            background-color: #1a1a1a;
+            color: #ffffff;
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            padding: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .section {
+            background-color: #2a2a2a;
+            border: 1px solid #444;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 25px;
+        }
+        h2 {
+            color: #d4af37; /* 陣にふさわしいゴールド */
+            border-bottom: 2px solid #d4af37;
+            padding-bottom: 5px;
+        }
+        label {
+            display: block;
+            margin-top: 15px;
+            font-weight: bold;
+            color: #ccc;
+        }
+        input[type="text"], textarea, select {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            background-color: #333;
+            color: #fff;
+            border: 1px solid #555;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        textarea {
+            height: 80px;
+            resize: vertical;
+        }
+        .btn {
+            background-color: #d4af37;
+            color: #1a1a1a;
+            border: none;
+            padding: 12px 24px;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 10px 5px 10px 0;
+            display: inline-block;
+            transition: background 0.3s;
+        }
+        .btn:hover {
+            background-color: #f1c40f;
+        }
+        .button-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 15px;
+        }
+        .message-box {
+            background-color: #222;
+            border-left: 4px solid #d4af37;
+            padding: 15px;
+            margin-top: 15px;
+            white-space: pre-wrap;
+        }
+        /* 国策ヒントボックス用の装飾 */
+        .policy-hint-box {
+            background-color: #1c2333;
+            border: 1px solid #3a86ff;
+            border-radius: 6px;
+            padding: 15px;
+            margin-top: 15px;
+        }
+        .policy-title {
+            color: #3a86ff;
+            font-weight: bold;
+            font-size: 15px;
+            margin-bottom: 5px;
+            border-bottom: 1px dashed #3a86ff;
+            padding-bottom: 3px;
+        }
+        .policy-desc {
+            font-size: 13px;
+            color: #cbd5e0;
+            margin-bottom: 8px;
+        }
+        .policy-keywords {
+            font-size: 12px;
+            color: #fbbf24;
+            margin-bottom: 8px;
+        }
+        /* 両翼展開バナー用装飾 */
+        .hq-banner {
+            background: rgba(212, 175, 55, 0.1);
+            border: 1px solid #d4af37;
+            padding: 16px 20px;
+            margin-bottom: 25px;
+            border-radius: 8px;
+            font-size: 14px;
+            line-height: 1.7;
+        }
+        /* 備忘録スクロール箱 */
+        .scroll-box {
+            background: #222;
+            border: 1.5px dashed rgba(212, 175, 55, 0.7);
+            border-radius: 4px;
+            padding: 20px;
+            margin-top: 15px;
+            margin-bottom: 15px;
+        }
+        .scroll-box h4 {
+            color: #e74c3c;
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            margin-top: 0;
+        }
+        .scroll-box p { font-size: 13.5px; line-height: 1.8; color: #fff; margin-bottom: 0; }
+    </style>
+</head>
+<body>
+
+    <h1>🏯 仕事ビジョンの陣（両翼連動・Vercel完全防衛版）</h1>
+
+    <div class="hq-banner">
+        ⚔️ <strong>ユーザー殿、2つのボタンで完璧な陣形を敷きまする：</strong><br>
+        ジェミニ殿と問答しやすいように、この本陣とジェミニ画面を並けて立ち上げまする。以下の順にぽちぽちと押してくだされ。<br>
+        <div class="button-group">
+            <button class="btn" onclick="deployWorkspaceLeft()">一、本陣（作戦盤）を左翼に敷く（幅2/3）</button>
+            <button class="btn" onclick="deployGeminiRight()">二、ジェミニ本陣を右翼に据える（幅1/3）</button>
+        </div>
+        <div style="font-size: 11.5px; color: #ff6b6b; font-weight: 700; margin-top: 10px;">
+            ※「一」を押すと、左側2/3の大きさで新しいウィンドウが立ち上がります。そちらが本番の作戦盤となりますので、今見ている元の全画面タブは閉じていただいて構いません。
+        </div>
+    </div>
+
+    <div class="section" id="sec-welcome">
+        <p>ようこそ。まずはニックネームを入力して下され。</p>
+        <input type="text" id="nickname" placeholder="（例）カムイ" oninput="saveData('nickname', this.value)">
+        <button class="btn" onclick="greetUser()">陣へ入る</button>        
+        <button class="btn" style="background-color: #e74c3c; color: #fff;" onclick="clearAllData()">最初からやりないす</button>
+        <div id="greeting-msg" style="display:none;" class="message-box"></div>
+    </div>
+
+    <div class="section" id="sec-questions-first" style="display:none;">
+        <h2>第一陣：ビジョンの原石抽出</h2>
+        <p>よくぞ参られた！ 拙者と共に、10年後も色褪せぬ「仕事ビジョン」を鍛え上げようではないか。まずは、気になっている業界名やキーワードから教えてくだされ。</p>
+        
+        <label>Q1：気になっている業界名やキーワード</label>
+        <input type="text" id="q1" placeholder="（例）食品・金融等の業界名や都市鉱山・食糧問題・地方創生等のキーワード" oninput="saveData('q1', this.value)">
+
+        <label>Q2：気になったきっかけや、感じたこと、ぼんやりとでもイメージしていること</label>
+        <textarea id="q2" placeholder="（例）・きっかけは授業で●●について学んだ&#10;・都市と地方のバランスをとらねばならない" oninput="saveData('q2', this.value)"></textarea>
+
+        <button class="btn" onclick="generateFirstPrompt()">前半のメモを集約する</button>
+    </div>
+
+    <div class="section" id="sec-actions-first" style="display:none;">
+        <p><span class="user-name"></span>殿、ご苦労。以下のボックスに記されたメモと軍師の指令を集約した。右翼のジェミニ殿へお貼りくだされ。</p>
+        <p style="font-size: 12px; color: #d4af37;">※防衛術により画面上のプレビューは簡易表示ですが、コピーされる指令書は完全なるものですぞ。</p>
+        
+        <div class="button-group">
+            <button class="btn" onclick="copyFirstPrompt()">ジェミニへ指令をコピペする</button>
+        </div>
+
+        <textarea id="merged-prompt-1" style="height: 60px;" readonly></textarea>
+
+        <p style="margin-top:20px;">ジェミニ殿が作成した「３つの道」を以下のボックスに丸ごと貼り付けられよ。</p>
+        <label>「３つの進むべき道」</label>
+        <textarea id="gemini-input-1" style="height: 150px;" placeholder="ここにジェミニさんの回答を貼り付け" oninput="saveData('gemini-input-1', this.value)"></textarea>
+        <button class="btn" onclick="proceedToSecondStage()">第二陣（後半戦）へ進む</button>
+    </div>
+
+    <div class="section" id="sec-questions-second" style="display:none;">
+        <h2>第二陣：国策大計との同期</h2>
+        
+        <label>Q3：この三つの中のいずれの道に、<span class="user-name"></span>殿の胸は高鳴るか？その番号と理由を教えてくだされ。</label>
+        <textarea id="q3" placeholder="（例）２，まずは国内の社会課題解決モデルの起業を成功させ、その次の段階で世界に進出する..." oninput="saveData('q3', this.value)"></textarea>
+
+        <label>Q4：仕事のテーマにしたい大枠（国策4大分類）を一つ選んで下され。</label>
+        <select id="q4" onchange="handleQ4Change(this.value)">
+            <option value="">-- 選択してくだされ --</option>
+            <option value="国を守る・強くする">① 国を守る・強くする</option>
+            <option value="暮らしの土台">② 人々の暮らしの土台を支える</option>
+            <option value="持続可能な社会">③ 持続可能な社会の実現</option>
+            <option value="地域を活性化する">④ 地域を活性化する</option>
+        </select>
+
+        <div id="policy-reference-area" style="display:none; margin-top:20px;">
+            <p style="color: #3a86ff; font-weight: bold; font-size: 14px;">📜 国策俯瞰図より自動抽出された参考資料（Q5のヒントにされよ）：</p>
+            <div id="policy-content-target"></div>
+        </div>
+
+        <button class="btn" id="btn-gen-second" style="margin-top:20px;" onclick="generateSecondPrompt()">後半のメモを集約する</button>
+    </div>
+
+    <div class="section" id="sec-actions-second" style="display:none;">
+        <p><span class="user-name"></span>殿、ご苦労。国策の参考データとメモを統合した。ジェミニ殿へお貼りくだされ。</p>
+        
+        <button class="btn" onclick="copySecondPrompt()">ジェミニへ指令をコピペする</button>
+        <textarea id="merged-prompt-2" style="height: 60px;" readonly></textarea>
+
+        <p style="margin-top:20px;">ジェミニ殿が提示した「今と未来」「成功事例」を以下のボックスに貼り付けられよ。</p>
+        <textarea id="gemini-input-2" style="height: 150px;" placeholder="ジェミニさんの回答（今と未来、成功事例）をここに貼り付け" oninput="saveData('gemini-input-2', this.value)"></textarea>
+        <button class="btn" onclick="proceedToThirdStage()">第三陣（注目点抽出）へ進む</button>
+    </div>
+
+    <div class="section" id="sec-questions-third" style="display:none;">
+        <h2>第三陣：志の最終研磨</h2>
+        <label>Q5：２つの情報（今と未来、成功事例）を読み、貴殿が注目した点と、「仕事で、こんなことができたらいいな」と思ったことを教えてくだされ（箇条書きでも可）</label>
+        <textarea id="q5" style="height: 120px;" placeholder="（例）紹介してもらった島根県海士町の事例が素晴らしい。近隣の自治体と協力して面を広げ..." oninput="saveData('q5', this.value)"></textarea>
+        
+        <button class="btn" onclick="generateThirdPrompt()">最終ビジョン命令の合成</button>
+    </div>
+
+    <div class="section" id="sec-actions-third" style="display:none;">
+        <p>お見事！これにて全ての材料が揃いました。以下のボタンを押し、ジェミニ殿から「最終成果物」を受け取って下され！</p>
+        
+        <button class="btn" onclick="copyThirdPrompt()">ジェミニへ最終指令をコピペする</button>
+        <textarea id="merged-prompt-final" style="height: 60px;" readonly></textarea>
+        <button class="btn" onclick="revealFinalRegistry()">第四陣（永久保存処）を開放する ──＞</button>
+    </div>
+
+    <div class="section" id="sec-final-registry" style="display:none;">
+        <h2>第四陣：本陣 ── 魂の仕事ビジョン・格言永久保存処</h2>
+        <p>これぞ未来を照らす大計、しかとここに収めました！<br><span class="user-name"></span>殿が紡いだ骨太な仕事ビジョンと、世界の知恵（格言）を、以下の特設ボックスへ永久に保存されよ！</p>
+        
+        <div class="scroll-box">
+            <h4>📌 <span class="user-name"></span>殿の仕事ビジョン三原則</h4>
+            <p><strong>一、社会課題と経済合理性の融合：</strong> 単なる理想論に終わらせず、持続可能なビジネスとして社会に価値を還流させる。<br>
+            <strong>二、国策という追い風を捉える：</strong> お上の掲げる大計を深く理解し、時流を味方につけて自らの影響力を最大化する。</p>
+        </div>
+
+        <label style="color: #e74c3c;">⚔️ 魂の仕事ビジョン ＆ 一期一会の格言【ここに貼り付けて保存くだされ】</label>
+        <textarea id="gemini-input-final" style="height: 250px;" placeholder="ジェミニ殿が出力した、熱い称賛、骨太なビジョン、国策との合致、そしてあなたのためだけに選ばれた格言のすべてをここに貼り付けて保存されよ..." oninput="saveData('gemini-input-final', this.value)"></textarea>
+    </div>
+
+    <script>
+        const KOKUSAKU_DATABASE = {
+            "国を守る・強くする": [
+                { title: "防衛・外交　抑止力強化と国際協力", keywords: "スタンド・オフ防衛能力 ／ 統合防空ミサイル防衛 ／ 無人アセット ／ 防衛装備移転", desc: "従来の「守り」から、同盟国との共同開発や装備品提供（OSA）を通じて国内サプライチェーンや製造業の基盤を強化する「攻め」のフェーズへ転換。企業の海外展開を支える究極のインフラ。事例：次期戦闘機（GCAP）の日英伊共同開発、三菱重工による豪州向け新型護衛艦11隻受注など。" },
+                { title: "経済安全保障・科学技術・スタートアップ育成", keywords: "特定重要物資（半導体・蓄電池） ／ 特許非公開制度 ／ スタートアップ育成5か年計画", desc: "半導体や蓄電池の国内基盤強化と技術流出防止。並行して日本をアジア最大のスタートアップハブとし、5年で投資額10倍、ユニコーン100社創出、官民投資10兆円を目指す。事例：ラピダス千歳工場へ国が1.8兆円支援、熊本のTSMC工場周辺に170社超が集積など。" },
+                { title: "海洋立国　安全な航行と海洋エネルギーの開発", keywords: "シーレーン防衛 ／ 洋上風力発電（EEZ活用） ／ グリーン海運（IMO規制） ／ 海しる", desc: "四方を海に囲む日本が貿易ルートを守りつつ、排他的経済水域（EEZ）で風車を建てて電力を作る洋上風力発電や、CO2を出さないグリーンアンモニア燃料船の開発を推進。事例：北九州響灘での国内最大規模洋上風力、商船三井・日本郵船によるゼロエミッション船開発など。" },
+                { title: "教育・人材育成　デジタル人材と研究力強化", keywords: "GIGAスクール構想 ／ 10兆円大学ファンド ／ 博士人材の多様な活躍 ／ 理工農系転換支援", desc: "AIやデジタルを使いこなす人材を育成し科学研究力を世界トップへ引き戻す。10兆円大学ファンドで年数百億規模の支援を行い、博士人材の民間活躍や文理融合型学部を新設。事例：東京大学を国際卓越研究大学第1号に認定、全国の小中学生へ1人1台端末配布完了など。" }
+            ],
+            "暮らしの土台": [
+                { title: "エネルギー安全保障　再エネ・水素・原子力の活用", keywords: "GX経済移行債20兆円 ／ 次世代原子炉 ／ 水素・アンモニア混焼", desc: "「電気が止まらない国」「CO2を減らせる国」を同時に目指す。世界初のトランジション国債で10年間に20兆円を調達し、再エネ、次世代革新炉、水素混焼等へ投資。事例：JERAによる碧南火力発電所でのアンモニア20%混焼成功、Enechainなど電力需給管理プラットフォーム拡大。" },
+                { title: "国土強靱化・インフラ更新　防災と長寿命化対策", keywords: "5か年加速化対策 ／ 予防保全・老朽化対策 ／ i-Construction2.0 ／ PFI・コンセッション方式", desc: "古くなる全国の橋やトンネル、水道等のインフラに対し、AIやドローンで壊れる前に点検・修理する予防保全へ転換。民間運営権売却（コンセッション）等で維持費を効率化。事例：能登半島地震を受けた道路整備、日本工営・パシフィックコンサルタンツによる橋梁AI点検展開など。" },
+                { title: "金融・資産運用立国と「100億企業」創出", keywords: "新NISA ／ 金融教育機構（J-FLEC） ／ 資産運用特区 ／ 100億企業宣言", desc: "新NISAで貯蓄から投資への流れを加速させ個人資産を成長分野へ還流。同時にDXやM&Aを駆使し、売上100億円規模の中堅企業へのスケールアップを国が数億規模の補助金で重点支援。事例：新NISA口座数2000万突破、中小企業庁の成長加速化補助金重点配分スタート。" },
+                { title: "交通・物流ネットワーク　2024年問題と自動運転", keywords: "物流2024年問題 ／ 自動運転レベル4解禁 ／ SAF（持続可能航空燃料） ／ 上下分離", desc: "ドライバー不足による物流危機に対応。自動運転トラックや無人配送、持続可能な航空燃料（SAF）を普及させ、赤字鉄道網は上下分離等で再構築。事例：福井県永平寺町等のレベル4移動サービス商用運行、ANA・JALによる2030年SAF10%目標、配送大手の共同配送拡大。" }
+            ],
+            "持続可能な社会": [
+                { title: "こども・若者・教育　少子化対策と居場所づくり", keywords: "こども誰でも通園制度 ／ 育休手取り10割保障 ／ ヤングケアラー支援", desc: "親の就労要件なしで保育所を使える制度や育休手取り10割補償（2025年4月開始）を整備。虐待や貧困、ヤングケアラー等に対しSNS窓口や切れ目ない相談支援を提供。事例：育休中の出生後休業支援給付開始、こども家庭センターの全市町村設置、こどもホスピス支援など。" },
+                { title: "健康・働き方・福祉　リスキリングと介護テクノロジー", keywords: "リスキリング・教育訓練給付 ／ マイナ保険証医療プラットフォーム ／ 介護ロボット・AIケア", desc: "デジタル・AI時代に合わせた社会人の学び直し（リスキリング）に最大70%の費用補助を適用。医療情報を全国で共有し、介護現場へAIセンサーや見守りロボット、記録AIを導入しDX加速。事例：全国医療情報プラットフォーム稼働、給与のデジタル払い解禁対応など。" },
+                { title: "食料安全保障・スマート農林水産　自給率向上とDX農業", keywords: "食料・農業基本法改正 ／ スマート農業（自動農機） ／ 農福連携 ／ フードテック", desc: "有事の食料危機を見据え50年ぶりに基本法を大改正。自給率向上に向けGPS自動農機やドローンでの少人数・大規模管理を実装。障害者が農業に従事する農福連携も拡大。事例：クボタ・ヤンマーの自動運転トラクター、代替肉（代替タンパク）商品の本格展開など。" },
+                { title: "環境・ウェルビーイング　脱炭素とライフスタイル刷新", keywords: "第六次環境基本計画 ／ TCFD・TNFD開示義務 ／ カーボンクレジット（GXリーグ）", desc: "プライム企業の気候変動リスク（TCFD）や自然関連情報（TNFD）の開示義務化など、サステナビリティを全業種の必須テーマ化。CO2排出量売買や脱炭素先行地域を全国展開。事例：東証プライム1,800社以上のTCFD開示、環境省による全国100か所の脱炭素先行地域選定。" }
+            ],
+            "地域を活性化する": [
+                { title: "地方創生・デジタル田園都市　地域DXと生活基盤維持", keywords: "デジタル田園都市国家構想 ／ コンパクトシティ ／ 地域生活圏形成 ／ 自治体と観光業の協業", desc: "東京一極集中を是正。過疎地でもオンライン診療や自動運転バスを普及させ、人が減っても生活サービスを維持。事例：島根県海士町「島まるごとスマートシティ」、徳島県神山町サテライトオフィス誘致・高専開校、積水ハウス等の「トリップベース道の駅プロジェクト」展開など。" },
+                { title: "外貨獲得戦略：インバウンド×コンテンツ輸出", keywords: "観光立国推進計画 ／ ナラティブ（地域の物語） ／ ものがたり大国5ヵ年計画 ／ IP360", desc: "「量から質（高付加価値）」への観光転換と、日本のIP（漫画・ゲーム・動画）を世界同時独占配信し、2033年までに海外売上高20兆円を目指す経産省の戦略。事例：インバウンド消費9兆円突破、京都市の宿泊税増税、経産省によるクリエイター向けIP360補助金開始など。" },
+                { title: "人口減少下の国土利用・管理　土地の適正化と所有者不明対策", keywords: "所有者不明土地 ／ 相続土地国庫帰属法 ／ 相続登記義務化2024 ／ グリーンインフラ", desc: "九州超の面積に達する所有者不明土地や空き家、農地放棄に対応。相続登記を義務化（3年以内、過料あり）し、不動産・IT・法律が交差する新たな登記DXビジネス領域を創出。事例：相続土地国庫帰属法の始動、全国1,500自治体への空き家バンク拡大、農地中間管理機構の集約。" },
+                { title: "多文化共生と人材獲得　外国人との共生と選ばれる地域づくり", keywords: "育成就労制度 ／ 特定技能1・2号 ／ 高度人材ポイント制 ／ 日本語教育の充実", desc: "これまでの技能実習制度を廃止し、2027年頃に向け安心の「育成就労制度」を創設。特定技能2号の家族帯同や永住申請対象を拡大し、日本語教育機関認定制度など受入体制を強化。事例：改正法の成立、浜松市・豊田市等による多言語対応・外国人学校認定支援の全国展開など。" }
+            ]
+        };
+
+        let userName = "カムイ";
+        let geminiWindowRef = null;
+        const GEMINI_URL = "https://gemini.google.com";
+        const WINDOW_NAME_GEMINI = "SamuraiGeminiHQ";
+
+        // 📡 あなたのVercelプロジェクトURL
+        const VERCEL_API_URL = "https://samurai-career-suite.vercel.app/api/htmlvision-generate-prompt";
+
+        // ページ読み込み時の自動復元処理
+        window.onload = function() {
+            const fields = ['nickname', 'q1', 'q2', 'gemini-input-1', 'q3', 'q4', 'gemini-input-2', 'q5', 'gemini-input-final'];
+            fields.forEach(field => {
+                const savedValue = localStorage.getItem('vision_jin_' + field);
+                if (savedValue) document.getElementById(field).value = savedValue;
+            });
+
+            if (document.getElementById('nickname').value.trim()) greetUser();
+            if (document.getElementById('q1').value || document.getElementById('q2').value) generateFirstPrompt();
+            if (document.getElementById('gemini-input-1').value) proceedToSecondStage();
+            if (document.getElementById('q4').value) handleQ4Change(document.getElementById('q4').value);
+            if (document.getElementById('gemini-input-2').value) proceedToThirdStage();
+            if (document.getElementById('gemini-input-final').value) revealFinalRegistry();
+        };
+
+        function saveData(key, value) {
+            localStorage.setItem('vision_jin_' + key, value);
+        }
+
+        function deployWorkspaceLeft() {
+            const screenW = window.screen.availWidth;
+            const screenH = window.screen.availHeight;
+            const leftW = Math.floor(screenW * 0.67);
+            window.open(window.location.href, "_blank", `width=${leftW},height=${screenH},left=0,top=0,menubar=no,toolbar=yes,location=yes,status=no,resizable=yes,scrollbars=yes`);
+        }
+
+        function deployGeminiRight() {
+            const screenW = window.screen.availWidth;
+            const screenH = window.screen.availHeight;
+            const leftW = Math.floor(screenW * 0.67);
+            const rightW = screenW - leftW;
+            if (geminiWindowRef && !geminiWindowRef.closed) {
+                geminiWindowRef.focus();
+            } else {
+                geminiWindowRef = window.open(GEMINI_URL, WINDOW_NAME_GEMINI, `width=${rightW},height=${screenH},left=${leftW},top=0,menubar=no,toolbar=no,location=yes,status=no,resizable=yes,scrollbars=yes`);
+            }
+        }
+
+        function greetUser() {
+            const inputName = document.getElementById('nickname').value.trim();
+            if(inputName) { userName = inputName; saveData('nickname', userName); }
+            document.querySelectorAll('.user-name').forEach(span => span.textContent = userName);
+            document.getElementById('greeting-msg').innerHTML = `<strong>「${userName}」殿、よう、参られた。</strong><br>10年後を見据える大軍議を始めようぞ！`;
+            document.getElementById('greeting-msg').style.display = 'block';
+            document.getElementById('sec-questions-first').style.display = 'block';
+        }
+
+        // 🛡️ Vercelの裏倉庫と通信する共通ロジック
+        async function fetchAndCopyPrompt(type, dataPayload) {
+            try {
+                const response = await fetch(VERCEL_API_URL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ type: type, data: dataPayload })
+                });
+                if (!response.ok) throw new Error('Vercel本陣からの応答が途絶えました');
+                const result = await response.json();
+                await navigator.clipboard.writeText(result.prompt);
+                alert('指示書をVercel本陣より取得し、クリップボードに保護コピーしました！ジェミニ殿へ貼り付けて下され。');
+                if (geminiWindowRef && !geminiWindowRef.closed) geminiWindowRef.focus();
+            } catch (err) {
+                alert('通信防衛エラー：' + err.message);
+            }
+        }
+
+        // 【第一陣】プロンプト合成
+        function generateFirstPrompt() {
+            document.getElementById('merged-prompt-1').value = "🛡️ プロンプトはVercel裏倉庫に完全秘匿されています。そのままボタンを押してくだされ。";
+            document.getElementById('sec-actions-first').style.display = 'block';
+        }
+        function copyFirstPrompt() {
+            const dataPayload = {
+                nickname: userName,
+                q1: document.getElementById('q1').value,
+                q2: document.getElementById('q2').value
+            };
+            fetchAndCopyPrompt('first', dataPayload);
+        }
+
+        // 【第二陣】展開 ＆ プルダウン連動ロジック
+        function proceedToSecondStage() {
+            document.getElementById('sec-questions-second').style.display = 'block';
+        }
+
+        // 🔄 Q4のプルダウン選択によって、内蔵された国策データベースから瞬時にヒントを出力する術
+        function handleQ4Change(val) {
+            saveData('q4', val);
+            const targetArea = document.getElementById('policy-reference-area');
+            const targetContent = document.getElementById('policy-content-target');
+            
+            if (!val || !KOKUSAKU_DATABASE[val]) {
+                targetArea.style.display = 'none';
+                return;
+            }
+
+            let htmlString = "";
+            KOKUSAKU_DATABASE[val].forEach(item => {
+                htmlString += `
+                    <div class="policy-hint-box">
+                        <div class="policy-title">📌 ${item.title}</div>
+                        <div class="policy-keywords">🔑 キーワード: ${item.keywords}</div>
+                        <div class="policy-desc">💬 解説と事例: ${item.desc}</div>
+                    </div>
+                `;
+            });
+            
+            targetContent.innerHTML = htmlString;
+            targetArea.style.display = 'block';
+        }
+
+        function generateSecondPrompt() {
+            document.getElementById('merged-prompt-2').value = "🛡️ プロンプトはVercel裏倉庫に完全秘匿されています。そのままボタンを押してくだされ。";
+            document.getElementById('sec-actions-second').style.display = 'block';
+        }
+        function copySecondPrompt() {
+            const selectEl = document.getElementById('q4');
+            const selectedText = selectEl.options[selectEl.selectedIndex].text;
+            
+            // 選択された大分類に付随する国策の文面を、そのままAIに届けるパケットとして自動合流させる
+            const val = selectEl.value;
+            let appendedPolicyInfo = `【${selectedText}に関する国策の基礎知識】\n`;
+            if(KOKUSAKU_DATABASE[val]) {
+                KOKUSAKU_DATABASE[val].forEach(item => {
+                    appendedPolicyInfo += `・テーマ: ${item.title}\n  キーワード: ${item.keywords}\n  内容と事例: ${item.desc}\n`;
+                });
+            }
+
+            const dataPayload = {
+                nickname: userName,
+                q3: document.getElementById('q3').value,
+                q4: selectedText + "\n" + appendedPolicyInfo // 文章丸ごと裏倉庫へ送信
+            };
+            fetchAndCopyPrompt('second', dataPayload);
+        }
+
+        // 【第三陣】展開
+        function proceedToStageThird() {
+            // 旧互換用名
+            proceedToThirdStage();
+        }
+        function proceedToThirdStage() {
+            document.getElementById('sec-questions-third').style.display = 'block';
+        }
+
+        function generateThirdPrompt() {
+            document.getElementById('merged-prompt-final').value = "🛡️ プロンプトはVercel裏倉庫に完全秘匿されています。そのままボタンを押してくだされ。";
+            document.getElementById('sec-actions-third').style.display = 'block';
+        }
+        function copyThirdPrompt() {
+            const dataPayload = {
+                nickname: userName,
+                q5: document.getElementById('q5').value
+            };
+            fetchAndCopyPrompt('final', dataPayload);
+        }
+
+        // 【第四陣】展開
+        function revealFinalRegistry() {
+            document.getElementById('sec-final-registry').style.display = 'block';
+            document.getElementById('sec-final-registry').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        // 🧹 ローカル記憶の完全初期化（フレッシュな状態に戻す術）
+        function clearAllData() {
+            if (confirm("仕事ビジョンのすべての入力メモ書きが消去されます。本当によろしいですか？")) {
+                const fields = ['nickname', 'q1', 'q2', 'gemini-input-1', 'q3', 'q4', 'gemini-input-2', 'q5', 'gemini-input-final'];
+                fields.forEach(field => {
+                    localStorage.removeItem('vision_jin_' + field);
+                });
+                window.location.reload();
+            }
+        }
+    </script>
+</body>
+</html>
