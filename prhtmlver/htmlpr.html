@@ -207,6 +207,14 @@
         
         <label style="color: #e74c3c; margin-top: 25px;">⚔️ 魂の座右の銘・最終自己PR【ここに貼り付けて保存くだされ】</label>
         <textarea id="gemini-input-final" style="height: 300px;" placeholder="ジェミニ殿が選定した、世界の偉人の金言から始まる熱い自己PR（称賛・完成文・格言の一連の回答）をここに貼り付けて、いつでも出陣（エントリー）できるよう保存されよ..." oninput="saveData('gemini-input-final', this.value)"></textarea>
+
+        <div style="margin-top: 20px; padding: 15px; background: #222; border: 1px dashed #d4af37; border-radius: 6px;">
+            <label style="margin-top: 0; color: #d4af37;">💾 君のPC（デスクトップ等）に名前をつけて保存する術：</label>
+            <div style="display: flex; gap: 10px; margin-top: 10px;">
+                <input type="text" id="save-filename" placeholder="自己PR_完成版" style="width: 70%; margin-top: 0;">
+                <button class="btn" style="background-color: #2ecc71; color: #fff; margin: 0; width: 30%;" onclick="downloadAsTextFile()">ファイル保存</button>
+            </div>
+        </div>
     </div>
 
     <script>
@@ -362,6 +370,61 @@
             document.getElementById('sec-final-registry').style.display = 'block';
             document.getElementById('sec-final-registry').scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
+
+        // 📥 画面に入力された「すべての問答と回答」を一瞬でテキストファイルにして排出する関数
+function downloadAsTextFile() {
+    // ニックネームとファイル名を取得（空っぽならデフォルト名）
+    const nick = localStorage.getItem('pr_jin_nickname') || "サムライ";
+    let filename = document.getElementById('save-filename').value.trim();
+    if (!filename) { filename = `自己PR_${nick}殿_完成作戦盤`; }
+    
+    // 各入力欄から最新の文字をかき集める
+    const q1 = document.getElementById('q1').value;
+    const q2 = document.getElementById('q2').value;
+    const q3 = document.getElementById('q3').value;
+    const q4 = document.getElementById('q4').value;
+    const g1 = document.getElementById('gemini-input-1').value;
+    const q5 = document.getElementById('q5').value;
+    const q6 = document.getElementById('q6').value;
+    const q7 = document.getElementById('q7').value;
+    const q8 = document.getElementById('q8').value;
+    const g2 = document.getElementById('gemini-input-2').value;
+    const g_final = document.getElementById('gemini-input-final').value;
+
+    // メモ帳（テキストファイル）に書き出すための中身を美しく整列
+    let fileContent = `==================================================\n`;
+    fileContent += `       🏯 AI Career Suite 自己PRの陣 〜全軍軍議書〜\n`;
+    fileContent += `==================================================\n`;
+    fileContent += `【参陣者名】 ${nick} 殿\n\n`;
+    fileContent += `--- 第一陣：基礎能力の抽出 ---\n`;
+    fileContent += `Q1 活動： ${q1}\n`;
+    fileContent += `Q2 動機・目標：\n${q2}\n\n`;
+    fileContent += `Q3 努力・行動：\n${q3}\n\n`;
+    fileContent += `Q4 結果・成長：\n${q4}\n\n`;
+    fileContent += `★ジェミニ殿の前半回答：\n${g1}\n\n`;
+    fileContent += `--- 第二陣：逆境と問題解決力の抽出 ---\n`;
+    fileContent += `Q5 困難・問題：\n${q5}\n\n`;
+    fileContent += `Q6 克服の行動：\n${q6}\n\n`;
+    fileContent += `Q7 創意工夫：\n${q7}\n\n`;
+    fileContent += `Q8 得られた気づき：\n${q8}\n\n`;
+    fileContent += `★ジェミニ殿の後半回答：\n${g2}\n\n`;
+    fileContent += `==================================================\n`;
+    fileContent += `🎯 最終成果物：魂の座右の銘 ＆ 最終自己PR\n`;
+    fileContent += `==================================================\n`;
+    fileContent += `${g_final}\n`;
+
+    // JavaScriptの力で「txtファイル」の塊に変換する
+    const blob = new Blob([fileContent], { type: "text/plain;charset=utf-8" });
+    const link = document.createElement("a");
+    link.href = URL.createObjectURL(blob);
+    link.download = filename + ".txt"; // 末尾に自動で .txt を付与
+    
+    // 画面の裏側でこっそりクリックしてダウンロードを実行
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+}
+
 
        // 🧹 保存されたすべてのメモ書きを一括消去して画面を初期化する関数
        function clearAllData() {
