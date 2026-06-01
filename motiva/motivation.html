@@ -165,6 +165,7 @@ textarea { min-height:78px; }
 
 /* priority badges */
 .ratio-rows { display:flex; flex-direction:column; gap:0; }
+.ratio-rows { display:flex; flex-direction:column; gap:0; }
 .ratio-row {
   display:flex; align-items:center; gap:10px;
   padding:10px 8px; border-radius:3px;
@@ -244,8 +245,6 @@ input[type="range"]::-webkit-slider-thumb {
 .btn-primary:hover { background:var(--crimson-light); transform:translateY(-1px); box-shadow:0 5px 18px rgba(139,26,26,.38); }
 .btn-gold { background:var(--gold); color:var(--brush); box-shadow:0 3px 12px rgba(200,146,42,.32); }
 .btn-gold:hover { background:var(--gold-light); transform:translateY(-1px); }
-.btn-outline { background:transparent; color:var(--ink); border:1.5px solid rgba(26,18,9,.2); }
-.btn-outline:hover { border-color:var(--gold); color:var(--gold); }
 .btn-row { display:flex; gap:12px; margin-top:28px; align-items:center; flex-wrap:wrap; }
 
 /* ── OUTPUT BOX ── */
@@ -346,7 +345,6 @@ input[type="range"]::-webkit-slider-thumb {
 
 <main>
 
-<!-- ══════════ STEP 1 ══════════ -->
 <div class="step-page active" id="step-1">
   <div class="step-heading">
     <div class="step-kanji-bg">一</div>
@@ -407,7 +405,6 @@ input[type="range"]::-webkit-slider-thumb {
 
   <div class="divider">構成比率の設定</div>
 
-  <!-- ══ RATIO BLOCK ══ -->
   <div class="ratio-block">
     <h3>⚖ 志望動機の構成比率を設定</h3>
     <p class="ratio-subtitle">
@@ -415,7 +412,6 @@ input[type="range"]::-webkit-slider-thumb {
       次に、スライダーで比率を調整します。<strong>1つ動かすと残り2つが自動で連動し、常に合計100%</strong>を維持します（5%刻み）。
     </p>
 
-    <!-- Priority selector -->
     <div style="font-size:11px;font-weight:700;color:var(--crimson);letter-spacing:.1em;margin-bottom:8px;">第一位（最重視）を選択</div>
     <div class="priority-select-row" id="pri-select">
       <button class="pri-btn selected" data-pri="0" onclick="setPriority(0)">
@@ -432,7 +428,6 @@ input[type="range"]::-webkit-slider-thumb {
       </button>
     </div>
 
-    <!-- Sliders -->
     <div class="ratio-rows" id="ratio-rows">
       <div class="ratio-row" id="rrow-0">
         <div class="priority-badge p1" id="badge-0">1</div>
@@ -454,7 +449,6 @@ input[type="range"]::-webkit-slider-thumb {
       </div>
     </div>
 
-    <!-- Bar -->
     <div class="ratio-bar" style="margin-top:18px;">
       <div class="rbar-seg rbar-1" id="rbar0" style="flex:35"></div>
       <div class="rbar-seg rbar-2" id="rbar1" style="flex:50"></div>
@@ -472,7 +466,6 @@ input[type="range"]::-webkit-slider-thumb {
   </div>
 </div>
 
-<!-- ══════════ STEP 2 ══════════ -->
 <div class="step-page" id="step-2">
   <div class="step-heading">
     <div class="step-kanji-bg">二</div>
@@ -482,7 +475,6 @@ input[type="range"]::-webkit-slider-thumb {
     </div>
   </div>
 
-  <!-- 2A: NotebookLM -->
   <div class="sub-step active" id="sub-2a">
     <div class="edict">
       <p>志望会社を知ることが、勝利への第一歩。<br>
@@ -490,32 +482,28 @@ input[type="range"]::-webkit-slider-thumb {
       次に「指示書①」をコピーし、NotebookLMに貼り付けて実行して下され。</p>
     </div>
 
-    <!-- ══ URL MANUAL INPUT ══ -->
     <div class="url-manual">
       <h3>🔗 NotebookLMに読み込ませるURLを取得する</h3>
       <p class="url-manual-sub">
         <strong><span style="color:#333;">
         【STEP A】採用トップページのURLを1つ貼り付けて「リスト化プロンプトを生成」ボタンを押す<br>
         → 画面内にClaude用プロンプト「URL＋リスト化プ指示」が表示されるので「コピー＆Claudeを開く」ボタンを押す<br>
-        【STEP B】Claudeに貼り付けて実行 → 生成されたURLリストを②のボックスに貼り付ける<br>
-        上場企業の場合は有価証券報告書（PDF）を別途NotebookLMにドロップするのが効果的です。
+        【STEP B】Claudeに貼り付けて実行 → GenerateされたURLリストを②のボックスに貼り付ける<br>
+        上場企業の場合は有価証券報告書（PDF）を別途NotebookLMにドロップするのが効果等に優れています。
         </span></strong>
       </p>
 
-      <!-- ① 採用TOPページURL入力 -->
       <div class="field-group" style="margin-bottom:12px">
         <label class="field-label" style="font-size:12px;">① 採用トップページのURL（1行・1つだけ）</label>
         <input type="url" id="recruit-top-url" placeholder="https://www.example.co.jp/recruit/fresh/" style="font-size:13px;">
       </div>
 
-      <!-- プロンプト生成ボタン -->
       <div style="margin-bottom:18px;">
         <button class="btn btn-gold" onclick="generateUrlPrompt()" style="font-size:13px; padding:10px 22px;">
           🔍 リスト化プロンプトを生成
         </button>
       </div>
 
-      <!-- 生成されたプロンプト表示エリア（初期非表示） -->
       <div id="url-prompt-area" style="display:none; margin-bottom:18px;">
         <div class="output-box" style="margin-bottom:10px;">
           <div class="ob-header">
@@ -531,13 +519,11 @@ input[type="range"]::-webkit-slider-thumb {
         </div>
       </div>
 
-      <!-- ② 取得したURLを貼り付けるエリア -->
       <div class="field-group" style="margin-bottom:10px">
         <label class="field-label" style="font-size:12px;">② Claudeが生成したURLリストをここに貼り付け（最大49件）</label>
         <textarea id="source-urls" rows="7" placeholder="https://www.example.co.jp/recruit/&#10;https://www.example.co.jp/company/&#10;https://www.example.co.jp/ir/&#10;（Claudeの回答をここにコピペ）"></textarea>
       </div>
 
-      <!-- NotebookLMを開くボタン -->
       <div style="margin-bottom:4px;">
         <button class="btn btn-gold" onclick="copyUrlsAndOpenNotebookLM()" style="font-size:13px; padding:10px 22px;">
           📓 URLリストをコピー＆NotebookLMを開く
@@ -584,7 +570,6 @@ input[type="range"]::-webkit-slider-thumb {
     </div>
   </div>
 
-  <!-- 2B: Gemini -->
   <div class="sub-step" id="sub-2b">
     <div class="edict">
       <p>偵察結果を活用し、下に最終指示書を生成した。<br>
@@ -592,8 +577,6 @@ input[type="range"]::-webkit-slider-thumb {
       開いたGeminiの入力欄に貼り付けて実行して下され。<br>
         汝の志望動機が清書される。</p>
     </div>
-
-    
 
     <div class="output-box">
       <div class="ob-header">
@@ -609,7 +592,6 @@ input[type="range"]::-webkit-slider-thumb {
       </a>
     </div>
 
-
     <div class="btn-row">
       <button class="btn btn-outline" onclick="goToSub2A()">← NotebookLMに戻る</button>
       <button class="btn btn-gold" onclick="goToStep3()">完了 ── 第三陣へ →</button>
@@ -617,7 +599,6 @@ input[type="range"]::-webkit-slider-thumb {
   </div>
 </div>
 
-<!-- ══════════ STEP 3 ══════════ -->
 <div class="step-page" id="step-3">
   <div class="step-heading">
     <div class="step-kanji-bg">三</div>
@@ -643,12 +624,21 @@ input[type="range"]::-webkit-slider-thumb {
     </p>
   </div>
 
-  
+  <div class="field-group" style="margin-top:22px;">
+    <label class="field-label" style="color:var(--crimson);">⚔ 最終成果物：清書された志望動機【ここに貼り付けて保存くだされ】</label>
+    <textarea id="f-final-answer" rows="12" placeholder="Gemini殿が出力した、魂の志望動機をここに貼り付けて、いつでも出陣（エントリー）できるよう保存されよ..." oninput="scheduleAutoSave()"></textarea>
+  </div>
 
- 
-  <div class="btn-row" style="justify-content:center;">
+  <div style="margin-top: 20px; padding: 15px; background: var(--brush); color: var(--paper); border: 1px dashed var(--gold); border-radius: 4px;">
+    <label class="field-label" style="color: var(--gold); margin-bottom: 5px;">💾 君のPC（デスクトップ等）に名前をつけて保存する術：</label>
+    <div style="display: flex; gap: 10px; margin-top: 10px;">
+      <input type="text" id="save-filename" placeholder="志望動機_〇〇会社用" style="width: 70%; margin-top: 0; color: var(--ink);">
+      <button class="btn btn-gold" style="margin: 0; width: 30%; justify-content: center; background-color: #2ecc71; color: #fff; box-shadow: none;" onclick="downloadAsTextFile()">ファイル保存</button>
+    </div>
+  </div>
+
+  <div class="btn-row" style="justify-content:center; margin-top:36px;">
     <button class="btn btn-outline" onclick="goToStep1()">← 第一陣に戻る</button>
-    
   </div>
 </div>
 
@@ -659,7 +649,7 @@ input[type="range"]::-webkit-slider-thumb {
 // ══════════════════════════════════════
 // FIELDS
 // ══════════════════════════════════════
-const FIELDS = ['f-impression','f-website','f-strength','f-experience','f-skill','f-motto','f-competitor','f-vision','f-jobs','f-culture'];
+const FIELDS = ['f-impression','f-website','f-strength','f-experience','f-skill','f-motto','f-competitor','f-vision','f-jobs','f-culture','f-final-answer'];
 const LABELS = {
   'f-impression':'会社説明会で印象に残った説明',
   'f-website':'Webサイトで印象に残ったこと',
@@ -689,17 +679,14 @@ function setPriority(idx) {
 }
 
 function onSlide(idx) {
-  // 1) snap to 5
   const raw = parseInt(document.getElementById('rs'+idx).value);
   let v = Math.round(raw / 5) * 5;
   v = Math.max(5, Math.min(90, v));
   vals[idx] = v;
 
-  // 2) 残り2つに (100 - v) を分配。現在の比率を維持、最低5%保証
   const others = [0,1,2].filter(i => i !== idx);
   const remain = 100 - v;
 
-  // 現在の合計で比率を出す（ゼロ除算対策）
   const sumOthers = vals[others[0]] + vals[others[1]];
   let a, b;
   if (sumOthers === 0) {
@@ -707,10 +694,9 @@ function onSlide(idx) {
   } else {
     a = Math.round((remain * vals[others[0]] / sumOthers) / 5) * 5;
   }
-  a = Math.max(5, Math.min(remain - 5, a)); // aは最低5、bのために少なくとも5残す
+  a = Math.max(5, Math.min(remain - 5, a));
   b = remain - a;
   b = Math.max(5, b);
-  // bを保証した分だけaを再調整
   a = remain - b;
   a = Math.max(5, a);
   b = remain - a;
@@ -718,15 +704,12 @@ function onSlide(idx) {
   vals[others[0]] = a;
   vals[others[1]] = b;
 
-  // 3) 合計が100になっているか最終チェック（丸め誤差修正）
   const total = vals[0] + vals[1] + vals[2];
   if (total !== 100) {
-    // 動かしていないスライダーのうち大きい方に差分を足す
     const adj = others.slice().sort((x,y) => vals[y] - vals[x])[0];
     vals[adj] = vals[adj] + (100 - total);
     if (vals[adj] < 5) {
       vals[adj] = 5;
-      // それでも合計がずれるなら idx を調整
       vals[idx] = 100 - vals[others[0]] - vals[others[1]];
     }
   }
@@ -735,7 +718,6 @@ function onSlide(idx) {
 }
 
 function renderRatio() {
-  // determine rank order by value (higher = lower badge number)
   const sorted = [0,1,2].slice().sort((a,b)=>vals[b]-vals[a]);
   for(let i=0;i<3;i++){
     const rank = sorted.indexOf(i)+1;
@@ -743,13 +725,11 @@ function renderRatio() {
     badge.textContent = rank;
     badge.className = 'priority-badge p'+rank;
   }
-  // sliders
   for(let i=0;i<3;i++){
     document.getElementById('rs'+i).value = vals[i];
     document.getElementById('rv'+i).textContent = vals[i]+'%';
     document.getElementById('rbar'+i).style.flex = vals[i];
     document.getElementById('rl'+i).textContent = vals[i]+'%';
-    // update track fill
     const sl = document.getElementById('rs'+i);
     const min = parseInt(sl.min), max = parseInt(sl.max);
     const pct = ((vals[i]-min)/(max-min)*100).toFixed(1)+'%';
@@ -762,11 +742,14 @@ function renderRatio() {
 // ══════════════════════════════════════
 function getUserData() {
   const d={};
-  FIELDS.forEach(id=>{d[id]=document.getElementById(id).value.trim();});
+  FIELDS.forEach(id=>{
+    const el = document.getElementById(id);
+    if(el) d[id]=el.value.trim();
+  });
   return d;
 }
 function formatUserBlock(data) {
-  return FIELDS.map(id=>`【${LABELS[id]}】\n${data[id]||'（未入力）'}`).join('\n\n');
+  return FIELDS.filter(id => LABELS[id]).map(id=>`【${LABELS[id]}】\n${data[id]||'（未入力）'}`).join('\n\n');
 }
 
 // ══════════════════════════════════════
@@ -918,12 +901,8 @@ function goToSub2B() {
 function goToStep3() {
   setNav(3);
   document.getElementById('step-3').classList.add('active');
-  const p = buildPrompt2B(getUserData(), document.getElementById('notebooklm-answer').value);
-  document.getElementById('prompt3').textContent = p;
   window.scrollTo({top:0,behavior:'smooth'});
 }
-
-
 
 // ══════════════════════════════════════
 // COPY
@@ -944,9 +923,73 @@ function copyBox(boxId, btnId) {
 let toastTimer;
 function showToast(msg) {
   const t=document.getElementById('toast');
-  t.textContent=msg; t.classList.add('show');
-  clearTimeout(toastTimer);
-  toastTimer=setTimeout(()=>t.classList.remove('show'),2800);
+  if(t) {
+    t.textContent=msg; t.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer=setTimeout(()=>t.classList.remove('show'),2800);
+  }
+}
+
+// ══════════════════════════════════════
+// DOWNLOAD AS TEXT FILE（新規実装）
+// ══════════════════════════════════════
+function downloadAsTextFile() {
+  let filename = document.getElementById('save-filename').value.trim();
+  if (!filename) { filename = `志望動機_完成作戦盤`; }
+
+  // 各フォーム・選択比率・回答を完全回収
+  const imp = document.getElementById('f-impression').value;
+  const web = document.getElementById('f-website').value;
+  const str = document.getElementById('f-strength').value;
+  const exp = document.getElementById('f-experience').value;
+  const skl = document.getElementById('f-skill').value;
+  const mto = document.getElementById('f-motto').value;
+  const cmp = document.getElementById('f-competitor').value;
+  const vsn = document.getElementById('f-vision').value;
+  const job = document.getElementById('f-jobs').value;
+  const clt = document.getElementById('f-culture').value;
+
+  const urlList  = document.getElementById('source-urls').value;
+  const nbAnswer = document.getElementById('notebooklm-answer').value;
+  const finalAns = document.getElementById('f-final-answer').value;
+
+  const pOrder = [0,1,2].slice().sort((a,b)=>vals[b]-vals[a]).map((i,r)=>`第${r+1}位「${NAMES[i]}」${vals[i]}%`).join('、');
+
+  let fileContent = `==================================================\n`;
+  fileContent += `       🏯 Samurai Career Suite 志望動機作成の陣 〜全軍軍議書〜\n`;
+  fileContent += `==================================================\n\n`;
+  fileContent += `--- 第一陣：自己分析（己を知る） ---\n`;
+  fileContent += `【会社説明会で印象に残った説明】\n${imp}\n\n`;
+  fileContent += `【会社案内Webサイトで印象に残ったこと】\n${web}\n\n`;
+  fileContent += `【私の強み・長所】\n${str}\n\n`;
+  fileContent += `【仕事に活かしたい知識や経験】\n${exp}\n\n`;
+  fileContent += `【スキル】\n${skl}\n\n`;
+  fileContent += `【私のモットー・座右の銘】\n${mto}\n\n`;
+  fileContent += `【同業他社調査で印象に残ったこと】\n${cmp}\n\n`;
+  fileContent += `【仕事ビジョン】\n${vsn}\n\n`;
+  fileContent += `【適職だと思う職種】\n${job}\n\n`;
+  fileContent += `【入社する会社に求める社風・事業理念】\n${clt}\n\n`;
+  fileContent += `--- 志望動機の構成比率設定 ---\n`;
+  fileContent += `・企業理念への共鳴：${vals[0]}%\n`;
+  fileContent += `・強みと経験の適合：${vals[1]}%\n`;
+  fileContent += `・入社後の展望　　：${vals[2]}%\n`;
+  fileContent += `優先順位：${pOrder}\n\n`;
+  fileContent += `--- 第二陣：偵察（会社を知る） ---\n`;
+  fileContent += `【偵察対象のURL群】\n${urlList}\n\n`;
+  fileContent += `【NotebookLMの要約・合致点回答】\n${nbAnswer}\n\n`;
+  fileContent += `==================================================\n`;
+  fileContent += `🎯 最終成果物：清書された志望動機（Gemini殿の出力）\n`;
+  fileContent += `==================================================\n`;
+  fileContent += `${finalAns}\n`;
+
+  const blob = new Blob([fileContent], { type: "text/plain;charset=utf-8" });
+  const link = document.createElement("a");
+  link.href = URL.createObjectURL(blob);
+  link.download = filename + ".txt";
+  
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
 }
 
 // ══════════════════════════════════════
@@ -957,12 +1000,15 @@ const STORAGE_KEY = 'samurai_motivation_v1';
 function saveToStorage() {
   try {
     const data = {};
-    FIELDS.forEach(id => { data[id] = document.getElementById(id).value; });
+    FIELDS.forEach(id => { 
+      const el = document.getElementById(id);
+      if(el) data[id] = el.value; 
+    });
     data._vals    = vals.slice();
     data._savedAt = new Date().toISOString();
     localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
     updateSaveBadge(true, data._savedAt);
-  } catch(e) { /* quota exceeded など — 無視 */ }
+  } catch(e) { /* 無視 */ }
 }
 
 function loadFromStorage() {
@@ -971,9 +1017,10 @@ function loadFromStorage() {
     if (!raw) return false;
     const data = JSON.parse(raw);
     FIELDS.forEach(id => {
-      if (data[id] !== undefined) document.getElementById(id).value = data[id];
+      const el = document.getElementById(id);
+      if (el && data[id] !== undefined) el.value = data[id];
     });
-    if (Array.isArray(data._vals) && data._vals.length === 3) {
+    if (data._vals && Array.isArray(data._vals) && data._vals.length === 3) {
       vals[0] = data._vals[0];
       vals[1] = data._vals[1];
       vals[2] = data._vals[2];
@@ -986,7 +1033,10 @@ function loadFromStorage() {
 function clearStorage() {
   if (!confirm('保存内容をすべて消去しますか？\n入力フォームもリセットされます。')) return;
   try { localStorage.removeItem(STORAGE_KEY); } catch(e) {}
-  FIELDS.forEach(id => { document.getElementById(id).value = ''; });
+  FIELDS.forEach(id => {
+    const el = document.getElementById(id);
+    if(el) el.value = '';
+  });
   vals = [35, 50, 15];
   renderRatio();
   updateSaveBadge(false, null);
@@ -1026,7 +1076,8 @@ function scheduleAutoSave() {
 
 function attachAutoSave() {
   FIELDS.forEach(id => {
-    document.getElementById(id).addEventListener('input', scheduleAutoSave);
+    const el = document.getElementById(id);
+    if(el) el.addEventListener('input', scheduleAutoSave);
   });
   [0,1,2].forEach(i => {
     document.getElementById('rs'+i).addEventListener('input', () => {
