@@ -149,7 +149,7 @@
         <p>ようこそ。まずはニックネームを入力して下され。</p>
         <input type="text" id="nickname" placeholder="（例）カムイ" oninput="saveData('nickname', this.value)">
         <button class="btn" onclick="greetUser()">陣へ入る</button>        
-        <button class="btn" style="background-color: #e74c3c; color: #fff;" onclick="clearAllData()">最初からやりないす</button>
+        <button class="btn" style="background-color: #e74c3c; color: #fff;" onclick="clearAllData()">最初からやり直す</button>
         <div id="greeting-msg" style="display:none;" class="message-box"></div>
     </div>
 
@@ -243,7 +243,15 @@
         </div>
 
         <label style="color: #e74c3c;">⚔️ 魂の仕事ビジョン ＆ 一期一会の格言【ここに貼り付けて保存くだされ】</label>
-        <textarea id="gemini-input-final" style="height: 250px;" placeholder="ジェミニ殿が出力した、熱い称賛、骨太なビジョン、国策との合致、そしてあなたのためだけに選ばれた格言のすべてをここに貼り付けて保存されよ..." oninput="saveData('gemini-input-final', this.value)"></textarea>
+        <textarea id="gemini-input-final" style="height: 250px;" placeholder="ジェミニ殿が出力した、熱い称賛、骨太なビジョン、国策との合致、 casket のすべてをここに貼り付けて保存されよ..." oninput="saveData('gemini-input-final', this.value)"></textarea>
+
+        <div style="margin-top: 20px; padding: 15px; background: #222; border: 1px dashed #d4af37; border-radius: 6px;">
+            <label style="margin-top: 0; color: #d4af37;">💾 君のPC（デスクトップ等）に名前をつけて保存する術：</label>
+            <div style="display: flex; gap: 10px; margin-top: 10px;">
+                <input type="text" id="save-filename" placeholder="仕事ビジョン_完成版" style="width: 70%; margin-top: 0;">
+                <button class="btn" style="background-color: #2ecc71; color: #fff; margin: 0; width: 30%;" onclick="downloadAsTextFile()">ファイル保存</button>
+            </div>
+        </div>
     </div>
 
     <script>
@@ -258,7 +266,7 @@
                 { title: "エネルギー安全保障　再エネ・水素・原子力の活用", keywords: "GX経済移行債20兆円 ／ 次世代原子炉 ／ 水素・アンモニア混焼", desc: "「電気が止まらない国」「CO2を減らせる国」を同時に目指す。世界初のトランジション国債で10年間に20兆円を調達し、再エネ、次世代革新炉、水素混焼等へ投資。事例：JERAによる碧南火力発電所でのアンモニア20%混焼成功、Enechainなど電力需給管理プラットフォーム拡大。" },
                 { title: "国土強靱化・インフラ更新　防災と長寿命化対策", keywords: "5か年加速化対策 ／ 予防保全・老朽化対策 ／ i-Construction2.0 ／ PFI・コンセッション方式", desc: "古くなる全国の橋やトンネル、水道等のインフラに対し、AIやドローンで壊れる前に点検・修理する予防保全へ転換。民間運営権売却（コンセッション）等で維持費を効率化。事例：能登半島地震を受けた道路整備、日本工営・パシフィックコンサルタンツによる橋梁AI点検展開など。" },
                 { title: "金融・資産運用立国と「100億企業」創出", keywords: "新NISA ／ 金融教育機構（J-FLEC） ／ 資産運用特区 ／ 100億企業宣言", desc: "新NISAで貯蓄から投資への流れを加速させ個人資産を成長分野へ還流。同時にDXやM&Aを駆使し、売上100億円規模の中堅企業へのスケールアップを国が数億規模の補助金で重点支援。事例：新NISA口座数2000万突破、中小企業庁の成長加速化補助金重点配分スタート。" },
-                { title: "交通・物流ネットワーク　2024年問題と自動運転", keywords: "物流2024年問題 ／ 自動運転レベル4解禁 ／ SAF（持続可能航空燃料） ／ 上下分離", desc: "ドライバー不足による物流危機に対応。自動運転トラックや無人配送、持続可能な航空燃料（SAF）を普及させ、赤字鉄道網は上下分離等で再構築。事例：福井県永平寺町等のレベル4移動サービス商用運行、ANA・JALによる2030年SAF10%目標、配送大手の共同配送拡大。" }
+                { title: "交通・物流ネットワーク　2024年問題と自動運転", keywords: "物流2024年問題 ／ 自動運転レベル4解禁 ／ SAF（持続可能航空燃料） ／ 上下分離", desc: "ドライバー不足による物流危機に対応。自動運転トラックや無人配送、持続可能な航空燃料（SAF）を普及させ、赤字鉄道網は上下分離等で再構築. 事例：福井県永平寺町等のレベル4移動サービス商用運行、ANA・JALによる2030年SAF10%目標、配送大手の共同配送拡大。" }
             ],
             "持続可能な社会": [
                 { title: "こども・若者・教育　少子化対策と居場所づくり", keywords: "こども誰でも通園制度 ／ 育休手取り10割保障 ／ ヤングケアラー支援", desc: "親の就労要件なしで保育所を使える制度や育休手取り10割補償（2025年4月開始）を整備。虐待や貧困、ヤングケアラー等に対しSNS窓口や切れ目ない相談支援を提供。事例：育休中の出生後休業支援給付開始、こども家庭センターの全市町村設置、こどもホスピス支援など。" },
@@ -401,7 +409,6 @@
             const selectEl = document.getElementById('q4');
             const selectedText = selectEl.options[selectEl.selectedIndex].text;
             
-            // 選択された大分類に付随する国策の文面を、そのままAIに届けるパケットとして自動合流させる
             const val = selectEl.value;
             let appendedPolicyInfo = `【${selectedText}に関する国策の基礎知識】\n`;
             if(KOKUSAKU_DATABASE[val]) {
@@ -420,7 +427,6 @@
 
         // 【第三陣】展開
         function proceedToStageThird() {
-            // 旧互換用名
             proceedToThirdStage();
         }
         function proceedToThirdStage() {
@@ -443,6 +449,55 @@
         function revealFinalRegistry() {
             document.getElementById('sec-final-registry').style.display = 'block';
             document.getElementById('sec-final-registry').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        // 📥 仕事ビジョンの全軍軍議メモをファイルとして排出する関数（バグ修正・q5完全連動版）
+        function downloadAsTextFile() {
+            const nick = localStorage.getItem('vision_jin_nickname') || "サムライ";
+            let filename = document.getElementById('save-filename').value.trim();
+            if (!filename) { filename = `仕事ビジョン_${nick}殿_完成作戦盤`; }
+            
+            // 各入力欄・プルダウン・AI回答エリアから文字を完全回収（バグ要因のg5排除、q5に統一）
+            const q1 = document.getElementById('q1').value;
+            const q2 = document.getElementById('q2').value;
+            const g1 = document.getElementById('gemini-input-1').value;
+            const q3 = document.getElementById('q3').value;
+            
+            const selectEl = document.getElementById('q4');
+            const q4_text = selectEl.selectedIndex >= 0 ? selectEl.options[selectEl.selectedIndex].text : "未選択";
+            
+            const g2 = document.getElementById('gemini-input-2').value;
+            const q5 = document.getElementById('q5').value; // ⭕️ 正しくq5で回収
+            const g_final = document.getElementById('gemini-input-final').value;
+
+            // テキストファイルとして美しく整列
+            let fileContent = `==================================================\n`;
+            fileContent += `       🏯 AI Career Suite 仕事ビジョンの陣 〜全軍軍議書〜\n`;
+            fileContent += `==================================================\n`;
+            fileContent += `【参陣者名】 ${nick} 殿\n\n`;
+            fileContent += `--- 第一陣：ビジョンの原石抽出 ---\n`;
+            fileContent += `Q1 気になる業界・キーワード：\n${q1}\n\n`;
+            fileContent += `Q2 きっかけ・イメージ：\n${q2}\n\n`;
+            fileContent += `★ジェミニ殿の「３つの進むべき道」回答：\n${g1}\n\n`;
+            fileContent += `--- 第二陣：国策大計との同期 ---\n`;
+            fileContent += `Q3 胸が高鳴る道とその理由：\n${q3}\n\n`;
+            fileContent += `Q4 選択した仕事のテーマ：\n${q4_text}\n\n`;
+            fileContent += `★ジェミニ殿の「今と未来・成功事例」回答：\n${g2}\n\n`;
+            fileContent += `--- 第三陣：志の最終研磨 ---\n`;
+            fileContent += `Q5 注目点や仕事の理想像：\n${q5}\n\n`; // ⭕️ 正しくq5を出力
+            fileContent += `==================================================\n`;
+            fileContent += `🎯 最終成果物：魂の仕事ビジョン ＆ 一期一会の格言\n`;
+            fileContent += `==================================================\n`;
+            fileContent += `${g_final}\n`;
+
+            const blob = new Blob([fileContent], { type: "text/plain;charset=utf-8" });
+            const link = document.createElement("a");
+            link.href = URL.createObjectURL(blob);
+            link.download = filename + ".txt";
+            
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
         }
 
         // 🧹 ローカル記憶の完全初期化（フレッシュな状態に戻す術）
