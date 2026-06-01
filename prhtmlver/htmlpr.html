@@ -122,8 +122,8 @@
     <div class="section" id="sec-welcome">
         <p>ようこそ。まずはニックネームを入力して下され。</p>
         <input type="text" id="nickname" placeholder="（例）カムイ" oninput="saveData('nickname', this.value)">
-        <button class="btn" onclick="greetUser()">陣へ入る</button>        
-　　　　 <button class="btn" style="background-color: #e74c3c; color: #fff;" onclick="clearAllData()">最初からやり直す</button>
+        <button class="btn" onclick="greetUser()">陣へ入る</button>
+        <button class="btn" style="background-color: #e74c3c; color: #fff;" onclick="clearAllData()">最初からやり直す</button>
         <div id="greeting-msg" style="display:none;" class="message-box"></div>
     </div>
 
@@ -201,18 +201,12 @@
         <button class="btn" onclick="proceedToFinalStage()">第四陣（最終保存の間）へ進む ──＞</button>
     </div>
 
-    <div class="section" id="sec-final-registry" style="display:none;">
+  <div class="section" id="sec-final-registry" style="display:none;">
         <h2>第四陣：本陣 ── 世界の偉人の金言入り自己PR保存処</h2>
         <p>これぞ魂の傑作、しかとここに収めました！<br><span class="user-name"></span>殿の行動力と世界の偉人の金言が完全に融合した情熱の自己PRを、以下の特設ボックスへ永久に保存されよ！</p>
         
-        <div class="scroll-box">
-            <h4>📌 <span class="user-name"></span>殿の絶対の行動指針</h4>
-            <p><strong>一、自ら先にギブを成す：</strong> 挨拶も手伝いも、常に己から一歩踏み出すことで、豊かな信頼の果実が実る。<br>
-            <strong>二、多様な新環境を恐れぬ：</strong> 自ら主体的に周囲へ働きかけ構築した強固な人間関係と情熱の力は、いかなる社会の荒波をも乗り越える最大の盾となる。</p>
-        </div>
-
-        <label style="color: #e74c3c;">⚔️ 魂の座右の銘・最終自己PR【ここに貼り付けて保存くだされ】</label>
-        <textarea id="gemini-input-final" style="height: 250px;" placeholder="ジェミニ殿が選定した、世界の偉人の金言から始まる熱い自己PRをここに貼り付けて、いつでも出陣（エントリー）できるよう保存されよ..." oninput="saveData('gemini-input-final', this.value)"></textarea>
+        <label style="color: #e74c3c; margin-top: 25px;">⚔️ 魂の座右の銘・最終自己PR【ここに貼り付けて保存くだされ】</label>
+        <textarea id="gemini-input-final" style="height: 300px;" placeholder="ジェミニ殿が選定した、世界の偉人の金言から始まる熱い自己PR（称賛・完成文・格言の一連の回答）をここに貼り付けて、いつでも出陣（エントリー）できるよう保存されよ..." oninput="saveData('gemini-input-final', this.value)"></textarea>
     </div>
 
     <script>
