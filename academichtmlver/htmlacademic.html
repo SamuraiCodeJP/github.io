@@ -306,7 +306,7 @@
                 const result = await response.json();
                 
                 await navigator.clipboard.writeText(result.prompt);
-                alert('指示書を取得し、クリップボードにコピーしました！右翼のジェミニ殿へそのまま貼り付けてくだされ。');
+                alert('指示書を取得し、クリップボードにコピーしました！\n\n⚠️【ユーザー殿へ】\nコピーされた中身が文字化けしていても問題ございません！\n心配せず、そのまま右翼のジェミニ殿へ貼り付けてくだされ。');
                 if (geminiWindowRef && !geminiWindowRef.closed) geminiWindowRef.focus();
             } catch (err) {
                 alert('通信に失敗いたしました：' + err.message);
