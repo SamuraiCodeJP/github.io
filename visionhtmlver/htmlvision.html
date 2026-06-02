@@ -131,11 +131,11 @@
 </head>
 <body>
 
-    <h1>🏯 仕事ビジョンの陣（両翼連動・Vercel完全防衛版）</h1>
+    <h1>🏯 仕事ビジョンの陣</h1>
 
     <div class="hq-banner">
         ⚔️ <strong>ユーザー殿、2つのボタンで完璧な陣形を敷きまする：</strong><br>
-        ジェミニ殿と問答しやすいように、この本陣とジェミニ画面を並けて立ち上げまする。以下の順にぽちぽちと押してくだされ。<br>
+        ジェミニ殿と問答しやすいように、この本陣とジェミニ画面を並べて立ち上げまする。以下の順にぽちぽちと押してくだされ。<br>
         <div class="button-group">
             <button class="btn" onclick="deployWorkspaceLeft()">一、本陣（作戦盤）を左翼に敷く（幅2/3）</button>
             <button class="btn" onclick="deployGeminiRight()">二、ジェミニ本陣を右翼に据える（幅1/3）</button>
@@ -168,10 +168,10 @@
 
     <div class="section" id="sec-actions-first" style="display:none;">
         <p><span class="user-name"></span>殿、ご苦労。以下のボックスに記されたメモと軍師の指令を集約した。右翼のジェミニ殿へお貼りくだされ。</p>
-        <p style="font-size: 12px; color: #d4af37;">※防衛術により画面上のプレビューは簡易表示ですが、コピーされる指令書は完全なるものですぞ。</p>
+        <p style="font-size: 12px; color: #d4af37;">※画面上のプレビューは簡易表示ですが、コピーされる指示書は完全なるものですぞ。</p>
         
         <div class="button-group">
-            <button class="btn" onclick="copyFirstPrompt()">ジェミニへ指令をコピペする</button>
+            <button class="btn" onclick="copyFirstPrompt()">指示書をコピーする</button>
         </div>
 
         <textarea id="merged-prompt-1" style="height: 60px;" readonly></textarea>
@@ -198,7 +198,7 @@
         </select>
 
         <div id="policy-reference-area" style="display:none; margin-top:20px;">
-            <p style="color: #3a86ff; font-weight: bold; font-size: 14px;">📜 国策俯瞰図より自動抽出された参考資料（Q5のヒントにされよ）：</p>
+            <p style="color: #3a86ff; font-weight: bold; font-size: 14px;">📜 参考資料（Q5のヒントにされよ）：</p>
             <div id="policy-content-target"></div>
         </div>
 
@@ -206,9 +206,9 @@
     </div>
 
     <div class="section" id="sec-actions-second" style="display:none;">
-        <p><span class="user-name"></span>殿、ご苦労。国策の参考データとメモを統合した。ジェミニ殿へお貼りくだされ。</p>
+        <p><span class="user-name"></span>殿、ご苦労。参考データとメモを統合した。ジェミニ殿へお貼りくだされ。</p>
         
-        <button class="btn" onclick="copySecondPrompt()">ジェミニへ指令をコピペする</button>
+        <button class="btn" onclick="copySecondPrompt()">指示書をコピーする</button>
         <textarea id="merged-prompt-2" style="height: 60px;" readonly></textarea>
 
         <p style="margin-top:20px;">ジェミニ殿が提示した「今と未来」「成功事例」を以下のボックスに貼り付けられよ。</p>
@@ -221,13 +221,13 @@
         <label>Q5：２つの情報（今と未来、成功事例）を読み、貴殿が注目した点と、「仕事で、こんなことができたらいいな」と思ったことを教えてくだされ（箇条書きでも可）</label>
         <textarea id="q5" style="height: 120px;" placeholder="（例）紹介してもらった島根県海士町の事例が素晴らしい。近隣の自治体と協力して面を広げ..." oninput="saveData('q5', this.value)"></textarea>
         
-        <button class="btn" onclick="generateThirdPrompt()">最終ビジョン命令の合成</button>
+        <button class="btn" onclick="generateThirdPrompt()">最終指示書の合成</button>
     </div>
 
     <div class="section" id="sec-actions-third" style="display:none;">
-        <p>お見事！これにて全ての材料が揃いました。以下のボタンを押し、ジェミニ殿から「最終成果物」を受け取って下され！</p>
+        <p>お見事！これにてすべての材料が揃いました。以下のボタンを押し、ジェミニ殿から「最終成果物」を受け取って下され！</p>
         
-        <button class="btn" onclick="copyThirdPrompt()">ジェミニへ最終指令をコピペする</button>
+        <button class="btn" onclick="copyThirdPrompt()">最終指示書をコピーする</button>
         <textarea id="merged-prompt-final" style="height: 60px;" readonly></textarea>
         <button class="btn" onclick="revealFinalRegistry()">第四陣（永久保存処）を開放する ──＞</button>
     </div>
@@ -239,17 +239,17 @@
         <div class="scroll-box">
             <h4>📌 <span class="user-name"></span>殿の仕事ビジョン三原則</h4>
             <p><strong>一、社会課題と経済合理性の融合：</strong> 単なる理想論に終わらせず、持続可能なビジネスとして社会に価値を還流させる。<br>
-            <strong>二、国策という追い風を捉える：</strong> お上の掲げる大計を深く理解し、時流を味方につけて自らの影響力を最大化する。</p>
+            <strong>二、国策という追い風を捉える：</strong> 時代の大きな流れを味方につけて自らの影響力を最大化する。</p>
         </div>
 
         <label style="color: #e74c3c;">⚔️ 魂の仕事ビジョン ＆ 一期一会の格言【ここに貼り付けて保存くだされ】</label>
-        <textarea id="gemini-input-final" style="height: 250px;" placeholder="ジェミニ殿が出力した、熱い称賛、骨太なビジョン、国策との合致、 casket のすべてをここに貼り付けて保存されよ..." oninput="saveData('gemini-input-final', this.value)"></textarea>
+        <textarea id="gemini-input-final" style="height: 250px;" placeholder="ジェミニ殿が出力した、熱い称賛、骨太なビジョン、国策との合致、格言のすべてをここに貼り付けて保存されよ..." oninput="saveData('gemini-input-final', this.value)"></textarea>
 
         <div style="margin-top: 20px; padding: 15px; background: #222; border: 1px dashed #d4af37; border-radius: 6px;">
             <label style="margin-top: 0; color: #d4af37;">💾 君のPC（デスクトップ等）に名前をつけて保存する術：</label>
             <div style="display: flex; gap: 10px; margin-top: 10px;">
                 <input type="text" id="save-filename" placeholder="仕事ビジョン_完成版" style="width: 70%; margin-top: 0;">
-                <button class="btn" style="background-color: #2ecc71; color: #fff; margin: 0; width: 30%;" onclick="downloadAsTextFile()">ファイル保存</button>
+                <button class="btn" style="background-color: #2ecc71; color: #fff; margin: 0; width: 30%; text-align: center; justify-content: center;" onclick="downloadAsTextFile()">ファイル保存</button>
             </div>
         </div>
     </div>
@@ -278,7 +278,7 @@
                 { title: "地方創生・デジタル田園都市　地域DXと生活基盤維持", keywords: "デジタル田園都市国家構想 ／ コンパクトシティ ／ 地域生活圏形成 ／ 自治体と観光業の協業", desc: "東京一極集中を是正。過疎地でもオンライン診療や自動運転バスを普及させ、人が減っても生活サービスを維持。事例：島根県海士町「島まるごとスマートシティ」、徳島県神山町サテライトオフィス誘致・高専開校、積水ハウス等の「トリップベース道の駅プロジェクト」展開など。" },
                 { title: "外貨獲得戦略：インバウンド×コンテンツ輸出", keywords: "観光立国推進計画 ／ ナラティブ（地域の物語） ／ ものがたり大国5ヵ年計画 ／ IP360", desc: "「量から質（高付加価値）」への観光転換と、日本のIP（漫画・ゲーム・動画）を世界同時独占配信し、2033年までに海外売上高20兆円を目指す経産省の戦略。事例：インバウンド消費9兆円突破、京都市の宿泊税増税、経産省によるクリエイター向けIP360補助金開始など。" },
                 { title: "人口減少下の国土利用・管理　土地の適正化と所有者不明対策", keywords: "所有者不明土地 ／ 相続土地国庫帰属法 ／ 相続登記義務化2024 ／ グリーンインフラ", desc: "九州超の面積に達する所有者不明土地や空き家、農地放棄に対応。相続登記を義務化（3年以内、過料あり）し、不動産・IT・法律が交差する新たな登記DXビジネス領域を創出。事例：相続土地国庫帰属法の始動、全国1,500自治体への空き家バンク拡大、農地中間管理機構の集約。" },
-                { title: "多文化共生と人材獲得　外国人との共生と選ばれる地域づくり", keywords: "育成就労制度 ／ 特定技能1・2号 ／ 高度人材ポイント制 ／ 日本語教育の充実", desc: "これまでの技能実習制度を廃止し、2027年頃に向け安心の「育成就労制度」を創設。特定技能2号の家族帯同や永住申請対象を拡大し、日本語教育機関認定制度など受入体制を強化。事例：改正法の成立、浜松市・豊田市等による多言語対応・外国人学校認定支援の全国展開など。" }
+                { title: "多文化共生と外国人材獲得　選ばれる地域づくり", keywords: "育成就労制度 ／ 特定技能1・2号 ／ 高度人材ポイント制 ／ 日本語教育の充実", desc: "これまでの技能実習制度を廃止し、2027年頃に向け安心の「育成就労制度」を創設。特定技能2号の家族帯同や永住申請対象を拡大し、日本語教育機関認定制度など受入体制を強化。事例：改正法の成立、浜松市・豊田市等による多言語対応・外国人学校認定支援の全国展開など。" }
             ]
         };
 
@@ -287,10 +287,8 @@
         const GEMINI_URL = "https://gemini.google.com";
         const WINDOW_NAME_GEMINI = "SamuraiGeminiHQ";
 
-        // 📡 あなたのVercelプロジェクトURL
         const VERCEL_API_URL = "https://samurai-career-suite.vercel.app/api/htmlvision-generate-prompt";
 
-        // ページ読み込み時の自動復元処理
         window.onload = function() {
             const fields = ['nickname', 'q1', 'q2', 'gemini-input-1', 'q3', 'q4', 'gemini-input-2', 'q5', 'gemini-input-final'];
             fields.forEach(field => {
@@ -338,7 +336,6 @@
             document.getElementById('sec-questions-first').style.display = 'block';
         }
 
-        // 🛡️ Vercelの裏倉庫と通信する共通ロジック
         async function fetchAndCopyPrompt(type, dataPayload) {
             try {
                 const response = await fetch(VERCEL_API_URL, {
@@ -346,19 +343,20 @@
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ type: type, data: dataPayload })
                 });
-                if (!response.ok) throw new Error('V本陣からの応答が途絶えました');
+                if (!response.ok) throw new Error('通信が途絶えました。しばらく経ってから再度お試しくだされ。');
                 const result = await response.json();
                 await navigator.clipboard.writeText(result.prompt);
-                alert('指示書をV本陣より取得し、クリップボードに保護コピーしました！ジェミニ殿へ貼り付けて下され。');
+                
+                // ⭕️ お上のご指示通り、システム単語を完全に排除した完璧な文字化けアナウンス
+                alert('ジェミニ殿への指令を取得し、クリップボードにコピーしました！\n\n⚠️【ユーザー殿へ告ぐ】\n「文字化け」は心配ご無用！\n心配せず、そのまま右翼のジェミニ殿へ貼り付けてくだされ。');
                 if (geminiWindowRef && !geminiWindowRef.closed) geminiWindowRef.focus();
             } catch (err) {
-                alert('通信防衛エラー：' + err.message);
+                alert('通信に失敗いたしました。時間をおいて再度お試しくだされ。：' + err.message);
             }
         }
 
-        // 【第一陣】プロンプト合成
         function generateFirstPrompt() {
-            document.getElementById('merged-prompt-1').value = "🛡️ ジェミニ殿への指令を受取済み。そのままボタンを押してくだされ。";
+            document.getElementById('merged-prompt-1').value = "🛡️ 指令書が裏で待機中でござる。そのままボタンを押してくだされ。";
             document.getElementById('sec-actions-first').style.display = 'block';
         }
         function copyFirstPrompt() {
@@ -370,12 +368,10 @@
             fetchAndCopyPrompt('first', dataPayload);
         }
 
-        // 【第二陣】展開 ＆ プルダウン連動ロジック
         function proceedToSecondStage() {
             document.getElementById('sec-questions-second').style.display = 'block';
         }
 
-        // 🔄 Q4のプルダウン選択によって、内蔵された国策データベースから瞬時にヒントを出力する術
         function handleQ4Change(val) {
             saveData('q4', val);
             const targetArea = document.getElementById('policy-reference-area');
@@ -402,7 +398,7 @@
         }
 
         function generateSecondPrompt() {
-            document.getElementById('merged-prompt-2').value = "🛡️ ジェミニ殿への指令を受取済み。そのままボタンを押してくだされ。";
+            document.getElementById('merged-prompt-2').value = "🛡️ すべてのメモが一本に統合され、待機中でござる。そのままボタンを押してくだされ。";
             document.getElementById('sec-actions-second').style.display = 'block';
         }
         function copySecondPrompt() {
@@ -410,7 +406,7 @@
             const selectedText = selectEl.options[selectEl.selectedIndex].text;
             
             const val = selectEl.value;
-            let appendedPolicyInfo = `【${selectedText}に関する国策の基礎知識】\n`;
+            let appendedPolicyInfo = `【${selectedText}に関する知識】\n`;
             if(KOKUSAKU_DATABASE[val]) {
                 KOKUSAKU_DATABASE[val].forEach(item => {
                     appendedPolicyInfo += `・テーマ: ${item.title}\n  キーワード: ${item.keywords}\n  内容と事例: ${item.desc}\n`;
@@ -420,21 +416,17 @@
             const dataPayload = {
                 nickname: userName,
                 q3: document.getElementById('q3').value,
-                q4: selectedText + "\n" + appendedPolicyInfo // 文章丸ごと裏倉庫へ送信
+                q4: selectedText + "\n" + appendedPolicyInfo
             };
             fetchAndCopyPrompt('second', dataPayload);
         }
 
-        // 【第三陣】展開
-        function proceedToStageThird() {
-            proceedToThirdStage();
-        }
         function proceedToThirdStage() {
             document.getElementById('sec-questions-third').style.display = 'block';
         }
 
         function generateThirdPrompt() {
-            document.getElementById('merged-prompt-final').value = "🛡️ ジェミニ殿への指令を受取済み。そのままボタンを押してくだされ。";
+            document.getElementById('merged-prompt-final').value = "🛡️ 特別な指令書が待機中でござる。そのままボタンを押してくだされ。";
             document.getElementById('sec-actions-third').style.display = 'block';
         }
         function copyThirdPrompt() {
@@ -445,19 +437,16 @@
             fetchAndCopyPrompt('final', dataPayload);
         }
 
-        // 【第四陣】展開
         function revealFinalRegistry() {
             document.getElementById('sec-final-registry').style.display = 'block';
             document.getElementById('sec-final-registry').scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
 
-        // 📥 仕事ビジョンの全軍軍議メモをファイルとして排出する関数（バグ修正・q5完全連動版）
         function downloadAsTextFile() {
             const nick = localStorage.getItem('vision_jin_nickname') || "サムライ";
             let filename = document.getElementById('save-filename').value.trim();
             if (!filename) { filename = `仕事ビジョン_${nick}殿_完成作戦盤`; }
             
-            // 各入力欄・プルダウン・AI回答エリアから文字を完全回収（バグ要因のg5排除、q5に統一）
             const q1 = document.getElementById('q1').value;
             const q2 = document.getElementById('q2').value;
             const g1 = document.getElementById('gemini-input-1').value;
@@ -467,10 +456,9 @@
             const q4_text = selectEl.selectedIndex >= 0 ? selectEl.options[selectEl.selectedIndex].text : "未選択";
             
             const g2 = document.getElementById('gemini-input-2').value;
-            const q5 = document.getElementById('q5').value; // ⭕️ 正しくq5で回収
+            const q5 = document.getElementById('q5').value;
             const g_final = document.getElementById('gemini-input-final').value;
 
-            // テキストファイルとして美しく整列
             let fileContent = `==================================================\n`;
             fileContent += `       🏯 AI Career Suite 仕事ビジョンの陣 〜全軍軍議書〜\n`;
             fileContent += `==================================================\n`;
@@ -478,13 +466,13 @@
             fileContent += `--- 第一陣：ビジョンの原石抽出 ---\n`;
             fileContent += `Q1 気になる業界・キーワード：\n${q1}\n\n`;
             fileContent += `Q2 きっかけ・イメージ：\n${q2}\n\n`;
-            fileContent += `★ジェミニ殿の「３つの進むべき道」回答：\n${g1}\n\n`;
+            fileContent += `★「３つの進むべき道」回答：\n${g1}\n\n`;
             fileContent += `--- 第二陣：国策大計との同期 ---\n`;
             fileContent += `Q3 胸が高鳴る道とその理由：\n${q3}\n\n`;
             fileContent += `Q4 選択した仕事のテーマ：\n${q4_text}\n\n`;
-            fileContent += `★ジェミニ殿の「今と未来・成功事例」回答：\n${g2}\n\n`;
+            fileContent += `★「今と未来・成功事例」回答：\n${g2}\n\n`;
             fileContent += `--- 第三陣：志の最終研磨 ---\n`;
-            fileContent += `Q5 注目点や仕事の理想像：\n${q5}\n\n`; // ⭕️ 正しくq5を出力
+            fileContent += `Q5 注目点や仕事の理想像：\n${q5}\n\n`;
             fileContent += `==================================================\n`;
             fileContent += `🎯 最終成果物：魂の仕事ビジョン ＆ 一期一会の格言\n`;
             fileContent += `==================================================\n`;
@@ -500,7 +488,6 @@
             document.body.removeChild(link);
         }
 
-        // 🧹 ローカル記憶の完全初期化（フレッシュな状態に戻す術）
         function clearAllData() {
             if (confirm("仕事ビジョンのすべての入力メモ書きが消去されます。本当によろしいですか？")) {
                 const fields = ['nickname', 'q1', 'q2', 'gemini-input-1', 'q3', 'q4', 'gemini-input-2', 'q5', 'gemini-input-final'];
