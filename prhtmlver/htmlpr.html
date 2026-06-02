@@ -109,7 +109,7 @@
 
     <div class="hq-banner">
         ⚔️ <strong>ユーザー殿、2つのボタンで完璧な陣形を敷きまする：</strong><br>
-        ジェミニ殿と問答しやすいように、この本陣とジェミニ画面を並べて立ち上げまする。以下の順にぽちぽちと押してくだされ。<br>
+        ジェミニ殿と問答しやすいように、この本陣とジェミニ画面を並けて立ち上げまする。以下の順にぽちぽちと押してくだされ。<br>
         <div class="button-group">
             <button class="btn" onclick="deployWorkspaceLeft()">一、本陣（作戦盤）を左翼に敷く（幅2/3）</button>
             <button class="btn" onclick="deployGeminiRight()">二、ジェミニ本陣を右翼に据える（幅1/3）</button>
@@ -146,17 +146,17 @@
     </div>
 
     <div class="section" id="sec-actions-first" style="display:none;">
-        <p><span class="user-name"></span>殿、ご苦労。以下のボックスにＱ１～４のメモを自動集約した。以下の「ジェミニ殿への指示書をコピー」ボタンを押して、右翼に据えたジェミニ入力欄へコピペして下され。</p>
-        <p style="font-size: 12px; color: #d4af37;">※画面上のプレビューは簡易表示ですが、コピーされる指令書は完全なるものですぞ。</p>
+        <p><span class="user-name"></span>殿、ご苦労。以下のボックスにＱ１～４のメモを自動集約した。以下の「指示書をコピーする」ボタンを押して、右翼に据えたジェミニ入力欄へコピペして下され。</p>
+        <p style="font-size: 12px; color: #d4af37;">※画面上のプレビューは簡易表示ですが、コピーされる指示書は完全なるものですぞ。</p>
         
         <div class="button-group">
-            <button class="btn" onclick="copyFirstPrompt()">ジェミニ殿への指示書をコピー</button>
+            <button class="btn" onclick="copyFirstPrompt()">指示書をコピーする</button>
         </div>
 
         <textarea id="merged-prompt-1" style="height: 60px;" readonly></textarea>
 
         <p style="margin-top:20px;">ジェミニ殿が作成した自己ＰＲを以下のボックスに貼り付けられよ。</p>
-        <label>「学生時代に力を入れたこと」</label>
+        <label>「学生時代に力を入れられたこと」</label>
         <textarea id="gemini-input-1" style="height: 150px;" placeholder="ここにジェミニさんの回答を貼り付け" oninput="saveData('gemini-input-1', this.value)"></textarea>
         <button class="btn" onclick="proceedToSecondStage()">後半戦へ進む</button>
     </div>
@@ -181,9 +181,9 @@
     </div>
 
     <div class="section" id="sec-actions-second" style="display:none;">
-        <p><span class="user-name"></span>殿、ご苦労。以下のボックスに自動集約されたＱ5～8のメモと指令をジェミニ殿に貼り付けて下され。</p>
+        <p><span class="user-name"></span>殿、ご苦労。以下のボックスに自動集約されたＱ5～8のメモと指示をジェミニ殿に貼り付けて下され。</p>
         
-        <button class="btn" onclick="copySecondPrompt()">ジェミニ殿への指令を含めてコピペする</button>
+        <button class="btn" onclick="copySecondPrompt()">最終指示書をコピーする</button>
         <textarea id="merged-prompt-2" style="height: 60px;" readonly></textarea>
 
         <p style="margin-top:20px;">ジェミニ殿の回答を以下のボックスに貼り付けられよ。</p>
@@ -193,10 +193,10 @@
 
     <div class="section" id="sec-gift" style="display:none;">
         <h2>🎁 <span class="user-name"></span>殿への贈り物</h2>
-        <p>よいか、<span class="user-name"></span>殿。これを、まるまるコピペして企業に送るのではなく、特にカタカナ言葉や知らないキーワードは調べて、自分の言葉で書き直すのですぞ。その過程で、これがあなたのものへへと変わってゆきます。</p>
+        <p>よいか、<span class="user-name"></span>殿。これを、まるまるコピペして企業に送るのではなく、特にカタカナ言葉や知らないキーワードは調べて、自分の言葉で書き直すのですぞ。その過程で、これがあなたのものへと変わってゆきます。</p>
         <p>さて、最後に私からの贈り物である。<span class="user-name"></span>殿に、もう一つの自己PRを贈らせて頂く。以下のボタンを押して貼り付けられよ。</p>
         
-        <button class="btn" onclick="copyFinalGiftPrompt()">ジェミニ殿への最後の指令をコピー</button>
+        <button class="btn" onclick="copyFinalGiftPrompt()">特別指示書をコピーする</button>
         <textarea id="merged-prompt-final" style="height: 60px;" readonly></textarea>
         <button class="btn" onclick="proceedToFinalStage()">第四陣（最終保存の間）へ進む ──＞</button>
     </div>
@@ -212,7 +212,7 @@
             <label style="margin-top: 0; color: #d4af37;">💾 君のPC（デスクトップ等）に名前をつけて保存する術：</label>
             <div style="display: flex; gap: 10px; margin-top: 10px;">
                 <input type="text" id="save-filename" placeholder="自己PR_完成版" style="width: 70%; margin-top: 0;">
-                <button class="btn" style="background-color: #2ecc71; color: #fff; margin: 0; width: 30%;" onclick="downloadAsTextFile()">ファイル保存</button>
+                <button class="btn" style="background-color: #2ecc71; color: #fff; margin: 0; width: 30%; text-align: center; justify-content: center;" onclick="downloadAsTextFile()">ファイル保存</button>
             </div>
         </div>
     </div>
@@ -223,10 +223,8 @@
         const GEMINI_URL = "https://gemini.google.com";
         const WINDOW_NAME_GEMINI = "SamuraiGeminiHQ";
 
-        // 📡 あなたのVercel本陣（Next.js App Routerの正しいエンドポイントURL）
         const VERCEL_API_URL = "https://samurai-career-suite.vercel.app/api/htmlpr-generate-prompt";
 
-        // ページ読み込み時の自動復元処理
         window.onload = function() {
             const fields = ['nickname', 'q1', 'q2', 'q3', 'q4', 'gemini-input-1', 'q5', 'q6', 'q7', 'q8', 'gemini-input-2', 'gemini-input-final'];
             fields.forEach(field => {
@@ -245,9 +243,6 @@
             localStorage.setItem('pr_jin_' + key, value);
         }
 
-        // ══════════════════════════════════════
-        // 両翼独立ウィンドウ制御ロジック
-        // ══════════════════════════════════════
         function deployWorkspaceLeft() {
             const screenW = window.screen.availWidth;
             const screenH = window.screen.availHeight;
@@ -289,7 +284,7 @@
             document.getElementById('sec-questions-first').style.display = 'block';
         }
 
-        // 🛡️ Vercel裏倉庫と通信し、クリップボードへ直に保護コピーするコア関数
+        // 🛡️ 通信処理関数（お上の指示通り、ポップアップ案内をマイルド化）
         async function fetchAndCopyPrompt(type, dataPayload) {
             try {
                 const response = await fetch(VERCEL_API_URL, {
@@ -298,29 +293,30 @@
                     body: JSON.stringify({ type: type, data: dataPayload })
                 });
 
-                if (!response.ok) throw new Error('通信の乱れ、またはVercel本陣が応答しませぬ');
+                if (!response.ok) throw new Error('通信が途絶えました。しばらく経ってから再度お試しくだされ。');
 
                 const result = await response.json();
                 
                 // クリップボードへコピー
                 await navigator.clipboard.writeText(result.prompt);
                 
-                alert('伝令の指示書（学習禁止命令＋完全プロンプト）をVercel本陣より取得し、クリップボードへ保護コピーしました！右翼のジェミニ殿にそのまま貼り付けて下され。');
+                // ⭕️ お上の指定された、ヒントを与えない完璧な文字化けアナウンスを搭載！
+                alert('ジェミニ殿への指令を取得し、クリップボードにコピーしました！\n\n⚠️【ユーザー殿へ告ぐ】\n「文字化け」は心配ご無用！\n心配せず、そのまま右翼のジェミニ殿へ貼り付けてくだされ。');
                 if (geminiWindowRef && !geminiWindowRef.closed) geminiWindowRef.focus();
 
             } catch (err) {
-                alert('防衛通信に失敗しました。Vercelのデプロイ状況やURLを確認してくだされ。：' + err.message);
+                alert('通信に失敗いたしました。時間をおいて再度お試しくだされ。：' + err.message);
             }
         }
 
-        // 前半プロンプト生成（画面上は隠蔽）
         function generateFirstPrompt() {
-            document.getElementById('merged-prompt-1').value = "🛡️ 見えぬかもしれませんが、ここにジェミニ殿への指令や、あなたのメモが入っております。";
+            document.getElementById('merged-prompt-1').value = "🛡️ 指令書が裏で待機中でござる。そのままボタンを押してくだされ。";
             document.getElementById('sec-actions-first').style.display = 'block';
         }
 
         function copyFirstPrompt() {
             const dataPayload = {
+                nickname: userName,
                 q1: document.getElementById('q1').value,
                 q2: document.getElementById('q2').value,
                 q3: document.getElementById('q3').value,
@@ -333,14 +329,14 @@
             document.getElementById('sec-questions-second').style.display = 'block';
         }
 
-        // 後半プロンプト生成（画面上は隠蔽）
         function generateSecondPrompt() {
-            document.getElementById('merged-prompt-2').value = "🛡️ 見えぬかもしれませんが、ここにジェミニ殿への指令や、あなたのメモが入っております。";
+            document.getElementById('merged-prompt-2').value = "🛡️ すべてのメモが一本に統合され、待機中でござる。そのままボタンを押してくだされ。";
             document.getElementById('sec-actions-second').style.display = 'block';
         }
 
         function copySecondPrompt() {
             const dataPayload = {
+                nickname: userName,
                 q5: document.getElementById('q5').value,
                 q6: document.getElementById('q6').value,
                 q7: document.getElementById('q7').value,
@@ -349,14 +345,14 @@
             fetchAndCopyPrompt('second', dataPayload);
         }
 
-        // 最後の贈り物プロンプト生成（画面上は隠蔽）
         function revealGift() {
-            document.getElementById('merged-prompt-final').value = "🛡️ 見えぬかもしれませんが、ここにジェミニ殿への指令が記されております。";
+            document.getElementById('merged-prompt-final').value = "🛡️ 特別な指令書が待機中でござる。そのままボタンを押してくだされ。";
             document.getElementById('sec-gift').style.display = 'block';
         }
 
         function copyFinalGiftPrompt() {
             const dataPayload = {
+                nickname: userName,
                 q1: document.getElementById('q1').value,
                 q2: document.getElementById('q2').value,
                 q3: document.getElementById('q3').value,
@@ -365,82 +361,68 @@
             fetchAndCopyPrompt('final', dataPayload);
         }
 
-        // 第四陣（最終保存の間）を展開
         function proceedToFinalStage() {
             document.getElementById('sec-final-registry').style.display = 'block';
             document.getElementById('sec-final-registry').scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
 
-        // 📥 画面に入力された「すべての問答と回答」を一瞬でテキストファイルにして排出する関数
-function downloadAsTextFile() {
-    // ニックネームとファイル名を取得（空っぽならデフォルト名）
-    const nick = localStorage.getItem('pr_jin_nickname') || "サムライ";
-    let filename = document.getElementById('save-filename').value.trim();
-    if (!filename) { filename = `自己PR_${nick}殿_完成作戦盤`; }
-    
-    // 各入力欄から最新の文字をかき集める
-    const q1 = document.getElementById('q1').value;
-    const q2 = document.getElementById('q2').value;
-    const q3 = document.getElementById('q3').value;
-    const q4 = document.getElementById('q4').value;
-    const g1 = document.getElementById('gemini-input-1').value;
-    const q5 = document.getElementById('q5').value;
-    const q6 = document.getElementById('q6').value;
-    const q7 = document.getElementById('q7').value;
-    const q8 = document.getElementById('q8').value;
-    const g2 = document.getElementById('gemini-input-2').value;
-    const g_final = document.getElementById('gemini-input-final').value;
+        function downloadAsTextFile() {
+            const nick = localStorage.getItem('pr_jin_nickname') || "サムライ";
+            let filename = document.getElementById('save-filename').value.trim();
+            if (!filename) { filename = `自己PR_${nick}殿_完成作戦盤`; }
+            
+            const q1 = document.getElementById('q1').value;
+            const q2 = document.getElementById('q2').value;
+            const q3 = document.getElementById('q3').value;
+            const q4 = document.getElementById('q4').value;
+            const g1 = document.getElementById('gemini-input-1').value;
+            const q5 = document.getElementById('q5').value;
+            const q6 = document.getElementById('q6').value;
+            const q7 = document.getElementById('q7').value;
+            const q8 = document.getElementById('q8').value;
+            const g2 = document.getElementById('gemini-input-2').value;
+            const g_final = document.getElementById('gemini-input-final').value;
 
-    // メモ帳（テキストファイル）に書き出すための中身を美しく整列
-    let fileContent = `==================================================\n`;
-    fileContent += `       🏯 AI Career Suite 自己PRの陣 〜全軍軍議書〜\n`;
-    fileContent += `==================================================\n`;
-    fileContent += `【参陣者名】 ${nick} 殿\n\n`;
-    fileContent += `--- 第一陣：基礎能力の抽出 ---\n`;
-    fileContent += `Q1 活動： ${q1}\n`;
-    fileContent += `Q2 動機・目標：\n${q2}\n\n`;
-    fileContent += `Q3 努力・行動：\n${q3}\n\n`;
-    fileContent += `Q4 結果・成長：\n${q4}\n\n`;
-    fileContent += `★ジェミニ殿の前半回答：\n${g1}\n\n`;
-    fileContent += `--- 第二陣：逆境と問題解決力の抽出 ---\n`;
-    fileContent += `Q5 困難・問題：\n${q5}\n\n`;
-    fileContent += `Q6 克服の行動：\n${q6}\n\n`;
-    fileContent += `Q7 創意工夫：\n${q7}\n\n`;
-    fileContent += `Q8 得られた気づき：\n${q8}\n\n`;
-    fileContent += `★ジェミニ殿の後半回答：\n${g2}\n\n`;
-    fileContent += `==================================================\n`;
-    fileContent += `🎯 最終成果物：魂の座右の銘 ＆ 最終自己PR\n`;
-    fileContent += `==================================================\n`;
-    fileContent += `${g_final}\n`;
+            let fileContent = `==================================================\n`;
+            fileContent += `       🏯 AI Career Suite 自己PRの陣 〜全軍軍議書〜\n`;
+            fileContent += `==================================================\n`;
+            fileContent += `【参陣者名】 ${nick} 殿\n\n`;
+            fileContent += `--- 第一陣：基礎能力の抽出 ---\n`;
+            fileContent += `Q1 活動： ${q1}\n`;
+            fileContent += `Q2 動機・目標：\n${q2}\n\n`;
+            fileContent += `Q3 努力・行動：\n${q3}\n\n`;
+            fileContent += `Q4 結果・成長：\n${q4}\n\n`;
+            fileContent += `★前半回答：\n${g1}\n\n`;
+            fileContent += `--- 第二陣：逆境と問題解決力の抽出 ---\n`;
+            fileContent += `Q5 困難・問題：\n${q5}\n\n`;
+            fileContent += `Q6 克服の行動：\n${q6}\n\n`;
+            fileContent += `Q7 創意工夫：\n${q7}\n\n`;
+            fileContent += `Q8 得られた気づき：\n${q8}\n\n`;
+            fileContent += `★後半回答：\n${g2}\n\n`;
+            fileContent += `==================================================\n`;
+            fileContent += `🎯 最終成果物：魂の座右の銘 ＆ 最終自己PR\n`;
+            fileContent += `==================================================\n`;
+            fileContent += `${g_final}\n`;
 
-    // JavaScriptの力で「txtファイル」の塊に変換する
-    const blob = new Blob([fileContent], { type: "text/plain;charset=utf-8" });
-    const link = document.createElement("a");
-    link.href = URL.createObjectURL(blob);
-    link.download = filename + ".txt"; // 末尾に自動で .txt を付与
-    
-    // 画面の裏側でこっそりクリックしてダウンロードを実行
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-}
+            const blob = new Blob([fileContent], { type: "text/plain;charset=utf-8" });
+            const link = document.createElement("a");
+            link.href = URL.createObjectURL(blob);
+            link.download = filename + ".txt";
+            
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
 
-
-       // 🧹 保存されたすべてのメモ書きを一括消去して画面を初期化する関数
-       function clearAllData() {
-       if (confirm("これまでに記入したすべてのメモ書きが消去されます。本当によろしいですか？")) {
-        const fields = ['nickname', 'q1', 'q2', 'q3', 'q4', 'gemini-input-1', 'q5', 'q6', 'q7', 'q8', 'gemini-input-2', 'gemini-input-final'];
-        
-        // ローカルストレージのデータをすべて削除
-        fields.forEach(field => {
-            localStorage.removeItem('pr_jin_' + field);
-        });
-
-        // 画面を強制的に再読み込みしてフレッシュな状態に戻す
-        window.location.reload();
-    }
-}
-
+        function clearAllData() {
+            if (confirm("これまでに記入したすべてのメモ書きが消去されます。本当によろしいですか？")) {
+                const fields = ['nickname', 'q1', 'q2', 'q3', 'q4', 'gemini-input-1', 'q5', 'q6', 'q7', 'q8', 'gemini-input-2', 'gemini-input-final'];
+                fields.forEach(field => {
+                    localStorage.removeItem('pr_jin_' + field);
+                });
+                window.location.reload();
+            }
+        }
     </script>
 </body>
 </html>
