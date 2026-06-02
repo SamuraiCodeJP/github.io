@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>学業アピールの陣</title>
+    <style>
+        body {
+            background-color: #1a1a1a;
+            color: #ffffff;
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            padding: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .section {
+            background-color: #2a2a2a;
+            border: 1px solid #444;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 25px;
+        }
+        h2 {
+            color: #d4af37; /* 陣にふさわしいゴールド */
+            border-bottom: 2px solid #d4af37;
+            padding-bottom: 5px;
+        }
+        label {
+            display: block;
+            margin-top: 15px;
+            font-weight: bold;
+            color: #ccc;
+        }
+        input[type="text"], textarea, select {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            background-color: #333;
+            color: #fff;
+            border: 1px solid #555;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        textarea {
+            height: 100px;
+            resize: vertical;
+        }
+        .btn {
+            background-color: #d4af37;
+            color: #1a1a1a;
+            border: none;
+            padding: 12px 24px;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 10px 5px 10px 0;
+            display: inline-block;
+            transition: background 0.3s;
+        }
+        .btn:hover {
+            background-color: #f1c40f;
+        }
+        .button-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 15px;
+        }
+        .message-box {
+            background-color: #222;
+            border-left: 4px solid #d4af37;
+            padding: 15px;
+            margin-top: 15px;
+            white-space: pre-wrap;
+        }
+        /* 国策ヒント閲覧用の装飾 */
+        .policy-hint-box {
+            background-color: #1c2333;
+            border: 1px solid #3a86ff;
+            border-radius: 6px;
+            padding: 15px;
+            margin-top: 12px;
+        }
+        .policy-title {
+            color: #3a86ff;
+            font-weight: bold;
+            font-size: 14px;
+            margin-bottom: 4px;
+            border-bottom: 1px dashed #3a86ff;
+            padding-bottom: 3px;
+        }
+        .policy-desc {
+            font-size: 12.5px;
+            color: #cbd5e0;
+        }
+        /* 両翼展開バナー用装飾 */
+        .hq-banner {
+            background: rgba(212, 175, 55, 0.1);
+            border: 1px solid #d4af37;
+            padding: 16px 20px;
+            margin-bottom: 25px;
+            border-radius: 8px;
+            font-size: 14px;
+            line-height: 1.7;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>🏯 学業アピールの陣</h1>
+
+    <div class="hq-banner">
+        ⚔️ <strong>ユーザー殿、2つのボタンで完璧な陣形を敷きまする：</strong><br>
+        ジェミニ殿と問答しやすいように、この本陣とジェミニ画面を並べて立ち上げまする。以下の順にぽちぽちと押してくだされ。<br>
+        <div class="button-group">
+            <button class="btn" onclick="deployWorkspaceLeft()">一、本陣（作戦盤）を左翼に敷く（幅2/3）</button>
+            <button class="btn" onclick="deployGeminiRight()">二、ジェミニ本陣を右翼に据える（幅1/3）</button>
+        </div>
+        <div style="font-size: 11.5px; color: #ff6b6b; font-weight: 700; margin-top: 10px;">
+            ※「一」を押すと、左側2/3の大きさで新しいウィンドウが立ち上がります。そちらが本番の作戦盤となりますので、今見ている元の全画面タブは閉じていただいて構いません。
+        </div>
+    </div>
+
+    <div class="section" id="sec-welcome">
+        <p>ようこそ。まずはニックネームを入力して下され。</p>
+        <input type="text" id="nickname" placeholder="（例）カムイ" oninput="saveData('nickname', this.value)">
+        <button class="btn" onclick="greetUser()">陣へ入る</button>
+        <button class="btn" style="background-color: #e74c3c; color: #fff;" onclick="clearAllData()">最初からやり直す</button>
+        <div id="greeting-msg" style="display:none;" class="message-box"></div>
+    </div>
+
+    <div class="section" id="sec-questions-first" style="display:none;">
+        <h2>第一陣：学問の価値抽出</h2>
+        
+        <label>Q1：まずは、貴殿が所属している（もしくは目指している）ゼミ・研究室の「テーマ」「研究目的」や、「キーワード」などを教えてくだされ！箇条書きでよいぞ。</label>
+        <textarea id="q1" placeholder="（例）歴史をAIで解析、朽ちてゆく古文書をAIの力を借りて解読をスピードアップし、日本の歴史を守る" oninput="saveData('q1', this.value)"></textarea>
+
+        <label style="color: #3a86ff; margin-top: 15px;">📜 【参考】研究の社会的意義を深める国策大計のヒント（必要に応じて参照されよ）</label>
+        <select id="policy-select" onchange="handlePolicyChange(this.value)">
+            <option value="">-- 国策大計の4大分類を覗く --</option>
+            <option value="国を守る・強くする">① 国を守る・強くする</option>
+            <option value="暮らしの土台">② 人々の暮らしの土台を支える</option>
+            <option value="持続可能な社会">③ 持続可能な社会の実現</option>
+            <option value="地域を活性化する">④ 地域を活性化する</option>
+        </select>
+        <div id="policy-hint-area" style="display:none; max-height: 200px; overflow-y: auto; margin-top: 10px; padding: 5px; background: #1e1e1e; border-radius: 4px;">
+            <div id="policy-hint-target"></div>
+        </div>
+
+        <label style="margin-top: 20px;">Q2：そのテーマを選んだ理由や、興味を持ったきっかけ（学部・学科を選んだ理由等を含む）を教えてくだされ。</label>
+        <textarea id="q2" placeholder="（例）解読されぬまま扱いに困って朽ちてゆく古文書がたくさんあることをニュースで知った。これは日本の財産である歴史が、時とともに失われてゆくことであり、このまま放置すれば日本の価値が減少するという危機感をもった。" oninput="saveData('q2', this.value)"></textarea>
+
+        <button class="btn" onclick="generateFirstPrompt()">前半のメモを集約する</button>
+    </div>
+
+    <div class="section" id="sec-actions-first" style="display:none;">
+        <p><span class="user-name"></span>殿、ご苦労。以下のボックスに貴殿が記されたＱ１～２のメモと軍師の指令を集約した。以下の「指示書をコピーする」ボタンを押して、右翼のジェミニ入力欄へお貼りくだされ。</p>
+        <p style="font-size: 12px; color: #d4af37;">※画面上のプレビューは簡易表示ですが、コピーされる指示書は完全なるものですぞ。</p>
+        
+        <div class="button-group">
+            <button class="btn" onclick="copyFirstPrompt()">指示書をコピーする</button>
+        </div>
+        <textarea id="merged-prompt-1" style="height: 60px;" readonly></textarea>
+
+        <p style="margin-top:20px;">ジェミニ殿が解析した「学業テーマの社会的価値（成果物１）」を以下のボックスに貼り付けられよ。</p>
+        <textarea id="gemini-input-1" style="height: 150px;" placeholder="ここにジェミニさんの回答（200文字程度の文章）を貼り付け" oninput="saveData('gemini-input-1', this.value)"></textarea>
+        <button class="btn" onclick="proceedToSecondStage()">第二陣（後半戦）へ進む ──＞</button>
+    </div>
+
+    <div class="section" id="sec-questions-second" style="display:none;">
+        <h2>第二陣：逆境と「型」の磨き上げ</h2>
+        <p>では、続けましょうぞ。</p>
+        
+        <label>Q3：いかに名刀とて、硬き岩を斬らんとすれば刃こぼれもいたそう。学問の道もまた同じ。貴殿が勉強や研究を進める中で、己の心が挫けそうになった『最大の壁（困難）』を教えてくだされ。</label>
+        <textarea id="q3" placeholder="（例）最初はまったく理解できず、一語一語、調べる必要があった。その大変さにくじけそうになった。&#10;・自分にはハードルが高い学問であると感じ、モチベーションが下がった。" oninput="saveData('q3', this.value)"></textarea>
+
+        <label>Q4：その壁に挑む気概こそ、真の武士の道！では、その壁を突破せんがため、貴殿はどのような『創意工夫』を凝らし、いかにして『一歩』を踏み出されましたかな？ 友と肩を並べて戦ったシーンなど、自由に記入して下され。</label>
+        <textarea id="q4" placeholder="（例）・友人に相談してAIの活用を教わった&#10;・苦手と感じたことに取り組む勉強だと考え、特に意識して時間を割いて勉強した" oninput="saveData('q4', this.value)"></textarea>
+
+        <button class="btn" onclick="generateFinalPrompt()">後半のメモを集約する</button>
+    </div>
+
+    <div class="section" id="sec-actions-second" style="display:none;">
+        <p><span class="user-name"></span>殿、改めてご苦労。Ｑ３〜４のメモと、前半戦の価値を一本に統合した。以下のボタンを押し、ジェミニ殿へ最後の指令をお渡しくだされ！</p>
+        
+        <div class="button-group">
+            <button class="btn" onclick="copyFinalPrompt()">最終指示書をコピーする</button>
+        </div>
+        <textarea id="merged-prompt-final" style="height: 60px;" readonly></textarea>
+
+        <p style="margin-top:20px;">ジェミニ殿が最終出力した「武具の型名 ＆ 渾身の学業PR文」を、以下の保存ボックスへ丸ごと貼り付けられよ。</p>
+        <textarea id="gemini-input-final" style="height: 250px;" placeholder="ここにジェミニさんの最終回答（称賛、型、4部構成のPR文、結びの言葉の一連の回答）を貼り付け" oninput="saveData('gemini-input-final', this.value)"></textarea>
+        <button class="btn" onclick="proceedToFinalStage()">第三陣（永久保存・結びの間）へ進む ──＞</button>
+    </div>
+
+    <div class="section" id="sec-final-registry" style="display:none;">
+        <h2>第三陣：本陣 ── 学業PR・学びの型 永久保存処</h2>
+        
+        <div style="background: #1c2333; border-left: 4px solid #e74c3c; padding: 15px; margin-bottom: 20px; border-radius: 4px;">
+            <p style="font-size: 13.5px; line-height: 1.8; color: #fff; margin-bottom: 0;">
+                <strong>ユーザー殿へ贈る結びの言葉：</strong><br>
+                ユーザー殿、これからの時代、知識を広げ、スキルを鍛えあげる「学びの型」は、ますます重要なものとなり申す。学びとは楽ではない、しかし、貴殿は、その苦労に立ち向かうことで「型」を修得したのである。一度身に付いたものは、何度でも繰り返せる。「型」を財産・武器として、社会で積極的に挑戦して下されよ。私は、ここで見守っておるからな。
+            </p>
+        </div>
+
+        <div style="padding: 15px; background: #222; border: 1px dashed #d4af37; border-radius: 6px;">
+            <label style="margin-top: 0; color: #d4af37;">💾 君のPC（デスクトップ等）に名前をつけて軍議書を保存する術：</label>
+            <div style="display: flex; gap: 10px; margin-top: 10px;">
+                <input type="text" id="save-filename" placeholder="学業PR_完成版" style="width: 70%; margin-top: 0;">
+                <button class="btn" style="background-color: #2ecc71; color: #fff; margin: 0; width: 30%; text-align: center; justify-content: center;" onclick="downloadAsTextFile()">ファイル保存</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 国策データベース
+        const KOKUSAKU_DATABASE = {
+            "国を守る・強くする": [
+                { title: "防衛・外交 / 経済安全保障 / スタートアップ育成 / デジタル・教育人材育成", desc: "次世代戦闘機共同開発、半導体・蓄電池の国内基盤強化、5年で10兆円規模のスタートアップ投資、10兆円大学ファンドによる科学技術・研究力強化など。" }
+            ],
+            "暮らしの土台": [
+                { title: "エネルギー安全保障 / 国土強靱化 / 金融・資産運用立国 / 物流2024問題・自動運転", desc: "GX経済移行債20兆円による脱炭素・水素燃料投資、AIドローンによるインフラ予防保全、新NISA、自動運転レベル4トラック運行、物流クライシス対応など。" }
+            ],
+            "持続可能な社会": [
+                { title: "少子化対策・こども家庭支援 / リスキリング・介護DX / 食料安全保障 / 脱炭素刷新", desc: "育休手取り10割保障、社会人の学び直し（リスキリング）へ最大70%補助、50年ぶりの食料・農業基本法改正（スマート農業、ドローン大規模管理）、TCFD・TNFD環境開示義務化など。" }
+            ],
+            "地域を活性化する": [
+                { title: "デジタル田園都市 / インバウンド・コンテンツ輸出 / 所有者不明土地登記DX / 多文化共生", desc: "過疎地のオンライン診療・自動運転移動、アニメ・ゲームなどIPコンテンツ海外売上20兆円戦略（経産省IP360）、相続登記義務化に伴うIT法務ビジネス、育成就労制度（技能実習廃止）など。" }
+            ]
+        };
+
+        let userName = "カムイ";
+        let geminiWindowRef = null;
+        const GEMINI_URL = "https://gemini.google.com";
+        const WINDOW_NAME_GEMINI = "SamuraiGeminiHQ";
+
+        // Next.js APIエンドポイントURL
+        const VERCEL_API_URL = "https://samurai-career-suite.vercel.app/api/htmlacademic-generate-prompt";
+
+        window.onload = function() {
+            const fields = ['nickname', 'q1', 'q2', 'gemini-input-1', 'q3', 'q4', 'gemini-input-final'];
+            fields.forEach(field => {
+                const savedValue = localStorage.getItem('academic_jin_' + field);
+                if (savedValue) document.getElementById(field).value = savedValue;
+            });
+            if (document.getElementById('nickname').value.trim()) greetUser();
+            if (document.getElementById('gemini-input-1').value) proceedToSecondStage();
+            if (document.getElementById('gemini-input-final').value) proceedToFinalStage();
+        };
+
+        function saveData(key, value) {
+            localStorage.setItem('academic_jin_' + key, value);
+        }
+
+        function deployWorkspaceLeft() {
+            const screenW = window.screen.availWidth;
+            const screenH = window.screen.availHeight;
+            const leftW = Math.floor(screenW * 0.67);
+            window.open(window.location.href, "_blank", `width=${leftW},height=${screenH},left=0,top=0,menubar=no,toolbar=yes,location=yes,status=no,resizable=yes,scrollbars=yes`);
+        }
+
+        function deployGeminiRight() {
+            const screenW = window.screen.availWidth;
+            const screenH = window.screen.availHeight;
+            const leftW = Math.floor(screenW * 0.67);
+            const rightW = screenW - leftW;
+            if (geminiWindowRef && !geminiWindowRef.closed) {
+                geminiWindowRef.focus();
+            } else {
+                geminiWindowRef = window.open(GEMINI_URL, WINDOW_NAME_GEMINI, `width=${rightW},height=${screenH},left=${leftW},top=0,menubar=no,toolbar=no,location=yes,status=no,resizable=yes,scrollbars=yes`);
+            }
+        }
+
+        function greetUser() {
+            const inputName = document.getElementById('nickname').value.trim();
+            if(inputName) { userName = inputName; saveData('nickname', userName); }
+            document.querySelectorAll('.user-name').forEach(span => span.textContent = userName);
+            
+            const greetingBox = document.getElementById('greeting-msg');
+            greetingBox.innerHTML = `<strong>「${userName}」殿、よくぞ参られた！</strong><br>ここは学業という戦場での功績を、一生モノの「型（武具）」へと変える場にござる。`;
+            greetingBox.style.display = 'block';
+            document.getElementById('sec-questions-first').style.display = 'block';
+        }
+
+        function handlePolicyChange(val) {
+            const targetArea = document.getElementById('policy-hint-area');
+            const targetContent = document.getElementById('policy-hint-target');
+            if (!val || !KOKUSAKU_DATABASE[val]) { targetArea.style.display = 'none'; return; }
+            let htmlString = "";
+            KOKUSAKU_DATABASE[val].forEach(item => {
+                htmlString += `<div class="policy-hint-box"><div class="policy-title">📌 ${item.title}</div><div class="policy-desc">${item.desc}</div></div>`;
+            });
+            targetContent.innerHTML = htmlString;
+            targetArea.style.display = 'block';
+        }
+
+        async function fetchAndCopyPrompt(type, dataPayload) {
+            try {
+                const response = await fetch(VERCEL_API_URL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ type: type, data: dataPayload })
+                });
+                if (!response.ok) throw new Error('本陣からの応答が途絶えました。');
+                const result = await response.json();
+                
+                await navigator.clipboard.writeText(result.prompt);
+                alert('指示書を取得し、クリップボードにコピーしました！右翼のジェミニ殿へそのまま貼り付けてくだされ。');
+                if (geminiWindowRef && !geminiWindowRef.closed) geminiWindowRef.focus();
+            } catch (err) {
+                alert('通信に失敗いたしました：' + err.message);
+            }
+        }
+
+        function generateFirstPrompt() {
+            document.getElementById('merged-prompt-1').value = "🛡️ 指令書が裏で待機中でござる。そのままボタンを押してくだされ。";
+            document.getElementById('sec-actions-first').style.display = 'block';
+        }
+
+        function copyFirstPrompt() {
+            const dataPayload = {
+                nickname: userName,
+                q1: document.getElementById('q1').value,
+                q2: document.getElementById('q2').value
+            };
+            fetchAndCopyPrompt('first', dataPayload);
+        }
+
+        function proceedToSecondStage() {
+            document.getElementById('sec-questions-second').style.display = 'block';
+        }
+
+        function generateFinalPrompt() {
+            document.getElementById('merged-prompt-final').value = "🛡️ すべてのメモが一本に統合され、待機中でござる。そのままボタンを押してくだされ。";
+            document.getElementById('sec-actions-second').style.display = 'block';
+        }
+
+        function copyFinalPrompt() {
+            const dataPayload = {
+                nickname: userName,
+                g1: document.getElementById('gemini-input-1').value,
+                q3: document.getElementById('q3').value,
+                q4: document.getElementById('q4').value
+            };
+            fetchAndCopyPrompt('final', dataPayload);
+        }
+
+        function proceedToFinalStage() {
+            document.getElementById('sec-final-registry').style.display = 'block';
+            document.getElementById('sec-final-registry').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        function downloadAsTextFile() {
+            const nick = localStorage.getItem('academic_jin_nickname') || "サムライ";
+            let filename = document.getElementById('save-filename').value.trim();
+            if (!filename) { filename = `学業PR_${nick}殿_完成作戦盤`; }
+            
+            const q1 = document.getElementById('q1').value;
+            const q2 = document.getElementById('q2').value;
+            const g1 = document.getElementById('gemini-input-1').value;
+            const q3 = document.getElementById('q3').value;
+            const q4 = document.getElementById('q4').value;
+            const g_final = document.getElementById('gemini-input-final').value;
+
+            let fileContent = `==================================================\n`;
+            fileContent += `       🏯 AI Career Suite 学業アピールの陣 〜全軍軍議書〜\n`;
+            fileContent += `==================================================\n`;
+            fileContent += `【参陣者名】 ${nick} 殿\n\n`;
+            fileContent += `--- 第一陣：学問の価値抽出 ---\n`;
+            fileContent += `Q1 研究テーマ・目的・キーワード：\n${q1}\n\n`;
+            fileContent += `Q2 選んだ動機・きっかけ：\n${q2}\n\n`;
+            fileContent += `★社会的価値（成果物1）：\n${g1}\n\n`;
+            fileContent += `--- 第二陣：逆境と「型」の磨き上げ ---\n`;
+            fileContent += `Q3 直面した最大の壁：\n${q3}\n\n`;
+            fileContent += `Q4 壁への具体的な取り組み：\n${q4}\n\n`;
+            fileContent += `==================================================\n`;
+            fileContent += `🎯 最終成果物：学びの型定義 ＆ 渾身の学業PR文（ビジネス調）\n`;
+            fileContent += `==================================================\n`;
+            fileContent += `${g_final}\n`;
+
+            const blob = new Blob([fileContent], { type: "text/plain;charset=utf-8" });
+            const link = document.createElement("a");
+            link.href = URL.createObjectURL(blob);
+            link.download = filename + ".txt";
+            
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+
+        function clearAllData() {
+            if (confirm("これまでに記入したすべての学業アピールのメモが消去されます。本当によろしいですか？")) {
+                const fields = ['nickname', 'q1', 'q2', 'gemini-input-1', 'q3', 'q4', 'gemini-input-final'];
+                fields.forEach(field => { localStorage.removeItem('academic_jin_' + field); });
+                window.location.reload();
+            }
+        }
+    </script>
+</body>
+</html>
